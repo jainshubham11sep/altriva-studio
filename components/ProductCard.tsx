@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Product } from "@/lib/products";
 
 interface Props {
@@ -13,9 +14,10 @@ export default function ProductCard({ product, index }: Props) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <article
-      className="product-card flex flex-col gap-2 cursor-pointer"
-      style={{ animationDelay: `${index * 0.04}s` }}
+    <Link
+      href={`/products/${product.slug}`}
+      className="product-card flex flex-col gap-2"
+      style={{ animationDelay: `${index * 0.04}s`, textDecoration: "none", color: "inherit" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -80,6 +82,6 @@ export default function ProductCard({ product, index }: Props) {
           )}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
