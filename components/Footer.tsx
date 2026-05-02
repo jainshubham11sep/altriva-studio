@@ -22,11 +22,27 @@ export default function Footer() {
           : "#f2f2eb",
       }}
     >
+      {/* Large footer logo — same as JWA */}
+      <div
+        style={{
+          width: "100%",
+          paddingBottom: "2rem",
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
+          marginBottom: "2rem",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/logo.png"
+          alt="Altriva Studio"
+          style={{ width: "100%", height: "auto", maxHeight: "120px", objectFit: "contain", objectPosition: "left" }}
+        />
+      </div>
+
       <div
         className="w-full max-w-none grid gap-8"
         style={{
           gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-          paddingTop: "2rem",
         }}
       >
         {/* Link columns */}
@@ -126,7 +142,7 @@ export default function Footer() {
         </div>
 
         <p className="text-caption" style={{ opacity: 0.5, fontSize: "0.625rem" }}>
-          © 2025 JW ANDERSON
+          © 2025 ALTRIVA STUDIO
         </p>
 
         <button

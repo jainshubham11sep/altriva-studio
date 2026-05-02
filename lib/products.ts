@@ -160,10 +160,9 @@ export const announcements = [
 ];
 
 export const mainNavLinks = [
-  { label: "Men's New In",  href: "/collections/mens-new-in"  },
+  { label: "Men's New In",   href: "/collections/mens-new-in"   },
   { label: "Women's New In", href: "/collections/womens-new-in" },
-  { label: "Loafer Bags",   href: "/collections/loafer-bags"  },
-  { label: "All Home",      href: "/collections/all-home"     },
+  { label: "All Home",       href: "/collections/all-home"      },
 ];
 
 export const footerLinks = {
