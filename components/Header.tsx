@@ -18,7 +18,7 @@ const menuCategories = [
   {
     label: "Bags",
     items: [
-      { label: "Loafer Bags", count: null, href: "/collections/loafer-bags" },
+
       { label: "Shoulder Bags", count: null, href: "/collections/shoulder-bags" },
       { label: "Totes", count: null, href: "/collections/totes" },
       { label: "Clutches", count: null, href: "/collections/clutches" },
