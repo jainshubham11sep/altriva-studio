@@ -112,7 +112,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Center: Logo — mobile only, exact JWA style */}
+        {/* Center: Logo — mobile only */}
         <div
           className="lg:hidden"
           style={{
@@ -128,10 +128,9 @@ export default function Header() {
             <Image
               src="/images/logo.png"
               alt="Altriva Studio"
-              width={320}
-              height={36}
-              className="w-auto object-contain"
-              style={{ height: "22px", display: "block" }}
+              width={73}
+              height={12}
+              style={{ height: "18px", width: "auto", display: "block", imageRendering: "crisp-edges" }}
               priority
             />
           </a>
@@ -179,11 +178,17 @@ export default function Header() {
         <a href="/" aria-label="Home" className="flex items-center justify-center h-full">
           <Image
             src="/images/logo.png"
-            alt="Logo"
-            width={560}
-            height={60}
-            className="object-contain"
-            style={{ width: "560px", height: "auto", transform: "rotate(90deg)" }}
+            alt="Altriva Studio"
+            width={73}
+            height={12}
+            style={{
+              height: "60px",
+              width: "auto",
+              transform: "rotate(90deg)",
+              display: "block",
+              imageRendering: "crisp-edges",
+            }}
+            priority
           />
         </a>
       </div>

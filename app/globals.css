@@ -40,7 +40,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography classes matching JWA */
+/* Typography classes */
 .text-caption {
   font-size: 0.6875rem;
   letter-spacing: 0.02em;
@@ -161,7 +161,7 @@ body {
   min-height: 100vh;
 }
 
-/* Product grid - flex wrap masonry like JWA */
+/* Product grid - flex wrap masonry */
 .product-grid {
   display: flex;
   flex-wrap: wrap;

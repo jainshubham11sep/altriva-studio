@@ -5,16 +5,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "JW Anderson Official Site : Luxury Bags, Ready-To-Wear, Shoes – JW Anderson",
+  title: "Altriva Studio Official Site : Luxury Bags, Ready-To-Wear, Shoes – Altriva Studio",
   description:
-    "Shop at the JW Anderson official website. Discover luxury women's and men's collections, shop new arrivals and discover the brand's history and unique designs.",
+    "Shop at the Altriva Studio official website. Discover luxury women's and men's collections, shop new arrivals and discover the brand's history and unique designs.",
   icons: { icon: "/images/favicon.png" },
   openGraph: {
-    siteName: "JW Anderson",
+    siteName: "Altriva Studio",
     type: "website",
-    title: "JW Anderson Official Site : Luxury Bags, Ready-To-Wear, Shoes – JW Anderson",
+    title: "Altriva Studio Official Site : Luxury Bags, Ready-To-Wear, Shoes – Altriva Studio",
     description:
-      "Shop at the JW Anderson official website. Discover luxury women's and men's collections.",
+      "Shop at the Altriva Studio official website. Discover luxury women's and men's collections.",
   },
 };
 

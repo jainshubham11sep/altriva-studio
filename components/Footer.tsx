@@ -175,7 +175,7 @@ export default function Footer() {
                     }}
                   />
                   <span style={{ fontSize: "0.625rem", opacity: 0.65, lineHeight: 1.5 }}>
-                    I agree to receive the marketing communications from JWA and accept the{" "}
+                    I agree to receive the marketing communications from Altriva Studio and accept the{" "}
                     <a href="/pages/terms-conditions" style={{ textDecoration: "underline", color: "inherit" }}>Terms of Use</a>{" "}
                     and{" "}
                     <a href="/pages/privacy-policy" style={{ textDecoration: "underline", color: "inherit" }}>Privacy Policy</a>.

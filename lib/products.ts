@@ -154,8 +154,8 @@ export const collectionTitles: Record<string, string> = {
 };
 
 export const announcements = [
-  { text: "Stay up to date with JW ANDERSON. Subscribe.", href: "#" },
-  { text: "GUINNESS X JW ANDERSON - Shop Now", href: "#" },
+  { text: "Stay up to date with ALTRIVA STUDIO. Subscribe.", href: "#" },
+  { text: "GUINNESS X ALTRIVA STUDIO - Shop Now", href: "#" },
   { text: "Complimentary UK Shipping on orders above £300", href: "#" },
 ];
 
