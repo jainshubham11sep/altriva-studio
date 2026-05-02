@@ -112,16 +112,26 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Center: Logo — mobile only */}
-        <div className="absolute left-1/2 -translate-x-1/2 lg:hidden">
+        {/* Center: Logo — mobile only, exact JWA style */}
+        <div
+          className="lg:hidden"
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            alignItems: "center",
+            height: "var(--nav-height)",
+          }}
+        >
           <a href="/" aria-label="Home">
             <Image
               src="/images/logo.png"
-              alt="Logo"
-              width={280}
-              height={44}
+              alt="Altriva Studio"
+              width={320}
+              height={36}
               className="w-auto object-contain"
-              style={{ height: "28px" }}
+              style={{ height: "22px", display: "block" }}
               priority
             />
           </a>

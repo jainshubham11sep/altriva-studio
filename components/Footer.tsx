@@ -17,103 +17,188 @@ export default function Footer() {
     <footer
       className="site-footer"
       style={{
-        backgroundColor: subscribed
-          ? "oklch(0.85 0.0581 148.13)"
-          : "#f2f2eb",
+        backgroundColor: subscribed ? "oklch(0.85 0.0581 148.13)" : "#f2f2eb",
+        padding: 0,
+        gap: 0,
       }}
     >
-      {/* Large footer logo — same as JWA */}
+      {/* ── Large wordmark — exact JWA style ── */}
       <div
         style={{
-          width: "100%",
-          paddingBottom: "2rem",
-          borderBottom: "1px solid rgba(0,0,0,0.08)",
-          marginBottom: "2rem",
+          padding: "2rem var(--page-margin) 0",
+          borderBottom: "1px solid rgba(0,0,0,0.1)",
+          paddingBottom: "1.5rem",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/logo.png"
           alt="Altriva Studio"
-          style={{ width: "100%", height: "auto", maxHeight: "120px", objectFit: "contain", objectPosition: "left" }}
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            objectFit: "contain",
+            objectPosition: "left center",
+          }}
         />
       </div>
 
+      {/* ── Main content grid ── */}
       <div
-        className="w-full max-w-none grid gap-8"
         style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          padding: "2rem var(--page-margin)",
+          display: "grid",
+          gap: "2rem",
+          gridTemplateColumns: "1fr",
         }}
+        className="footer-grid"
       >
+        <style>{`
+          @media (min-width: 768px) {
+            .footer-grid {
+              grid-template-columns: 1fr 1fr 1fr 1.6fr;
+              gap: 1.5rem;
+              align-items: start;
+            }
+          }
+        `}</style>
+
         {/* Link columns */}
         {Object.entries(footerLinks).map(([heading, items]) => (
-          <div key={heading} className="flex flex-col gap-1">
-            <span className="text-body font-medium mb-2">{heading}</span>
-            {items.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-caption py-2 hover:italic transition-all block"
-                style={{ color: "rgba(0,0,0,0.7)" }}
-              >
-                {item.label}
-              </a>
-            ))}
+          <div key={heading} className="flex flex-col">
+            <span
+              style={{
+                fontSize: "0.6875rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                opacity: 0.45,
+                marginBottom: "1rem",
+                display: "block",
+              }}
+            >
+              {heading}
+            </span>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.125rem" }}>
+              {items.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    style={{
+                      fontSize: "0.6875rem",
+                      letterSpacing: "0.02em",
+                      color: "inherit",
+                      textDecoration: "none",
+                      display: "block",
+                      padding: "0.375rem 0",
+                      transition: "font-style 0.1s",
+                    }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
 
-        {/* Newsletter column */}
-        <div className="flex flex-col gap-3" style={{ maxWidth: "320px" }}>
-          <span className="text-body font-medium">
+        {/* Empty spacer column on desktop (shows in 4-col grid) */}
+        <div className="hidden md:block" />
+
+        {/* Newsletter */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <p
+            style={{
+              fontFamily: "'EB Garamond', Georgia, serif",
+              fontSize: "1.125rem",
+              lineHeight: 1.4,
+              letterSpacing: "0.01em",
+            }}
+          >
             Newsletters that smell nice.<br />Subscribe.
-          </span>
+          </p>
 
           {subscribed ? (
-            <p className="text-caption" style={{ color: "rgba(0,0,0,0.7)" }}>
+            <p style={{ fontSize: "0.6875rem", opacity: 0.7, lineHeight: 1.5 }}>
               You&apos;re on the list!<br />Cheers. You will not regret it.
             </p>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-              <div className="relative border-b border-black/30 pb-1">
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div style={{ borderBottom: "1px solid rgba(0,0,0,0.3)", paddingBottom: "0.375rem" }}>
                 <label
-                  htmlFor="newsletter-email"
-                  className="text-caption block mb-1"
-                  style={{ fontSize: "0.625rem", opacity: email ? 1 : 0.5 }}
+                  htmlFor="footer-email"
+                  style={{
+                    display: "block",
+                    fontSize: "0.625rem",
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    opacity: email ? 1 : 0.4,
+                    marginBottom: "0.25rem",
+                  }}
                 >
                   Your email
                 </label>
                 <input
-                  id="newsletter-email"
+                  id="footer-email"
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-transparent text-caption focus:outline-none"
-                  style={{ fontSize: "0.75rem" }}
+                  style={{
+                    width: "100%",
+                    background: "transparent",
+                    border: "none",
+                    outline: "none",
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.02em",
+                    color: "inherit",
+                  }}
                 />
               </div>
 
               {email && (
-                <label className="flex items-start gap-2 cursor-pointer">
+                <label style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", cursor: "pointer" }}>
                   <input
                     type="checkbox"
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
                     required
-                    className="mt-0.5 w-3.5 h-3.5 cursor-pointer appearance-none border border-black/30 checked:bg-black checked:border-black focus:outline-none"
+                    style={{
+                      marginTop: "0.125rem",
+                      width: "0.875rem",
+                      height: "0.875rem",
+                      flexShrink: 0,
+                      cursor: "pointer",
+                      accentColor: "#000",
+                    }}
                   />
-                  <span className="text-caption" style={{ fontSize: "0.625rem", opacity: 0.7 }}>
+                  <span style={{ fontSize: "0.625rem", opacity: 0.65, lineHeight: 1.5 }}>
                     I agree to receive the marketing communications from JWA and accept the{" "}
-                    <a href="#" className="underline">Terms of Use</a> and{" "}
-                    <a href="#" className="underline">Privacy Policy</a>.
+                    <a href="/pages/terms-conditions" style={{ textDecoration: "underline", color: "inherit" }}>Terms of Use</a>{" "}
+                    and{" "}
+                    <a href="/pages/privacy-policy" style={{ textDecoration: "underline", color: "inherit" }}>Privacy Policy</a>.
                   </span>
                 </label>
               )}
 
               <button
                 type="submit"
-                className="nav-link text-left hover:opacity-50 transition-opacity"
-                style={{ color: "#000" }}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: "0.6875rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  color: "inherit",
+                  transition: "opacity 0.15s",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.45")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
               >
                 Subscribe →
               </button>
@@ -122,35 +207,69 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* ── Bottom bar ── */}
       <div
-        className="mt-auto pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
-        style={{ borderTop: "1px solid rgba(0,0,0,0.08)", paddingTop: "2rem", marginTop: "4rem" }}
+        style={{
+          padding: "1.25rem var(--page-margin)",
+          borderTop: "1px solid rgba(0,0,0,0.1)",
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "0.75rem",
+        }}
       >
-        <div className="flex items-center gap-2">
-          <a
-            href="https://www.instagram.com/jw_anderson"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link flex items-center gap-2"
-          >
-            Follow us on Instagram
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
-          </a>
-        </div>
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/altrivastudio"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontSize: "0.6875rem",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "inherit",
+            textDecoration: "none",
+            transition: "opacity 0.15s",
+          }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.45")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+        >
+          Follow us on Instagram
+          <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "0.875rem", height: "0.875rem" }} aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+        </a>
 
-        <p className="text-caption" style={{ opacity: 0.5, fontSize: "0.625rem" }}>
+        {/* Copyright */}
+        <p style={{ fontSize: "0.625rem", letterSpacing: "0.05em", opacity: 0.45 }}>
           © 2025 ALTRIVA STUDIO
         </p>
 
+        {/* Currency */}
         <button
-          className="text-caption flex items-center gap-1 hover:opacity-50 transition-opacity"
-          style={{ fontSize: "0.625rem" }}
+          style={{
+            background: "none",
+            border: "none",
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.25rem",
+            fontSize: "0.625rem",
+            letterSpacing: "0.05em",
+            cursor: "pointer",
+            color: "inherit",
+            opacity: 0.7,
+            transition: "opacity 0.15s",
+          }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.45")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.7")}
         >
           India (₹)
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" className="w-3 h-3">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "0.75rem", height: "0.75rem" }} aria-hidden="true">
             <path d="M4 6l4 4 4-4" />
           </svg>
         </button>
