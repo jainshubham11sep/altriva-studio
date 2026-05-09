@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useCart } from "@/contexts/CartContext";
 import { footerLinks } from "@/lib/products";
 
 const menuCategories = [
@@ -73,6 +75,7 @@ const menuCategories = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const { totalItems } = useCart();
 
   const toggleCategory = (label: string) => {
     setOpenCategory((prev) => (prev === label ? null : label));
@@ -92,12 +95,10 @@ export default function Header() {
           >
             Menu
           </button>
-          <button className="nav-link hidden lg:block" aria-label="Login">
-            Login
-          </button>
-          <button className="nav-link hidden lg:block" aria-label="Bag">
-            Bag
-          </button>
+          <Link href="/account/login" className="nav-link hidden lg:block">Login</Link>
+          <Link href="/cart" className="nav-link hidden lg:block" style={{ position: "relative" }}>
+            Bag{totalItems > 0 && <span style={{ marginLeft: "0.25rem", opacity: 0.6 }}>[{totalItems}]</span>}
+          </Link>
 
           {/* Mobile: hamburger — JWA style two-line SVG */}
           <button
@@ -139,36 +140,35 @@ export default function Header() {
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}
         <div className="flex items-center gap-1 justify-end flex-1">
           {/* Desktop search */}
-          <button
-            className="hidden lg:flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity"
-            aria-label="Search"
-          >
+          <Link href="/search" className="hidden lg:flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Search">
             <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4" aria-hidden="true">
               <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
             </svg>
-          </button>
+          </Link>
 
           {/* Mobile icons group */}
           <div className="lg:hidden flex items-center gap-1">
-            {/* Search */}
-            <button className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Search">
+            <Link href="/search" className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Search">
               <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4" aria-hidden="true">
                 <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
               </svg>
-            </button>
-            {/* Login */}
-            <button className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Login">
+            </Link>
+            <Link href="/account/login" className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Login">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
                 <path fillRule="evenodd" clipRule="evenodd" d="M12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4ZM7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8Z" fill="currentColor" />
                 <path fillRule="evenodd" clipRule="evenodd" d="M12 14C8.13401 14 5 17.134 5 21H4C4 16.5817 7.58172 13 12 13C16.4183 13 20 16.5817 20 21H19C19 17.134 15.866 14 12 14Z" fill="currentColor" />
               </svg>
-            </button>
-            {/* Bag */}
-            <button className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Bag">
+            </Link>
+            <Link href="/cart" className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Bag" style={{ position: "relative" }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
                 <path fillRule="evenodd" clipRule="evenodd" d="M9 6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V7H9V6ZM8 7V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V7H20V21H4V7H8ZM5 8V20H19V8H5Z" fill="currentColor" />
               </svg>
-            </button>
+              {totalItems > 0 && (
+                <span style={{ position: "absolute", top: "4px", right: "4px", background: "#000", color: "#fff", borderRadius: "50%", width: "14px", height: "14px", fontSize: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {totalItems}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       </header>

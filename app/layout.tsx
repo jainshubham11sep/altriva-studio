@@ -3,6 +3,7 @@ import "./globals.css";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Altriva Studio Official Site : Luxury Bags, Ready-To-Wear, Shoes – Altriva Studio",
@@ -22,10 +23,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" style={{ height: "100%" }}>
       <body>
-        <AnnouncementBar />
-        <Header />
-        <div className="page-content">{children}</div>
-        <Footer />
+        <Providers>
+          <AnnouncementBar />
+          <Header />
+          <div className="page-content">{children}</div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
