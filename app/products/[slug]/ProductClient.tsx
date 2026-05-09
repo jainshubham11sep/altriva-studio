@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
+import { categoryToCollectionSlug } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
 
 const SIZES_APPAREL = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -57,7 +58,10 @@ export default function ProductClient({ product, related }: Props) {
       <nav style={{ padding: "0.75rem var(--page-margin)", fontSize: "0.625rem", letterSpacing: "0.04em", display: "flex", gap: "0.375rem", opacity: 0.45, flexWrap: "wrap" }}>
         <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
         <span>/</span>
-        <Link href={`/collections/${product.category.toLowerCase().replace(/\s+/g, "-")}`} style={{ color: "inherit", textDecoration: "none", textTransform: "capitalize" }}>
+        <Link
+          href={`/collections/${categoryToCollectionSlug[product.category] ?? product.category.toLowerCase().replace(/[&\s]+/g, "-").replace(/-+/g, "-")}`}
+          style={{ color: "inherit", textDecoration: "none", textTransform: "capitalize" }}
+        >
           {product.category.toLowerCase()}
         </Link>
         <span>/</span>
@@ -258,15 +262,21 @@ export default function ProductClient({ product, related }: Props) {
           <p style={{ fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.45, marginBottom: "1.5rem" }}>
             You may also like
           </p>
-          <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap" }}>
+          <style>{`
+            .related-grid { display: flex; gap: 0.375rem; flex-wrap: wrap; }
+            .related-item { width: calc(50% - 0.1875rem); }
+            @media (min-width: 768px) { .related-item { width: calc(25% - 0.28125rem); } }
+          `}</style>
+          <div className="related-grid">
             {related.map((p) => (
               <Link
                 key={p.id}
                 href={`/products/${p.slug}`}
-                style={{ width: "calc(25% - 0.28125rem)", textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "0.5rem" }}
+                className="related-item"
+                style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "0.5rem" }}
               >
                 <div style={{ position: "relative", aspectRatio: p.aspect === "portrait" ? "4/5" : "1/1", backgroundColor: "#f5f5f3" }}>
-                  <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="25vw" />
+                  <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="(max-width: 767px) 50vw, 25vw" />
                 </div>
                 <div>
                   <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>

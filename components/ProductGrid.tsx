@@ -15,7 +15,7 @@ export default function ProductGrid({ items }: Props) {
       }}
     >
       <style>{`
-        .jwa-grid {
+        .product-flex-grid {
           column-gap: 0.375rem;
           row-gap: 3rem;
         }
@@ -28,13 +28,13 @@ export default function ProductGrid({ items }: Props) {
           .card-square   { width: calc(32.79% - 0.375rem * 2 / 3); }
         }
         @media (max-width: 767px) {
-          .jwa-grid { row-gap: 1.5rem; }
+          .product-flex-grid { row-gap: 1.5rem; }
           .card-portrait { width: calc(44.44% - 0.1875rem); }
           .card-square   { width: calc(55.56% - 0.1875rem); }
         }
       `}</style>
 
-      <div className="jwa-grid flex flex-wrap">
+      <div className="product-flex-grid flex flex-wrap">
         {products.map((product, i) => (
           <div
             key={product.id}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
@@ -75,7 +76,17 @@ const menuCategories = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [menuSearch, setMenuSearch] = useState("");
   const { totalItems } = useCart();
+  const router = useRouter();
+
+  const handleMenuSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (menuSearch.trim()) {
+      setMenuOpen(false);
+      router.push(`/search?q=${encodeURIComponent(menuSearch.trim())}`);
+    }
+  };
 
   const toggleCategory = (label: string) => {
     setOpenCategory((prev) => (prev === label ? null : label));
@@ -100,7 +111,7 @@ export default function Header() {
             Bag{totalItems > 0 && <span style={{ marginLeft: "0.25rem", opacity: 0.6 }}>[{totalItems}]</span>}
           </Link>
 
-          {/* Mobile: hamburger — JWA style two-line SVG */}
+          {/* Mobile: hamburger — two-line SVG */}
           <button
             className="lg:hidden flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity"
             onClick={() => setMenuOpen(true)}
@@ -226,17 +237,21 @@ export default function Header() {
           <div className="flex h-full flex-col overflow-y-auto px-4 lg:px-6">
             {/* Search bar */}
             <div className="py-6 border-b" style={{ borderColor: "rgba(0,0,0,0.12)" }}>
-              <div className="relative flex items-center border-b border-black/60 pb-1">
+              <form onSubmit={handleMenuSearch} className="relative flex items-center border-b border-black/60 pb-1">
                 <input
                   type="search"
                   placeholder="Search..."
+                  value={menuSearch}
+                  onChange={(e) => setMenuSearch(e.target.value)}
                   className="w-full bg-transparent text-body focus:outline-none placeholder:text-black/40"
                   style={{ fontSize: "0.875rem" }}
                 />
-                <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 shrink-0 ml-2 opacity-60" aria-hidden="true">
-                  <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
-                </svg>
-              </div>
+                <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}>
+                  <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 shrink-0 ml-2 opacity-60" aria-hidden="true">
+                    <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </form>
             </div>
 
             {/* Categories — accordion on mobile, grid on desktop */}

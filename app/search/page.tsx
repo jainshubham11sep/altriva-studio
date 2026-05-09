@@ -1,32 +1,39 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { products, collectionTitles } from "@/lib/products";
+import { products } from "@/lib/products";
 
 const FEATURED = [
-  { count: 83, label: "Summer Series", href: "/collections/summer-series" },
-  { count: 56, label: "Men's New In", href: "/collections/mens-new-in" },
+  { count: 83, label: "Summer Series",  href: "/collections/summer-series" },
+  { count: 56, label: "Men's New In",   href: "/collections/mens-new-in" },
   { count: 79, label: "Women's New In", href: "/collections/womens-new-in" },
-  { count: 41, label: "Loafer Bags", href: "/collections/loafer-bags" },
+  { count: 24, label: "All Bags",       href: "/collections/all-bags" },
 ];
 
 const BROWSE = [
-  { label: "Bags", items: ["All Bags", "Totes", "Shoulder Bags", "Clutches", "Mini Bags"] },
-  { label: "Mens", items: ["Men's New In", "Knitwear", "Shirts", "Trousers", "Outerwear"] },
-  { label: "Womens", items: ["Women's New In", "Dresses", "Tops", "Knitwear", "Outerwear"] },
+  { label: "Bags",        items: ["All Bags", "Totes", "Shoulder Bags", "Clutches", "Mini Bags"] },
+  { label: "Mens",        items: ["Men's New In", "Knitwear", "Shirts", "Trousers", "Outerwear"] },
+  { label: "Womens",      items: ["Women's New In", "Dresses", "Tops", "Knitwear", "Outerwear"] },
   { label: "Accessories", items: ["Jewellery", "Sunglasses", "Hats", "Scarves", "Belts"] },
 ];
 
-export default function SearchPage() {
-  const [query, setQuery] = useState("");
+function SearchContent() {
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q !== null) setQuery(q);
+  }, [searchParams]);
 
   const results = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
     return products.filter(
-      (p) => p.displayName.includes(q) || p.category.toLowerCase().includes(q)
+      (p) => p.displayName.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
     );
   }, [query]);
 
@@ -63,7 +70,6 @@ export default function SearchPage() {
                   key={p.id}
                   href={`/products/${p.slug}`}
                   style={{ width: "calc(50% - 0.1875rem)", textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "0.5rem" }}
-                  className="card-portrait"
                 >
                   <div style={{ position: "relative", aspectRatio: "4/5", backgroundColor: "#f5f5f3" }}>
                     <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" loading={i < 4 ? "eager" : "lazy"} />
@@ -135,5 +141,13 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: "4rem var(--page-margin)", opacity: 0.4, fontSize: "0.875rem" }}>Loading…</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }

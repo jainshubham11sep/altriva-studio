@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 const moreFeatured = [
-  { count: 56, label: "Men's New In", href: "#" },
-  { count: 79, label: "Women's New In", href: "#" },
-  { count: 41, label: "Loafer Bags", href: "#" },
+  { count: 56, label: "Men's New In",   href: "/collections/mens-new-in" },
+  { count: 79, label: "Women's New In", href: "/collections/womens-new-in" },
+  { count: 24, label: "All Bags",       href: "/collections/all-bags" },
 ];
 
 export default function MoreFeatured() {
@@ -17,13 +19,13 @@ export default function MoreFeatured() {
           balance of femininity and modernity. From tailored shirt dresses,
           long-line evening dresses to statement pieces straight from the runway.
         </h2>
-        <a
-          href="#"
+        <Link
+          href="/pages/about-us"
           className="text-caption block mt-3 hover:italic transition-all"
-          style={{ opacity: 0.6 }}
+          style={{ opacity: 0.6, textDecoration: "none", color: "inherit" }}
         >
           Learn more
-        </a>
+        </Link>
       </div>
 
       {/* More featured links */}
@@ -38,17 +40,17 @@ export default function MoreFeatured() {
           More featured
         </p>
         {moreFeatured.map((item) => (
-          <a
+          <Link
             key={item.label}
             href={item.href}
             className="group flex items-center justify-between py-4 border-t hover:italic transition-all"
-            style={{ borderColor: "rgba(0,0,0,0.1)" }}
+            style={{ borderColor: "rgba(0,0,0,0.1)", textDecoration: "none", color: "inherit" }}
           >
             <span className="text-heading text-xl">{item.label}</span>
             <span className="text-caption opacity-50 group-hover:opacity-0 transition-opacity">
               [{item.count}]
             </span>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

@@ -58,7 +58,7 @@ export const products: Product[] = [
   { id:"20", name:"LOAFER BAG IN TAUPE WOVEN LEATHER",                                displayName:"loafer bag in taupe woven leather",                                category:"LOAFER BAGS",           price:1555, priceInr:191100, colors:5, image:pi(20), hoverImage:ph(20), badge:"New",         slug:"loafer-bag-taupe-woven-leather",                                  aspect:"square"   },
   { id:"21", name:"SMALL BULB BAG IN NATURAL BROWN",                                  displayName:"small bulb bag in natural brown",                                  category:"BULB BAGS",             price:385,  priceInr:47100,           image:pi(21), hoverImage:ph(21), badge:"New",         slug:"small-bulb-bag-natural-brown",                                    aspect:"portrait" },
   { id:"22", name:"MENS DAMASK WOVEN SHORTS IN EMERALD",                              displayName:"mens damask woven shorts in emerald",                              category:"SHORTS",                price:1950, priceInr:239500, colors:3, image:pi(22), hoverImage:ph(22), badge:"Exclusive",   slug:"mens-damask-woven-shorts-emerald",                                aspect:"portrait" },
-  { id:"23", name:"JWA07 BUMPER SUNGLASSES IN WHITE & BLUE",                          displayName:"jwa07 bumper sunglasses in white & blue",                          category:"SUNGLASSES",            price:280,  priceInr:34500,  colors:3, image:pi(23), hoverImage:ph(23),                      slug:"jwa07-bumper-sunglasses-white-blue",                              aspect:"portrait" },
+  { id:"23", name:"AS07 BUMPER SUNGLASSES IN WHITE & BLUE",                           displayName:"as07 bumper sunglasses in white & blue",                           category:"SUNGLASSES",            price:280,  priceInr:34500,  colors:3, image:pi(23), hoverImage:ph(23),                      slug:"as07-bumper-sunglasses-white-blue",                               aspect:"portrait" },
   { id:"24", name:"HAND-CROCHETED PERSIMMON CHARM",                                   displayName:"hand-crocheted persimmon charm",                                   category:"CHARMS",                price:255,  priceInr:31200,           image:pi(24), hoverImage:ph(24), badge:"New",         slug:"hand-crocheted-persimmon-charm",                                  aspect:"portrait" },
   { id:"25", name:"LOAFER BAG IN SAGE WOVEN LEATHER",                                 displayName:"loafer bag in sage woven leather",                                 category:"LOAFER BAGS",           price:1555, priceInr:191100, colors:5, image:pi(25), hoverImage:ph(25), badge:"New",         slug:"loafer-bag-sage-woven-leather",                                   aspect:"portrait" },
   { id:"26", name:"LEATHER SNOWDROP CHARM IN WHITE & GREEN",                          displayName:"leather snowdrop charm in white & green",                          category:"CHARMS",                price:360,  priceInr:44500,           image:pi(26), hoverImage:ph(26), badge:"New",         slug:"leather-snowdrop-charm-white-green",                              aspect:"portrait" },
@@ -88,11 +88,11 @@ export const products: Product[] = [
   { id:"50", name:"MENS FRONT ZIP BLOUSON IN NAVY & BLUE",                            displayName:"mens front zip blouson in navy & blue",                            category:"COATS & JACKETS",       price:755,  priceInr:92900,  colors:2, image:pi(50), hoverImage:ph(50), badge:"New",         slug:"mens-front-zip-blouson-navy-blue",                                aspect:"portrait" },
   { id:"51", name:"WOMENS BIKINI TOP IN BLACK & ORANGE",                              displayName:"womens bikini top in black & orange",                              category:"SWIMWEAR",              price:175,  priceInr:21300,           image:pi(51), hoverImage:ph(51), badge:"New",         slug:"womens-bikini-top-black-orange",                                  aspect:"portrait" },
   { id:"52", name:"WOMENS LEATHER LEAF SLIDES IN LIME",                               displayName:"womens leather leaf slides in lime",                               category:"SLIDES",                price:550,  priceInr:67700,  colors:2, image:pi(52), hoverImage:ph(52), badge:"New",         slug:"womens-leather-leaf-slides-lime",                                 aspect:"portrait" },
-  { id:"53", name:"JWA02 RECTANGULAR SUNGLASSES IN MARBLE",                           displayName:"jwa02 rectangular sunglasses in marble",                           category:"SUNGLASSES",            price:250,  priceInr:30600,  colors:5, image:pi(53), hoverImage:ph(53),                      slug:"jwa02-rectangular-sunglasses-marble",                             aspect:"square"   },
+  { id:"53", name:"AS02 RECTANGULAR SUNGLASSES IN MARBLE",                            displayName:"as02 rectangular sunglasses in marble",                            category:"SUNGLASSES",            price:250,  priceInr:30600,  colors:5, image:pi(53), hoverImage:ph(53),                      slug:"as02-rectangular-sunglasses-marble",                              aspect:"square"   },
   { id:"54", name:"MENS FUSSBETT LOAFER SUEDE SLIDES IN RUST",                        displayName:"mens fussbett loafer suede slides in rust",                        category:"SLIDES",                price:595,  priceInr:73000,  colors:3, image:pi(54), hoverImage:ph(54), badge:"New",         slug:"mens-fussbett-loafer-suede-slides-rust",                          aspect:"portrait" },
   { id:"55", name:"HAND-CROCHETED RHUBARB CHARM",                                     displayName:"hand-crocheted rhubarb charm",                                     category:"CHARMS",                price:255,  priceInr:31200,           image:pi(55), hoverImage:ph(55), badge:"New",         slug:"hand-crocheted-rhubarb-charm",                                    aspect:"portrait" },
-  { id:"56", name:"JWA07 BUMPER SUNGLASSES IN BROWN & GREEN",                         displayName:"jwa07 bumper sunglasses in brown & green",                         category:"SUNGLASSES",            price:280,  priceInr:34500,  colors:3, image:pi(56), hoverImage:ph(56),                      slug:"jwa07-bumper-sunglasses-brown-green",                             aspect:"square"   },
-  { id:"57", name:"JWA07 BUMPER SUNGLASSES IN GREEN & ORANGE",                        displayName:"jwa07 bumper sunglasses in green & orange",                        category:"SUNGLASSES",            price:280,  priceInr:34500,  colors:3, image:pi(57), hoverImage:ph(57),                      slug:"jwa07-bumper-sunglasses-green-orange",                            aspect:"square"   },
+  { id:"56", name:"AS07 BUMPER SUNGLASSES IN BROWN & GREEN",                          displayName:"as07 bumper sunglasses in brown & green",                          category:"SUNGLASSES",            price:280,  priceInr:34500,  colors:3, image:pi(56), hoverImage:ph(56),                      slug:"as07-bumper-sunglasses-brown-green",                              aspect:"square"   },
+  { id:"57", name:"AS07 BUMPER SUNGLASSES IN GREEN & ORANGE",                         displayName:"as07 bumper sunglasses in green & orange",                         category:"SUNGLASSES",            price:280,  priceInr:34500,  colors:3, image:pi(57), hoverImage:ph(57),                      slug:"as07-bumper-sunglasses-green-orange",                             aspect:"square"   },
   { id:"58", name:"MENS CONTRASTING LEATHER COIL SLIDE IN BLACK",                     displayName:"mens contrasting leather coil slide in black",                     category:"SLIDES",                price:650,  priceInr:80300,           image:pi(58), hoverImage:ph(58), badge:"New",         slug:"mens-contrasting-leather-coil-slide-black",                       aspect:"portrait" },
   { id:"59", name:"MENS DAMASK WOVEN SHORTS IN AIRFORCE BLUE",                        displayName:"mens damask woven shorts in airforce blue",                        category:"SHORTS",                price:1950, priceInr:239500, colors:3, image:pi(59), hoverImage:ph(59), badge:"Exclusive",   slug:"mens-damask-woven-shorts-airforce-blue",                          aspect:"portrait" },
   { id:"60", name:"MENS DAMASK WOVEN SHORTS IN CITRINE",                              displayName:"mens damask woven shorts in citrine",                              category:"SHORTS",                price:1950, priceInr:239500, colors:3, image:pi(60), hoverImage:ph(60), badge:"Exclusive",   slug:"mens-damask-woven-shorts-citrine",                                aspect:"portrait" },
@@ -100,29 +100,51 @@ export const products: Product[] = [
 
 export function getCollectionProducts(slug: string): Product[] {
   switch (slug) {
-    case "summer-series":      return products;
-    case "new-in":             return products.filter(p => p.badge === "New");
-    case "mens-new-in":        return products.filter(p => p.name.startsWith("MENS"));
-    case "womens-new-in":      return products.filter(p => p.name.startsWith("WOMENS"));
-    case "loafer-bags":        return products.filter(p => p.category === "LOAFER BAGS");
-    case "all-bags":           return products.filter(p => ["BULB BAGS","LOAFER BAGS"].includes(p.category));
-    case "bag-charms":         return products.filter(p => p.category === "CHARMS");
-    case "all-home":           return products.filter(p => ["CHARMS","SUNGLASSES","ACCESSORIES"].includes(p.category));
-    case "collaborations":     return products.filter(p => p.badge === "Exclusive");
-    case "coming-soon":        return products.filter(p => p.badge === "Coming soon");
-    case "sunglasses":         return products.filter(p => p.category === "SUNGLASSES");
-    case "shoes": case "flats":return products.filter(p => ["FLATS","SLIDES","SHOES"].includes(p.category));
-    case "sandals":            return products.filter(p => p.category === "SANDALS");
-    case "knitwear":           return products.filter(p => ["KNITWEAR","KNITTED TOPS","KNITTED DRESSES"].includes(p.category));
-    case "dresses":            return products.filter(p => ["DRESSES","KNITTED DRESSES"].includes(p.category));
-    case "t-shirts-tops":      return products.filter(p => p.category === "T-SHIRTS & TOPS");
-    case "shorts":             return products.filter(p => p.category === "SHORTS");
-    case "shirts":             return products.filter(p => p.category === "SHIRTS");
-    case "hoodies-sweatshirts":return products.filter(p => p.category === "HOODIES & SWEATSHIRTS");
-    case "coats-jackets":      return products.filter(p => p.category === "COATS & JACKETS");
-    case "swim":               return products.filter(p => p.category === "SWIMWEAR");
-    case "totes": case "shoulder-bags": return products.filter(p => p.category === "BULB BAGS");
-    default:                   return products.slice(0, 24);
+    case "summer-series":       return products;
+    case "new-in":              return products.filter(p => p.badge === "New");
+    case "mens-new-in":         return products.filter(p => p.name.startsWith("MENS"));
+    case "womens-new-in":       return products.filter(p => p.name.startsWith("WOMENS"));
+    case "loafer-bags":         return products.filter(p => p.category === "LOAFER BAGS");
+    case "all-bags":            return products.filter(p => ["BULB BAGS","LOAFER BAGS"].includes(p.category));
+    case "bulb-bags":           return products.filter(p => p.category === "BULB BAGS");
+    case "clutches":
+    case "mini-bags":           return products.filter(p => ["BULB BAGS","LOAFER BAGS"].includes(p.category));
+    case "bag-charms":
+    case "charms":              return products.filter(p => p.category === "CHARMS");
+    case "all-home":            return products.filter(p => ["CHARMS","SUNGLASSES","ACCESSORIES"].includes(p.category));
+    case "collaborations":      return products.filter(p => p.badge === "Exclusive");
+    case "coming-soon":         return products.filter(p => p.badge === "Coming soon");
+    case "sunglasses":          return products.filter(p => p.category === "SUNGLASSES");
+    case "shoes":
+    case "flats":
+    case "mens-footwear":
+    case "womens-footwear":     return products.filter(p => ["FLATS","SLIDES","SHOES"].includes(p.category));
+    case "sandals":             return products.filter(p => p.category === "SANDALS");
+    case "knitwear":            return products.filter(p => ["KNITWEAR","KNITTED TOPS","KNITTED DRESSES"].includes(p.category));
+    case "dresses":             return products.filter(p => ["DRESSES","KNITTED DRESSES"].includes(p.category));
+    case "t-shirts-tops":
+    case "mens-tops":           return products.filter(p => ["T-SHIRTS & TOPS","KNITWEAR","KNITTED TOPS"].includes(p.category));
+    case "womens-tops":         return products.filter(p => p.name.startsWith("WOMENS") && ["T-SHIRTS & TOPS","KNITTED TOPS"].includes(p.category));
+    case "shorts":              return products.filter(p => p.category === "SHORTS");
+    case "shirts":              return products.filter(p => p.category === "SHIRTS");
+    case "hoodies-sweatshirts": return products.filter(p => p.category === "HOODIES & SWEATSHIRTS");
+    case "coats-jackets":
+    case "mens-outerwear":
+    case "womens-outerwear":    return products.filter(p => p.category === "COATS & JACKETS");
+    case "swim":                return products.filter(p => p.category === "SWIMWEAR");
+    case "totes":
+    case "shoulder-bags":       return products.filter(p => p.category === "BULB BAGS");
+    case "jewellery":
+    case "mens-accessories":    return products.filter(p => p.category === "ACCESSORIES");
+    case "mens-trousers":
+    case "womens-trousers":     return products.filter(p => ["SHORTS","KNITWEAR"].includes(p.category));
+    case "hats":
+    case "scarves":
+    case "belts":
+    case "candles":
+    case "objects":
+    case "books":               return products.filter(p => ["ACCESSORIES","CHARMS","SUNGLASSES"].includes(p.category));
+    default:                    return products.slice(0, 24);
   }
 }
 
@@ -133,7 +155,11 @@ export const collectionTitles: Record<string, string> = {
   "womens-new-in":       "Women's New In",
   "loafer-bags":         "Loafer Bags",
   "all-bags":            "All Bags",
+  "bulb-bags":           "Bulb Bags",
+  "clutches":            "Clutches",
+  "mini-bags":           "Mini Bags",
   "bag-charms":          "Bag Charms",
+  "charms":              "Charms",
   "all-home":            "All Home",
   "collaborations":      "Collaborations",
   "coming-soon":         "Coming Soon",
@@ -144,13 +170,51 @@ export const collectionTitles: Record<string, string> = {
   "knitwear":            "Knitwear",
   "dresses":             "Dresses",
   "t-shirts-tops":       "T-Shirts & Tops",
+  "mens-tops":           "Men's Tops",
+  "womens-tops":         "Women's Tops",
   "shorts":              "Shorts",
   "shirts":              "Shirts",
   "hoodies-sweatshirts": "Hoodies & Sweatshirts",
   "coats-jackets":       "Coats & Jackets",
+  "mens-outerwear":      "Men's Outerwear",
+  "womens-outerwear":    "Women's Outerwear",
   "swim":                "Swim",
   "totes":               "Totes",
   "shoulder-bags":       "Shoulder Bags",
+  "jewellery":           "Jewellery",
+  "hats":                "Hats",
+  "scarves":             "Scarves",
+  "belts":               "Belts",
+  "mens-footwear":       "Men's Footwear",
+  "womens-footwear":     "Women's Footwear",
+  "mens-trousers":       "Men's Trousers",
+  "womens-trousers":     "Women's Trousers",
+  "mens-accessories":    "Men's Accessories",
+  "candles":             "Candles",
+  "objects":             "Objects",
+  "books":               "Books",
+};
+
+export const categoryToCollectionSlug: Record<string, string> = {
+  "KNITTED TOPS":         "knitwear",
+  "KNITTED DRESSES":      "dresses",
+  "SLIDES":               "shoes",
+  "CHARMS":               "charms",
+  "DRESSES":              "dresses",
+  "SANDALS":              "sandals",
+  "BULB BAGS":            "bulb-bags",
+  "LOAFER BAGS":          "loafer-bags",
+  "ACCESSORIES":          "jewellery",
+  "SUNGLASSES":           "sunglasses",
+  "T-SHIRTS & TOPS":      "t-shirts-tops",
+  "KNITWEAR":             "knitwear",
+  "SHORTS":               "shorts",
+  "SHIRTS":               "shirts",
+  "HOODIES & SWEATSHIRTS":"hoodies-sweatshirts",
+  "COATS & JACKETS":      "coats-jackets",
+  "SWIMWEAR":             "swim",
+  "SHOES":                "shoes",
+  "FLATS":                "flats",
 };
 
 export const announcements = [
@@ -167,7 +231,7 @@ export const mainNavLinks = [
 
 export const footerLinks = {
   About: [
-    { label: "Jonathan",            href: "/pages/about-us"            },
+    { label: "About Altriva",        href: "/pages/about-us"            },
     { label: "Stores",              href: "/pages/store-locations"      },
     { label: "Careers",             href: "/pages/careers"              },
     { label: "Sign Up",             href: "/pages/sign-up"              },

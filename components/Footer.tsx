@@ -22,7 +22,7 @@ export default function Footer() {
         gap: 0,
       }}
     >
-      {/* ── Large wordmark — exact JWA style ── */}
+      {/* ── Large wordmark ── */}
       <div
         style={{
           padding: "2rem var(--page-margin) 0",
