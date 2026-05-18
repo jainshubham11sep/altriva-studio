@@ -236,18 +236,17 @@ export default function Header() {
           {/* Nav content */}
           <div className="flex h-full flex-col overflow-y-auto px-4 lg:px-6">
             {/* Search bar */}
-            <div className="py-6 border-b" style={{ borderColor: "rgba(0,0,0,0.12)" }}>
-              <form onSubmit={handleMenuSearch} className="relative flex items-center border-b border-black/60 pb-1">
+            <div style={{ padding: "1.5rem 0 2rem", borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
+              <form onSubmit={handleMenuSearch} style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(0,0,0,0.5)", paddingBottom: "0.375rem" }}>
                 <input
                   type="search"
-                  placeholder="Search..."
+                  placeholder="Search"
                   value={menuSearch}
                   onChange={(e) => setMenuSearch(e.target.value)}
-                  className="w-full bg-transparent text-body focus:outline-none placeholder:text-black/40"
-                  style={{ fontSize: "0.875rem" }}
+                  style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "1rem", letterSpacing: "0.02em", color: "inherit" }}
                 />
                 <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}>
-                  <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 shrink-0 ml-2 opacity-60" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "1rem", height: "1rem", opacity: 0.5 }} aria-hidden="true">
                     <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
                   </svg>
                 </button>
@@ -255,13 +254,31 @@ export default function Header() {
             </div>
 
             {/* Categories — accordion on mobile, grid on desktop */}
-            <div className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-x-8 py-4">
+            <div className="lg:grid lg:grid-cols-4 lg:gap-x-8" style={{ padding: "1.5rem 0" }}>
               {menuCategories.map((cat) => (
-                <div key={cat.label} className="flex flex-col">
+                <div key={cat.label} style={{ display: "flex", flexDirection: "column" }}>
                   {/* Mobile: accordion toggle */}
                   <button
-                    className="lg:hidden flex items-center justify-between py-3 border-b text-body hover:italic transition-all"
-                    style={{ borderColor: "rgba(0,0,0,0.12)" }}
+                    className="lg:hidden"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "0.875rem 0",
+                      borderBottom: "1px solid rgba(0,0,0,0.1)",
+                      background: "none",
+                      border: "none",
+                      borderBottomStyle: "solid",
+                      borderBottomWidth: "1px",
+                      borderBottomColor: "rgba(0,0,0,0.1)",
+                      cursor: "pointer",
+                      width: "100%",
+                      textAlign: "left",
+                      fontFamily: "'EB Garamond', Georgia, serif",
+                      fontSize: "1.75rem",
+                      letterSpacing: "0.01em",
+                      color: "inherit",
+                    }}
                     onClick={() => toggleCategory(cat.label)}
                     aria-expanded={openCategory === cat.label}
                   >
@@ -271,26 +288,19 @@ export default function Header() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.2"
-                      className="w-4 h-4 opacity-50 transition-transform"
-                      style={{ transform: openCategory === cat.label ? "rotate(90deg)" : "rotate(0deg)" }}
+                      style={{ width: "0.875rem", height: "0.875rem", opacity: 0.4, flexShrink: 0, transform: openCategory === cat.label ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
                     >
                       <path d="M6 4l4 4-4 4" />
                     </svg>
                   </button>
 
                   {/* Desktop: always visible heading */}
-                  <span className="hidden lg:block py-2 text-body">
+                  <span className="hidden lg:block" style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.25rem", padding: "0.5rem 0 0.75rem" }}>
                     {cat.label}
                   </span>
 
                   {/* Sub-items */}
-                  <ul
-                    className="flex flex-col"
-                    style={{
-                      display: openCategory === cat.label ? "flex" : undefined,
-                    }}
-                  >
-                    {/* Mobile: only show when expanded */}
+                  <ul style={{ display: "flex", flexDirection: "column", gap: "0.125rem" }}>
                     {cat.items.map((item) => (
                       <li
                         key={item.label}
@@ -298,15 +308,13 @@ export default function Header() {
                       >
                         <a
                           href={item.href}
-                          className="flex items-center gap-1 min-h-11 nav-link w-fit"
+                          style={{ display: "flex", alignItems: "center", gap: "0.375rem", padding: "0.5rem 0", fontSize: "0.75rem", letterSpacing: "0.04em", color: "inherit", textDecoration: "none", transition: "font-style 0.1s" }}
                           onClick={() => setMenuOpen(false)}
+                          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
+                          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
                         >
                           {item.count !== null && (
-                            <span className="flex items-center gap-0.5 min-w-6 opacity-70 group-hover:opacity-0 transition-opacity">
-                              <span>[</span>
-                              <span>{item.count}</span>
-                              <span>]</span>
-                            </span>
+                            <span style={{ opacity: 0.45, fontSize: "0.625rem" }}>[{item.count}]</span>
                           )}
                           {item.label}
                         </a>
@@ -318,16 +326,21 @@ export default function Header() {
             </div>
 
             {/* Footer links in menu */}
-            <div className="mt-auto pt-6 pb-6 border-t flex flex-wrap gap-x-8 gap-y-4" style={{ borderColor: "rgba(0,0,0,0.12)" }}>
+            <div
+              className="mt-auto"
+              style={{ paddingTop: "1.5rem", paddingBottom: "2rem", borderTop: "1px solid rgba(0,0,0,0.15)", display: "flex", flexWrap: "wrap", gap: "2rem" }}
+            >
               {Object.entries(footerLinks).map(([heading, items]) => (
-                <div key={heading} className="flex flex-col gap-1">
-                  <span className="nav-link opacity-50">{heading}</span>
+                <div key={heading} style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                  <span style={{ fontSize: "0.5625rem", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.4, marginBottom: "0.5rem", display: "block" }}>{heading}</span>
                   {items.slice(0, 4).map((item) => (
                     <a
                       key={item.label}
                       href={item.href}
-                      className="text-caption py-1 hover:italic transition-all"
+                      style={{ fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.25rem 0", transition: "font-style 0.1s" }}
                       onClick={() => setMenuOpen(false)}
+                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
                     >
                       {item.label}
                     </a>

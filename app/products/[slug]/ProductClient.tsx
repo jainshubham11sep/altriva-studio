@@ -53,7 +53,36 @@ export default function ProductClient({ product, related }: Props) {
   ];
 
   return (
-    <div style={{ paddingBottom: "4rem" }}>
+    <div style={{ paddingBottom: "5rem" }}>
+      <style>{`
+        .product-layout {
+          display: grid;
+          grid-template-areas: "mobile-title" "gallery" "sidebar";
+          grid-template-columns: 1fr;
+          padding: 0 var(--page-margin);
+        }
+        .product-mobile-title { grid-area: mobile-title; padding: 0.75rem 0 1rem; }
+        .product-gallery-block { grid-area: gallery; }
+        .product-sidebar { grid-area: sidebar; padding-top: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; }
+        .product-title-desktop { display: none; }
+        .product-actions-inline { display: none; }
+        .mobile-sticky-bar { display: flex; }
+        @media (min-width: 1024px) {
+          .product-layout {
+            grid-template-areas: "gallery sidebar";
+            grid-template-columns: 1fr 360px;
+            gap: 3rem;
+            align-items: start;
+          }
+          .product-mobile-title { display: none; }
+          .product-gallery-block { position: relative; }
+          .product-sidebar { padding-top: 0.5rem; position: sticky; top: var(--total-header-height); }
+          .product-title-desktop { display: flex; }
+          .product-actions-inline { display: flex; flex-direction: column; gap: 0.625rem; }
+          .mobile-sticky-bar { display: none; }
+        }
+      `}</style>
+
       {/* Breadcrumb */}
       <nav style={{ padding: "0.75rem var(--page-margin)", fontSize: "0.625rem", letterSpacing: "0.04em", display: "flex", gap: "0.375rem", opacity: 0.45, flexWrap: "wrap" }}>
         <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
@@ -69,11 +98,30 @@ export default function ProductClient({ product, related }: Props) {
       </nav>
 
       {/* Main grid */}
-      <div style={{ display: "flex", gap: "3rem", padding: "0 var(--page-margin)", flexWrap: "wrap", alignItems: "flex-start" }}>
+      <div className="product-layout">
+
+        {/* ── Mobile-only title (above image) ── */}
+        <div className="product-mobile-title">
+          <p style={{ fontSize: "0.625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.45, marginBottom: "0.375rem" }}>
+            {product.category}
+          </p>
+          <h1 style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.375rem", fontWeight: 400, letterSpacing: "0.01em", lineHeight: 1.25, textTransform: "capitalize", marginBottom: "0.375rem" }}>
+            {product.displayName}
+          </h1>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <span style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}>
+              Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}
+            </span>
+            {product.colors && product.colors > 1 && (
+              <span style={{ fontSize: "0.6875rem", opacity: 0.55, fontStyle: "italic" }}>
+                {product.colors} colours
+              </span>
+            )}
+          </div>
+        </div>
 
         {/* ── Image gallery ── */}
-        <div style={{ flex: "1 1 480px", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-          {/* Main image */}
+        <div className="product-gallery-block" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <div style={{ position: "relative", aspectRatio: product.aspect === "portrait" ? "4/5" : "1/1", backgroundColor: "#f5f5f3", overflow: "hidden" }}>
             <Image
               src={images[imgIdx]}
@@ -111,7 +159,6 @@ export default function ProductClient({ product, related }: Props) {
               </>
             )}
           </div>
-          {/* Thumbnails */}
           {images.length > 1 && (
             <div style={{ display: "flex", gap: "0.375rem" }}>
               {images.map((src, i) => (
@@ -127,10 +174,11 @@ export default function ProductClient({ product, related }: Props) {
           )}
         </div>
 
-        {/* ── Product info ── */}
-        <div style={{ flex: "0 1 360px", display: "flex", flexDirection: "column", gap: "1.25rem" }} className="lg:sticky lg:top-[var(--total-header-height)] lg:pt-2">
-          {/* Category + Title + Price */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
+        {/* ── Product sidebar ── */}
+        <div className="product-sidebar">
+
+          {/* Desktop-only title */}
+          <div className="product-title-desktop" style={{ flexDirection: "column", gap: "0.375rem" }}>
             <p style={{ fontSize: "0.625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.45 }}>
               {product.category}
             </p>
@@ -183,47 +231,47 @@ export default function ProductClient({ product, related }: Props) {
             </div>
           )}
 
-          {/* Add to bag */}
-          <button
-            onClick={handleAddToBag}
-            disabled={sizes !== null && !selectedSize}
-            style={{
-              width: "100%",
-              background: added ? "#2d6a4f" : "#000",
-              color: "#fff",
-              border: "none",
-              padding: "0.9375rem 1.5rem",
-              fontSize: "0.6875rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              cursor: sizes !== null && !selectedSize ? "not-allowed" : "pointer",
-              opacity: sizes !== null && !selectedSize ? 0.4 : 1,
-              transition: "background 0.2s",
-            }}
-          >
-            {added ? "Added to Bag ✓" : "Add to Bag"}
-          </button>
-
-          {/* Wishlist */}
-          <button
-            style={{
-              width: "100%",
-              background: "transparent",
-              color: "inherit",
-              border: "1px solid rgba(0,0,0,0.2)",
-              padding: "0.9375rem 1.5rem",
-              fontSize: "0.6875rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              transition: "border-color 0.15s",
-            }}
-          >
-            Save to Wishlist
-          </button>
+          {/* Add to bag + Wishlist — desktop only inline */}
+          <div className="product-actions-inline">
+            <button
+              onClick={handleAddToBag}
+              disabled={sizes !== null && !selectedSize}
+              style={{
+                width: "100%",
+                background: added ? "#2d6a4f" : "#000",
+                color: "#fff",
+                border: "none",
+                padding: "0.9375rem 1.5rem",
+                fontSize: "0.6875rem",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                cursor: sizes !== null && !selectedSize ? "not-allowed" : "pointer",
+                opacity: sizes !== null && !selectedSize ? 0.4 : 1,
+                transition: "background 0.2s",
+              }}
+            >
+              {added ? "Added to Bag ✓" : "Add to Bag"}
+            </button>
+            <button
+              style={{
+                width: "100%",
+                background: "transparent",
+                color: "inherit",
+                border: "1px solid rgba(0,0,0,0.2)",
+                padding: "0.9375rem 1.5rem",
+                fontSize: "0.6875rem",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                transition: "border-color 0.15s",
+              }}
+            >
+              Save to Wishlist
+            </button>
+          </div>
 
           {/* Accordions */}
-          <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)", marginTop: "0.5rem" }}>
+          <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
             {accordions.map((acc) => (
               <div key={acc.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
                 <button
@@ -251,9 +299,82 @@ export default function ProductClient({ product, related }: Props) {
           </div>
 
           <p style={{ fontSize: "0.625rem", opacity: 0.45, lineHeight: 1.5 }}>
-            Duties and taxes included. Free standard shipping on orders over £300.
+            Duties and taxes included. Free standard shipping on orders over ₹25,000.
           </p>
         </div>
+      </div>
+
+      {/* ── Mobile sticky CTA bar ── */}
+      <div
+        className="mobile-sticky-bar"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 60,
+          background: "#fff",
+          borderTop: "1px solid rgba(0,0,0,0.1)",
+          padding: "0.75rem var(--page-margin)",
+          gap: "0.625rem",
+          alignItems: "center",
+        }}
+      >
+        {sizes && !selectedSize ? (
+          <button
+            style={{
+              flex: 1,
+              background: "transparent",
+              color: "inherit",
+              border: "1px solid rgba(0,0,0,0.3)",
+              padding: "0.875rem 1rem",
+              fontSize: "0.6875rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              cursor: "default",
+              opacity: 0.6,
+            }}
+            disabled
+          >
+            Select a Size
+          </button>
+        ) : (
+          <button
+            onClick={handleAddToBag}
+            style={{
+              flex: 1,
+              background: added ? "#2d6a4f" : "#000",
+              color: "#fff",
+              border: "none",
+              padding: "0.875rem 1rem",
+              fontSize: "0.6875rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              transition: "background 0.2s",
+            }}
+          >
+            {added ? "Added to Bag ✓" : "Add to Bag"}
+          </button>
+        )}
+        <button
+          style={{
+            background: "transparent",
+            color: "inherit",
+            border: "1px solid rgba(0,0,0,0.2)",
+            padding: "0.875rem",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+          aria-label="Save to wishlist"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "1rem", height: "1rem" }}>
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </button>
       </div>
 
       {/* Related products */}

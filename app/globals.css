@@ -97,9 +97,7 @@ body {
   background: #fff;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--color-border);
   padding: 0 var(--page-margin);
-  transition: border-color 0.2s;
 }
 
 /* Sticky sub-nav */
@@ -108,7 +106,6 @@ body {
   top: calc(var(--announcement-bar-height) + var(--nav-height));
   z-index: 70;
   background: #fff;
-  border-bottom: 1px solid var(--color-border);
   display: flex;
   overflow-x: auto;
   padding: 0 var(--page-margin);
