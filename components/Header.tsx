@@ -236,17 +236,17 @@ export default function Header() {
           {/* Nav content */}
           <div className="flex h-full flex-col overflow-y-auto px-4 lg:px-6">
             {/* Search bar */}
-            <div style={{ padding: "1.5rem 0 2rem", borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
-              <form onSubmit={handleMenuSearch} style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(0,0,0,0.5)", paddingBottom: "0.375rem" }}>
+            <div style={{ padding: "1rem 0 1.25rem", borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
+              <form onSubmit={handleMenuSearch} style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(0,0,0,0.4)", paddingBottom: "0.3rem" }}>
                 <input
                   type="search"
                   placeholder="Search"
                   value={menuSearch}
                   onChange={(e) => setMenuSearch(e.target.value)}
-                  style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "1rem", letterSpacing: "0.02em", color: "inherit" }}
+                  style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.875rem", letterSpacing: "0.02em", color: "inherit" }}
                 />
                 <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}>
-                  <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "1rem", height: "1rem", opacity: 0.5 }} aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "0.875rem", height: "0.875rem", opacity: 0.5 }} aria-hidden="true">
                     <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
                   </svg>
                 </button>
@@ -254,17 +254,14 @@ export default function Header() {
             </div>
 
             {/* Categories — accordion on mobile, grid on desktop */}
-            <div className="lg:grid lg:grid-cols-4 lg:gap-x-8" style={{ padding: "1.5rem 0" }}>
+            <div className="lg:grid lg:grid-cols-4 lg:gap-x-8" style={{ padding: "0.75rem 0" }}>
               {menuCategories.map((cat) => (
                 <div key={cat.label} style={{ display: "flex", flexDirection: "column" }}>
-                  {/* Mobile: accordion toggle */}
+                  {/* Mobile: accordion toggle — use Tailwind flex classes, NOT inline display to avoid overriding lg:hidden */}
                   <button
-                    className="lg:hidden"
+                    className="lg:hidden flex items-center justify-between w-full text-left"
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "0.875rem 0",
+                      padding: "0.625rem 0",
                       borderBottom: "1px solid rgba(0,0,0,0.1)",
                       background: "none",
                       border: "none",
@@ -272,10 +269,8 @@ export default function Header() {
                       borderBottomWidth: "1px",
                       borderBottomColor: "rgba(0,0,0,0.1)",
                       cursor: "pointer",
-                      width: "100%",
-                      textAlign: "left",
                       fontFamily: "'EB Garamond', Georgia, serif",
-                      fontSize: "1.75rem",
+                      fontSize: "1.25rem",
                       letterSpacing: "0.01em",
                       color: "inherit",
                     }}
@@ -288,19 +283,19 @@ export default function Header() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.2"
-                      style={{ width: "0.875rem", height: "0.875rem", opacity: 0.4, flexShrink: 0, transform: openCategory === cat.label ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+                      style={{ width: "0.75rem", height: "0.75rem", opacity: 0.4, flexShrink: 0, transform: openCategory === cat.label ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
                     >
                       <path d="M6 4l4 4-4 4" />
                     </svg>
                   </button>
 
                   {/* Desktop: always visible heading */}
-                  <span className="hidden lg:block" style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.25rem", padding: "0.5rem 0 0.75rem" }}>
+                  <span className="hidden lg:block" style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", padding: "0.375rem 0 0.625rem", letterSpacing: "0.01em" }}>
                     {cat.label}
                   </span>
 
                   {/* Sub-items */}
-                  <ul style={{ display: "flex", flexDirection: "column", gap: "0.125rem" }}>
+                  <ul style={{ display: "flex", flexDirection: "column" }}>
                     {cat.items.map((item) => (
                       <li
                         key={item.label}
@@ -308,13 +303,13 @@ export default function Header() {
                       >
                         <a
                           href={item.href}
-                          style={{ display: "flex", alignItems: "center", gap: "0.375rem", padding: "0.5rem 0", fontSize: "0.75rem", letterSpacing: "0.04em", color: "inherit", textDecoration: "none", transition: "font-style 0.1s" }}
+                          style={{ display: "flex", alignItems: "center", gap: "0.375rem", padding: "0.3rem 0", fontSize: "0.6875rem", letterSpacing: "0.03em", color: "inherit", textDecoration: "none", transition: "font-style 0.1s" }}
                           onClick={() => setMenuOpen(false)}
                           onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
                           onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
                         >
                           {item.count !== null && (
-                            <span style={{ opacity: 0.45, fontSize: "0.625rem" }}>[{item.count}]</span>
+                            <span style={{ opacity: 0.45, fontSize: "0.5625rem" }}>[{item.count}]</span>
                           )}
                           {item.label}
                         </a>
