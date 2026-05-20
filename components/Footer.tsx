@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { footerLinks } from "@/lib/products";
 
 export default function Footer() {
@@ -81,9 +82,8 @@ export default function Footer() {
         .footer-brand-mobile {
           display: flex;
           justify-content: center;
-          align-items: flex-start;
-          padding: 3rem 0 2rem;
-          overflow: hidden;
+          align-items: center;
+          padding: 5rem 0 4rem;
         }
         .footer-brand-desktop { display: none; }
 
@@ -182,35 +182,26 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Brand text: in-flow on mobile, absolute on desktop ── */}
+      {/* ── Brand: logo rotated vertically (mobile only) ── */}
       <div className="footer-brand-mobile" aria-hidden="true">
-        <span style={{
-          fontFamily: "'EB Garamond', Georgia, serif",
-          fontSize: "clamp(4rem, 20vw, 8rem)",
-          fontWeight: 400,
-          writingMode: "vertical-rl",
-          transform: "rotate(180deg)",
-          lineHeight: 1,
-          whiteSpace: "nowrap",
-          letterSpacing: "0.02em",
-        }}>
-          ALTRIVA STUDIO
-        </span>
-      </div>
-
-      <div className="footer-brand-desktop" aria-hidden="true">
-        <span style={{
-          fontFamily: "'EB Garamond', Georgia, serif",
-          fontSize: "5rem",
-          fontWeight: 400,
-          writingMode: "vertical-rl",
-          transform: "rotate(180deg)",
-          lineHeight: 1,
-          whiteSpace: "nowrap",
-          letterSpacing: "0.02em",
-        }}>
-          ALTRIVA STUDIO
-        </span>
+        {/* Container sized to the POST-rotation dimensions so layout is correct */}
+        <div style={{ position: "relative", width: "22vw", height: "calc(22vw * 4.5625)" }}>
+          <Image
+            src="/images/altriva-logo.png"
+            alt="Altriva Studio"
+            width={730}
+            height={160}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              height: "22vw",
+              width: "auto",
+              maxWidth: "none",
+              transform: "translate(-50%, -50%) rotate(-90deg)",
+            }}
+          />
+        </div>
       </div>
 
       {/* ── Bottom bar ── */}

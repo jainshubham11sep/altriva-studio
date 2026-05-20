@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { footerLinks } from "@/lib/products";
 
@@ -135,18 +136,15 @@ export default function Header() {
             height: "var(--nav-height)",
           }}
         >
-          <a href="/" aria-label="Home" style={{ textDecoration: "none", color: "inherit" }}>
-            <span style={{
-              fontFamily: "'EB Garamond', Georgia, serif",
-              fontSize: "1.125rem",
-              fontWeight: 400,
-              letterSpacing: "0.1em",
-              lineHeight: 1,
-              textTransform: "uppercase",
-              whiteSpace: "nowrap",
-            }}>
-              Altriva Studio
-            </span>
+          <a href="/" aria-label="Home" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+            <Image
+              src="/images/altriva-logo.png"
+              alt="Altriva Studio"
+              width={730}
+              height={160}
+              style={{ height: "18px", width: "auto" }}
+              priority
+            />
           </a>
         </div>
 
@@ -188,20 +186,26 @@ export default function Header() {
 
       {/* ── Right logo panel (desktop only) ── */}
       <div className="logo-panel">
-        <a href="/" aria-label="Home" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", textDecoration: "none", color: "inherit" }}>
-          <span style={{
-            fontFamily: "'EB Garamond', Georgia, serif",
-            fontSize: "clamp(3rem, calc((100svh - 2rem) / 9), 5rem)",
-            fontWeight: 400,
-            letterSpacing: "0.03em",
-            lineHeight: 1,
-            textTransform: "uppercase",
-            writingMode: "vertical-rl",
-            transform: "rotate(180deg)",
-            whiteSpace: "nowrap",
-          }}>
-            Altriva Studio
-          </span>
+        <a
+          href="/"
+          aria-label="Home"
+          style={{ position: "relative", display: "block", width: "100%", height: "100%", textDecoration: "none" }}
+        >
+          <Image
+            src="/images/altriva-logo.png"
+            alt="Altriva Studio"
+            width={730}
+            height={160}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              height: "120px",
+              width: "auto",
+              maxWidth: "none",
+              transform: "translate(-50%, -50%) rotate(-90deg)",
+            }}
+          />
         </a>
       </div>
 
