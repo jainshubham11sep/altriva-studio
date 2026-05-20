@@ -1,11 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
-import { categoryToCollectionSlug } from "@/lib/products";
+import { categoryToCollectionSlug, products as allProducts } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
+
+const STATIC_REVIEWS = [
+  { id: 1, name: "Priya S.",  rating: 5, date: "March 2025",    verified: true,  title: "Absolutely stunning",        text: "The quality is exceptional. Soft yet structured — exactly as described. Runs true to size." },
+  { id: 2, name: "Arjun M.", rating: 4, date: "February 2025", verified: true,  title: "Worth every rupee",          text: "Arrived quickly and the colour is even more vibrant in person. Slightly relaxed fit which I love." },
+  { id: 3, name: "Nisha K.", rating: 5, date: "January 2025",  verified: false, title: "My third Altriva purchase",  text: "The quality never disappoints. Packed beautifully and delivered on time. Will be back." },
+];
+
+function Stars({ rating }: { rating: number }) {
+  return (
+    <span style={{ display: "inline-flex", gap: "0.1rem" }}>
+      {[1,2,3,4,5].map(i => (
+        <svg key={i} viewBox="0 0 12 12" fill={i <= rating ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1" style={{ width: "0.6875rem", height: "0.6875rem" }}>
+          <path d="M6 1l1.2 3.6H11L8.1 7l1.1 3.5L6 8.5 2.8 10.5 3.9 7 1 4.6h3.8z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
 
 const SIZES_APPAREL = ["XS", "S", "M", "L", "XL", "XXL"];
 const SIZES_SHOES = ["36", "37", "38", "39", "40", "41", "42"];
@@ -29,6 +47,19 @@ export default function ProductClient({ product, related }: Props) {
   const [imgIdx, setImgIdx] = useState(0);
   const [added, setAdded] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<string | null>("details");
+  const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+
+  useEffect(() => {
+    const KEY = "altriva_recently_viewed";
+    const stored: string[] = JSON.parse(localStorage.getItem(KEY) || "[]");
+    const updated = [product.slug, ...stored.filter(s => s !== product.slug)].slice(0, 10);
+    localStorage.setItem(KEY, JSON.stringify(updated));
+    const viewed = updated.slice(1)
+      .map(slug => allProducts.find(p => p.slug === slug))
+      .filter(Boolean) as Product[];
+    setRecentlyViewed(viewed.slice(0, 6));
+  }, [product.slug]);
 
   const images = [product.image, ...(product.hoverImage ? [product.hoverImage] : [])];
 
@@ -377,7 +408,7 @@ export default function ProductClient({ product, related }: Props) {
         </button>
       </div>
 
-      {/* Related products */}
+      {/* ── You may also like ── */}
       {related.length > 0 && (
         <div style={{ padding: "3rem var(--page-margin) 0" }}>
           <p style={{ fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.45, marginBottom: "1.5rem" }}>
@@ -390,23 +421,162 @@ export default function ProductClient({ product, related }: Props) {
           `}</style>
           <div className="related-grid">
             {related.map((p) => (
-              <Link
-                key={p.id}
-                href={`/products/${p.slug}`}
-                className="related-item"
-                style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "0.5rem" }}
-              >
+              <Link key={p.id} href={`/products/${p.slug}`} className="related-item" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 <div style={{ position: "relative", aspectRatio: p.aspect === "portrait" ? "4/5" : "1/1", backgroundColor: "#f5f5f3" }}>
                   <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="(max-width: 767px) 50vw, 25vw" />
                 </div>
                 <div>
-                  <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
-                    {p.displayName}
-                  </p>
+                  <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{p.displayName}</p>
                   <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Complete the Look ── */}
+      {related.length >= 3 && (
+        <div style={{ padding: "3.5rem var(--page-margin) 0" }}>
+          <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)", paddingTop: "3rem" }}>
+            <h2 style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.25rem", fontWeight: 400, letterSpacing: "0.01em", marginBottom: "0.375rem" }}>
+              Complete the Look
+            </h2>
+            <p style={{ fontSize: "0.6875rem", opacity: 0.5, marginBottom: "1.75rem", letterSpacing: "0.015em" }}>
+              Worn together in this edit
+            </p>
+            <style>{`
+              .look-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
+              @media (min-width: 768px) { .look-grid { grid-template-columns: repeat(4, 1fr); } }
+            `}</style>
+            <div className="look-grid">
+              {related.slice(0, 4).map((p) => (
+                <div key={p.id} style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                  <Link href={`/products/${p.slug}`} style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+                    <div style={{ position: "relative", aspectRatio: "4/5", backgroundColor: "#f5f5f3", overflow: "hidden" }}>
+                      <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="(max-width: 767px) 33vw, 25vw" />
+                      {p.badge && (
+                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "#fff", padding: "0.2rem 0.4rem", fontSize: "0.5rem", letterSpacing: "0.04em" }}>
+                          [{p.badge}]
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                  <div>
+                    <Link href={`/products/${p.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+                      <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{p.displayName}</p>
+                      <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
+                    </Link>
+                    <button
+                      onClick={() => addItem(p, "O/S")}
+                      style={{ marginTop: "0.5rem", width: "100%", background: "none", border: "1px solid rgba(0,0,0,0.2)", padding: "0.5rem", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", color: "inherit", transition: "border-color 0.15s" }}
+                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "#000")}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "rgba(0,0,0,0.2)")}
+                    >
+                      + Add
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Reviews ── */}
+      <div style={{ padding: "3.5rem var(--page-margin) 0" }}>
+        <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)", paddingTop: "3rem" }}>
+          {/* Header row */}
+          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "2rem" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.875rem" }}>
+              <h2 style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.25rem", fontWeight: 400, letterSpacing: "0.01em" }}>
+                Reviews
+              </h2>
+              <span style={{ fontSize: "0.6875rem", opacity: 0.45 }}>
+                {STATIC_REVIEWS.length} reviews · {(STATIC_REVIEWS.reduce((s, r) => s + r.rating, 0) / STATIC_REVIEWS.length).toFixed(1)} avg
+              </span>
+            </div>
+            <button
+              onClick={() => setShowReviewForm(!showReviewForm)}
+              style={{ background: "none", border: "1px solid rgba(0,0,0,0.25)", padding: "0.5rem 1rem", fontSize: "0.625rem", letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", color: "inherit" }}
+            >
+              Write a Review
+            </button>
+          </div>
+
+          {/* Write a review form */}
+          {showReviewForm && (
+            <div style={{ background: "#f9f9f7", padding: "1.5rem", marginBottom: "2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <p style={{ fontSize: "0.75rem", letterSpacing: "0.01em" }}>Share your experience with this product.</p>
+              <div style={{ display: "flex", gap: "0.375rem" }}>
+                {[1,2,3,4,5].map(i => (
+                  <button key={i} style={{ background: "none", border: "none", cursor: "pointer", padding: "0.125rem", fontSize: "1.125rem", opacity: 0.3 }}>★</button>
+                ))}
+              </div>
+              <input placeholder="Your name" style={{ background: "transparent", border: "none", borderBottom: "1px solid rgba(0,0,0,0.2)", padding: "0.375rem 0", fontSize: "0.75rem", outline: "none", letterSpacing: "0.015em" }} />
+              <textarea placeholder="Your review..." rows={3} style={{ background: "transparent", border: "none", borderBottom: "1px solid rgba(0,0,0,0.2)", padding: "0.375rem 0", fontSize: "0.75rem", outline: "none", resize: "none", letterSpacing: "0.015em", fontFamily: "inherit" }} />
+              <button
+                style={{ alignSelf: "flex-start", background: "#000", color: "#fff", border: "none", padding: "0.75rem 1.5rem", fontSize: "0.625rem", letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" }}
+                onClick={() => setShowReviewForm(false)}
+              >
+                Submit Review
+              </button>
+            </div>
+          )}
+
+          {/* Review list */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {STATIC_REVIEWS.map((r, idx) => (
+              <div
+                key={r.id}
+                style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem", borderBottom: idx < STATIC_REVIEWS.length - 1 ? "1px solid rgba(0,0,0,0.08)" : "none" }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem", flexWrap: "wrap", gap: "0.375rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+                    <Stars rating={r.rating} />
+                    <span style={{ fontSize: "0.6875rem", fontWeight: 500, letterSpacing: "0.02em" }}>{r.title}</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    {r.verified && (
+                      <span style={{ fontSize: "0.5625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.45, background: "rgba(0,0,0,0.05)", padding: "0.15rem 0.4rem" }}>
+                        Verified
+                      </span>
+                    )}
+                    <span style={{ fontSize: "0.5625rem", opacity: 0.4, letterSpacing: "0.02em" }}>{r.date}</span>
+                  </div>
+                </div>
+                <p style={{ fontSize: "0.75rem", letterSpacing: "0.015em", lineHeight: 1.65, opacity: 0.75, marginBottom: "0.375rem" }}>{r.text}</p>
+                <p style={{ fontSize: "0.5625rem", opacity: 0.4, letterSpacing: "0.04em" }}>{r.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Recently Viewed ── */}
+      {recentlyViewed.length > 0 && (
+        <div style={{ padding: "3.5rem var(--page-margin) 3rem" }}>
+          <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)", paddingTop: "3rem" }}>
+            <p style={{ fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.45, marginBottom: "1.5rem" }}>
+              Recently Viewed
+            </p>
+            <style>{`
+              .rv-scroll { display: flex; gap: 0.375rem; overflow-x: auto; scrollbar-width: none; }
+              .rv-scroll::-webkit-scrollbar { display: none; }
+              .rv-item { flex-shrink: 0; width: calc(40vw - 1rem); }
+              @media (min-width: 768px) { .rv-item { width: calc(20% - 0.3rem); } }
+            `}</style>
+            <div className="rv-scroll">
+              {recentlyViewed.map((p) => (
+                <Link key={p.id} href={`/products/${p.slug}`} className="rv-item" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <div style={{ position: "relative", aspectRatio: p.aspect === "portrait" ? "4/5" : "1/1", backgroundColor: "#f5f5f3" }}>
+                    <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="40vw" />
+                  </div>
+                  <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{p.displayName}</p>
+                  <p style={{ fontSize: "0.6875rem", opacity: 0.55 }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
