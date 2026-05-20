@@ -206,162 +206,186 @@ export default function Header() {
 
       {/* ── Menu overlay ── */}
       {menuOpen && (
-        <div className="menu-overlay" style={{ display: "flex", flexDirection: "column" }}>
+        <div className="menu-overlay" style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <style>{`
+            /* ── Menu layout ── */
+            .mo-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+            .mo-main { display: flex; flex-direction: column; flex: 1; }
+            .mo-cats-col { padding: 1.25rem var(--page-margin) 0; }
+            .mo-right { display: none; }
+            .mo-footer { border-top: 1px solid rgba(0,0,0,0.12); padding: 1.5rem var(--page-margin) 2rem; margin-top: auto; }
+            .mo-footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
+            .mo-newsletter { display: none; }
+            .mo-brand { display: none; }
 
-          {/* Top bar — exact same height as site-header, same horizontal padding */}
-          <div
-            style={{
-              height: "var(--nav-height)",
-              minHeight: "var(--nav-height)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0 var(--page-margin)",
-              flexShrink: 0,
-            }}
-          >
-            {/* Desktop: "Close" text on left */}
-            <button onClick={() => setMenuOpen(false)} className="nav-link hidden lg:block" aria-label="Close menu">
-              Close
-            </button>
-            {/* Mobile: empty spacer pushes X to right */}
-            <span className="lg:hidden" style={{ flex: 1 }} />
-            {/* Mobile: X icon on right */}
+            @media (min-width: 1024px) {
+              .mo-body { flex-direction: row; overflow: hidden; }
+              .mo-main { flex-direction: row; flex: 1; overflow: hidden; }
+              .mo-cats-col { width: 220px; flex-shrink: 0; padding: 2rem 0 0 var(--page-margin); overflow-y: auto; display: flex; flex-direction: column; }
+              .mo-right { display: flex; flex: 1; padding: 2rem 0 0 3rem; overflow-y: auto; }
+              .mo-footer { padding: 1.5rem var(--page-margin); margin-top: 0; flex-shrink: 0; }
+              .mo-footer-grid { grid-template-columns: 1fr 1fr 1.5fr; gap: 1.5rem 3rem; }
+              .mo-newsletter { display: block; }
+              .mo-brand { position: absolute; top: 0; right: 0; bottom: 0; width: 80px; display: flex; align-items: center; justify-content: center; pointer-events: none; overflow: hidden; }
+            }
+          `}</style>
+
+          {/* ── Top bar: bordered close + currency ── */}
+          <div style={{ height: "var(--nav-height)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 var(--page-margin)", flexShrink: 0 }}>
             <button
               onClick={() => setMenuOpen(false)}
-              className="lg:hidden"
-              style={{ background: "none", border: "none", cursor: "pointer", padding: "0.375rem", lineHeight: 1, display: "flex", alignItems: "center" }}
+              style={{ border: "1px solid rgba(0,0,0,0.5)", background: "none", cursor: "pointer", color: "inherit", padding: "0.25rem 0.5rem", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}
               aria-label="Close menu"
             >
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "1.125rem", height: "1.125rem" }} aria-hidden="true">
-                <path d="M3 3l14 14M17 3L3 17" />
+              {/* Mobile: X icon */}
+              <svg className="lg:hidden" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "0.8125rem", height: "0.8125rem", display: "block" }} aria-hidden="true">
+                <path d="M1 1l12 12M13 1L1 13" />
               </svg>
+              {/* Desktop: CLOSE text */}
+              <span className="hidden lg:inline" style={{ fontSize: "0.5625rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Close</span>
             </button>
+            <span className="hidden lg:block" style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.6 }}>IN / ₹</span>
           </div>
 
-          {/* Scrollable content — uses page-margin for all horizontal padding */}
-          <div
-            style={{
-              flex: 1,
-              overflowY: "auto",
-              display: "flex",
-              flexDirection: "column",
-              padding: "0 var(--page-margin)",
-            }}
-          >
-            {/* Search */}
-            <div style={{ paddingTop: "0.875rem", paddingBottom: "0.875rem", borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
-              <form
-                onSubmit={handleMenuSearch}
-                style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.35)", paddingBottom: "0.375rem" }}
-              >
-                <input
-                  type="search"
-                  placeholder="Search"
-                  value={menuSearch}
-                  onChange={(e) => setMenuSearch(e.target.value)}
-                  style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.8125rem", letterSpacing: "0.02em", color: "inherit" }}
-                />
-                <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 1, display: "flex" }}>
-                  <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "0.8125rem", height: "0.8125rem", opacity: 0.5 }} aria-hidden="true">
-                    <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              </form>
-            </div>
+          {/* ── Scrollable body ── */}
+          <div className="mo-body">
+            <div className="mo-main">
 
-            {/* Categories */}
-            <div className="lg:grid lg:grid-cols-4" style={{ paddingTop: "0.5rem", columnGap: "3rem" } as React.CSSProperties}>
-              {menuCategories.map((cat) => (
-                <div key={cat.label}>
-
-                  {/* Mobile accordion row */}
-                  <button
-                    className="lg:hidden flex items-center justify-between w-full text-left"
-                    style={{
-                      padding: "0.75rem 0",
-                      borderBottom: "1px solid rgba(0,0,0,0.1)",
-                      background: "none",
-                      border: "none",
-                      borderBottomStyle: "solid",
-                      borderBottomWidth: "1px",
-                      borderBottomColor: "rgba(0,0,0,0.1)",
-                      cursor: "pointer",
-                      fontFamily: "'EB Garamond', Georgia, serif",
-                      fontSize: "1rem",
-                      letterSpacing: "0.005em",
-                      color: "inherit",
-                    }}
-                    onClick={() => toggleCategory(cat.label)}
-                    aria-expanded={openCategory === cat.label}
-                  >
-                    <span>{cat.label}</span>
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "0.6875rem", height: "0.6875rem", opacity: 0.45, flexShrink: 0, transform: openCategory === cat.label ? "rotate(90deg)" : "none", transition: "transform 0.2s" }}>
-                      <path d="M6 4l4 4-4 4" />
+              {/* Left column: search + categories */}
+              <div className="mo-cats-col">
+                {/* Search */}
+                <form
+                  onSubmit={handleMenuSearch}
+                  style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.35)", paddingBottom: "0.375rem", marginBottom: "1.75rem" }}
+                >
+                  <input
+                    type="search"
+                    placeholder="Search"
+                    value={menuSearch}
+                    onChange={(e) => setMenuSearch(e.target.value)}
+                    style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.8125rem", letterSpacing: "0.02em", color: "inherit" }}
+                  />
+                  <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex" }}>
+                    <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "0.8125rem", height: "0.8125rem", opacity: 0.45 }} aria-hidden="true">
+                      <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
                     </svg>
                   </button>
+                </form>
 
-                  {/* Desktop column heading — Tailwind hidden/block avoids inline-style override issue */}
-                  <span
-                    className="hidden lg:block"
-                    style={{ fontSize: "0.6875rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.55, paddingBottom: "0.625rem", paddingTop: "0.75rem" }}
-                  >
-                    {cat.label}
-                  </span>
-
-                  {/* Sub-links */}
-                  <ul>
-                    {cat.items.map((item) => (
-                      <li key={item.label} className={openCategory === cat.label ? "flex" : "hidden lg:flex"}>
-                        <a
-                          href={item.href}
-                          style={{ display: "flex", alignItems: "center", gap: "0.3rem", padding: "0.375rem 0", fontSize: "0.6875rem", letterSpacing: "0.02em", color: "inherit", textDecoration: "none" }}
-                          onClick={() => setMenuOpen(false)}
-                          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
-                          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
-                        >
-                          {item.count !== null && <span style={{ opacity: 0.4, fontSize: "0.5625rem" }}>[{item.count}]</span>}
-                          {item.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            {/* Bottom footer links */}
-            <div
-              style={{
-                marginTop: "auto",
-                paddingTop: "1.25rem",
-                paddingBottom: "1.5rem",
-                borderTop: "1px solid rgba(0,0,0,0.12)",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "1.5rem",
-              }}
-            >
-              {Object.entries(footerLinks).map(([heading, items]) => (
-                <div key={heading} style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: "0.5625rem", letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.4, marginBottom: "0.5rem", display: "block" }}>
-                    {heading}
-                  </span>
-                  {items.slice(0, 4).map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", color: "inherit", textDecoration: "none", padding: "0.1875rem 0" }}
-                      onClick={() => setMenuOpen(false)}
-                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
-                    >
-                      {item.label}
-                    </a>
+                {/* Category names */}
+                <ul style={{ listStyle: "none" }}>
+                  {menuCategories.map((cat) => (
+                    <li key={cat.label}>
+                      <button
+                        onClick={() => setOpenCategory(openCategory === cat.label ? null : cat.label)}
+                        style={{
+                          background: "none", border: "none", cursor: "pointer",
+                          fontFamily: "'EB Garamond', Georgia, serif",
+                          fontSize: "1.25rem", letterSpacing: "0.005em", color: "inherit",
+                          padding: "0.4rem 0", textAlign: "left", display: "block", width: "100%", lineHeight: 1.3,
+                          textDecoration: openCategory === cat.label ? "underline" : "none",
+                          textUnderlineOffset: "3px", textDecorationThickness: "1px",
+                        }}
+                      >
+                        {cat.label}
+                      </button>
+                      {/* Mobile: inline sub-items — no chevron, just indented */}
+                      {openCategory === cat.label && (
+                        <ul className="lg:hidden" style={{ listStyle: "none", paddingBottom: "0.25rem" }}>
+                          {cat.items.map((item) => (
+                            <li key={item.label}>
+                              <a
+                                href={item.href}
+                                style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3125rem 0 0.3125rem 0.75rem", fontSize: "0.5625rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
+                                onClick={() => setMenuOpen(false)}
+                              >
+                                {item.count !== null && <span style={{ opacity: 0.4, minWidth: "3rem", fontVariantNumeric: "tabular-nums" }}>[ {item.count} ]</span>}
+                                {item.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
                   ))}
+                </ul>
+
+                {/* Mobile footer (lives inside left col so it scrolls naturally) */}
+                <div className="mo-footer lg:hidden" style={{ paddingLeft: 0, paddingRight: 0 }}>
+                  <div className="mo-footer-grid">
+                    {Object.entries(footerLinks).map(([heading, items]) => (
+                      <div key={heading}>
+                        <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", marginBottom: "0.75rem" }}>{heading}</span>
+                        {items.map((item) => (
+                          <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.25rem 0" }} onClick={() => setMenuOpen(false)}>
+                            {item.label}
+                          </a>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Right panel: active category sub-items (desktop only) */}
+              <div className="mo-right">
+                {(() => {
+                  const active = menuCategories.find(c => c.label === (openCategory ?? menuCategories[0].label));
+                  return active ? (
+                    <ul style={{ listStyle: "none" }}>
+                      {active.items.map((item) => (
+                        <li key={item.label}>
+                          <a
+                            href={item.href}
+                            style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "0.5rem 0", fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
+                            onClick={() => setMenuOpen(false)}
+                            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
+                            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
+                          >
+                            {item.count !== null && (
+                              <span style={{ opacity: 0.35, minWidth: "4rem", fontSize: "0.5625rem", fontVariantNumeric: "tabular-nums" }}>[ {item.count} ]</span>
+                            )}
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null;
+                })()}
+              </div>
             </div>
+
+            {/* Desktop footer: About | Assistance | Newsletter */}
+            <div className="mo-footer hidden lg:block">
+              <div className="mo-footer-grid">
+                {Object.entries(footerLinks).map(([heading, items]) => (
+                  <div key={heading}>
+                    <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", marginBottom: "0.75rem" }}>{heading}</span>
+                    {items.map((item) => (
+                      <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.25rem 0" }} onClick={() => setMenuOpen(false)}>
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                ))}
+                {/* Newsletter */}
+                <div className="mo-newsletter">
+                  <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", lineHeight: 1.45, marginBottom: "1.25rem" }}>
+                    Newsletters that smell nice.<br />Subscribe.
+                  </p>
+                  <div style={{ borderBottom: "1px solid rgba(0,0,0,0.3)", paddingBottom: "0.4rem" }}>
+                    <input placeholder="Your email" type="email" style={{ background: "transparent", border: "none", outline: "none", fontSize: "0.6875rem", letterSpacing: "0.015em", color: "inherit", width: "100%" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Decorative vertical brand text (desktop only, absolutely positioned) */}
+          <div className="mo-brand" aria-hidden="true">
+            <span style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "5rem", fontWeight: 400, writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", lineHeight: 0.9, whiteSpace: "nowrap", letterSpacing: "0.02em" }}>
+              ALTRIVA STUDIO
+            </span>
           </div>
         </div>
       )}
