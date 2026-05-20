@@ -206,62 +206,80 @@ export default function Header() {
 
       {/* ── Menu overlay ── */}
       {menuOpen && (
-        <div className="menu-overlay">
-          {/* Header row */}
-          <div className="flex min-h-11 w-full items-center justify-between pr-4 pt-2 pl-4 lg:pl-6 lg:pr-6">
-            {/* Desktop: "Close" text */}
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="nav-link hidden lg:block"
-              aria-label="Close menu"
-            >
+        <div className="menu-overlay" style={{ display: "flex", flexDirection: "column" }}>
+
+          {/* Top bar — exact same height as site-header, same horizontal padding */}
+          <div
+            style={{
+              height: "var(--nav-height)",
+              minHeight: "var(--nav-height)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0 var(--page-margin)",
+              flexShrink: 0,
+            }}
+          >
+            {/* Desktop: "Close" text on left */}
+            <button onClick={() => setMenuOpen(false)} className="nav-link hidden lg:block" aria-label="Close menu">
               Close
             </button>
-
-            {/* Mobile: spacer so X goes right */}
-            <span className="lg:hidden" />
-
-            {/* Mobile: X icon */}
+            {/* Mobile: empty spacer pushes X to right */}
+            <span className="lg:hidden" style={{ flex: 1 }} />
+            {/* Mobile: X icon on right */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="lg:hidden flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity"
+              className="lg:hidden"
+              style={{ background: "none", border: "none", cursor: "pointer", padding: "0.375rem", lineHeight: 1, display: "flex", alignItems: "center" }}
               aria-label="Close menu"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="w-6 h-6" aria-hidden="true">
-                <path fillRule="evenodd" clipRule="evenodd" d="M11.2929 12L5.14642 5.85359L5.85353 5.14648L12 11.2929L18.1464 5.14648L18.8535 5.85359L12.7071 12L18.8535 18.1465L18.1464 18.8536L12 12.7071L5.85353 18.8536L5.14642 18.1465L11.2929 12Z" fill="currentColor" />
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "1.125rem", height: "1.125rem" }} aria-hidden="true">
+                <path d="M3 3l14 14M17 3L3 17" />
               </svg>
             </button>
           </div>
 
-          {/* Nav content */}
-          <div className="flex h-full flex-col overflow-y-auto px-4 lg:px-6">
-            {/* Search bar */}
-            <div style={{ padding: "1rem 0 1.25rem", borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
-              <form onSubmit={handleMenuSearch} style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(0,0,0,0.4)", paddingBottom: "0.3rem" }}>
+          {/* Scrollable content — uses page-margin for all horizontal padding */}
+          <div
+            style={{
+              flex: 1,
+              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
+              padding: "0 var(--page-margin)",
+            }}
+          >
+            {/* Search */}
+            <div style={{ paddingTop: "0.875rem", paddingBottom: "0.875rem", borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
+              <form
+                onSubmit={handleMenuSearch}
+                style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.35)", paddingBottom: "0.375rem" }}
+              >
                 <input
                   type="search"
                   placeholder="Search"
                   value={menuSearch}
                   onChange={(e) => setMenuSearch(e.target.value)}
-                  style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.875rem", letterSpacing: "0.02em", color: "inherit" }}
+                  style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.8125rem", letterSpacing: "0.02em", color: "inherit" }}
                 />
-                <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 1 }}>
-                  <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "0.875rem", height: "0.875rem", opacity: 0.5 }} aria-hidden="true">
+                <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", padding: 0, lineHeight: 1, display: "flex" }}>
+                  <svg viewBox="0 0 16 16" fill="currentColor" style={{ width: "0.8125rem", height: "0.8125rem", opacity: 0.5 }} aria-hidden="true">
                     <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
                   </svg>
                 </button>
               </form>
             </div>
 
-            {/* Categories — accordion on mobile, grid on desktop */}
-            <div className="lg:grid lg:grid-cols-4 lg:gap-x-8" style={{ padding: "0.75rem 0" }}>
+            {/* Categories */}
+            <div className="lg:grid lg:grid-cols-4" style={{ paddingTop: "0.5rem", columnGap: "3rem" } as React.CSSProperties}>
               {menuCategories.map((cat) => (
-                <div key={cat.label} style={{ display: "flex", flexDirection: "column" }}>
-                  {/* Mobile: accordion toggle — use Tailwind flex classes, NOT inline display to avoid overriding lg:hidden */}
+                <div key={cat.label}>
+
+                  {/* Mobile accordion row */}
                   <button
                     className="lg:hidden flex items-center justify-between w-full text-left"
                     style={{
-                      padding: "0.625rem 0",
+                      padding: "0.75rem 0",
                       borderBottom: "1px solid rgba(0,0,0,0.1)",
                       background: "none",
                       border: "none",
@@ -270,47 +288,39 @@ export default function Header() {
                       borderBottomColor: "rgba(0,0,0,0.1)",
                       cursor: "pointer",
                       fontFamily: "'EB Garamond', Georgia, serif",
-                      fontSize: "1.25rem",
-                      letterSpacing: "0.01em",
+                      fontSize: "1rem",
+                      letterSpacing: "0.005em",
                       color: "inherit",
                     }}
                     onClick={() => toggleCategory(cat.label)}
                     aria-expanded={openCategory === cat.label}
                   >
                     <span>{cat.label}</span>
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                      style={{ width: "0.75rem", height: "0.75rem", opacity: 0.4, flexShrink: 0, transform: openCategory === cat.label ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
-                    >
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "0.6875rem", height: "0.6875rem", opacity: 0.45, flexShrink: 0, transform: openCategory === cat.label ? "rotate(90deg)" : "none", transition: "transform 0.2s" }}>
                       <path d="M6 4l4 4-4 4" />
                     </svg>
                   </button>
 
-                  {/* Desktop: always visible heading */}
-                  <span className="hidden lg:block" style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", padding: "0.375rem 0 0.625rem", letterSpacing: "0.01em" }}>
+                  {/* Desktop column heading — Tailwind hidden/block avoids inline-style override issue */}
+                  <span
+                    className="hidden lg:block"
+                    style={{ fontSize: "0.6875rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.55, paddingBottom: "0.625rem", paddingTop: "0.75rem" }}
+                  >
                     {cat.label}
                   </span>
 
-                  {/* Sub-items */}
-                  <ul style={{ display: "flex", flexDirection: "column" }}>
+                  {/* Sub-links */}
+                  <ul>
                     {cat.items.map((item) => (
-                      <li
-                        key={item.label}
-                        className={openCategory === cat.label ? "flex" : "hidden lg:flex"}
-                      >
+                      <li key={item.label} className={openCategory === cat.label ? "flex" : "hidden lg:flex"}>
                         <a
                           href={item.href}
-                          style={{ display: "flex", alignItems: "center", gap: "0.375rem", padding: "0.3rem 0", fontSize: "0.6875rem", letterSpacing: "0.03em", color: "inherit", textDecoration: "none", transition: "font-style 0.1s" }}
+                          style={{ display: "flex", alignItems: "center", gap: "0.3rem", padding: "0.375rem 0", fontSize: "0.6875rem", letterSpacing: "0.02em", color: "inherit", textDecoration: "none" }}
                           onClick={() => setMenuOpen(false)}
                           onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
                           onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
                         >
-                          {item.count !== null && (
-                            <span style={{ opacity: 0.45, fontSize: "0.5625rem" }}>[{item.count}]</span>
-                          )}
+                          {item.count !== null && <span style={{ opacity: 0.4, fontSize: "0.5625rem" }}>[{item.count}]</span>}
                           {item.label}
                         </a>
                       </li>
@@ -320,19 +330,28 @@ export default function Header() {
               ))}
             </div>
 
-            {/* Footer links in menu */}
+            {/* Bottom footer links */}
             <div
-              className="mt-auto"
-              style={{ paddingTop: "1.5rem", paddingBottom: "2rem", borderTop: "1px solid rgba(0,0,0,0.15)", display: "flex", flexWrap: "wrap", gap: "2rem" }}
+              style={{
+                marginTop: "auto",
+                paddingTop: "1.25rem",
+                paddingBottom: "1.5rem",
+                borderTop: "1px solid rgba(0,0,0,0.12)",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1.5rem",
+              }}
             >
               {Object.entries(footerLinks).map(([heading, items]) => (
-                <div key={heading} style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                  <span style={{ fontSize: "0.5625rem", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.4, marginBottom: "0.5rem", display: "block" }}>{heading}</span>
+                <div key={heading} style={{ display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontSize: "0.5625rem", letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.4, marginBottom: "0.5rem", display: "block" }}>
+                    {heading}
+                  </span>
                   {items.slice(0, 4).map((item) => (
                     <a
                       key={item.label}
                       href={item.href}
-                      style={{ fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.25rem 0", transition: "font-style 0.1s" }}
+                      style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", color: "inherit", textDecoration: "none", padding: "0.1875rem 0" }}
                       onClick={() => setMenuOpen(false)}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
