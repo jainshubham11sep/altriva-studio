@@ -10,37 +10,39 @@ interface Props {
   index: number;
 }
 
+const BADGE_COLORS: Record<string, string> = {
+  "New":        "#000",
+  "Coming soon":"#000",
+  "Exclusive":  "#000",
+  "Sold out":   "#000",
+};
+
 export default function ProductCard({ product, index }: Props) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="product-card flex flex-col gap-2"
-      style={{ animationDelay: `${index * 0.04}s`, textDecoration: "none", color: "inherit" }}
+      className="product-card flex flex-col"
+      style={{ animationDelay: `${index * 0.04}s`, textDecoration: "none", color: "inherit", gap: "0.5rem" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image */}
+      {/* Image container */}
       <div
         className="relative overflow-hidden"
         style={{
-          backgroundColor: "#f5f5f3",
+          backgroundColor: "#f5f4f2",
           aspectRatio: product.aspect === "portrait" ? "4/5" : "1/1",
         }}
       >
-        <div
-          className="absolute inset-0 z-10 pointer-events-none transition-colors duration-150"
-          style={{ background: hovered ? "rgba(255,255,255,0.06)" : "transparent" }}
-        />
-
         <Image
           src={product.image}
           alt={product.displayName}
           fill
           className="object-cover transition-opacity duration-500"
           style={{ opacity: hovered && product.hoverImage ? 0 : 1 }}
-          sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
           loading={index < 8 ? "eager" : "lazy"}
         />
         {product.hoverImage && (
@@ -50,32 +52,43 @@ export default function ProductCard({ product, index }: Props) {
             fill
             className="object-cover transition-opacity duration-500"
             style={{ opacity: hovered ? 1 : 0 }}
-            sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
             loading="lazy"
           />
         )}
 
+        {/* Badge — JWA-style: top-left corner, minimal */}
         {product.badge && (
           <span
-            className="absolute top-2 left-2 z-20 bg-white px-2 py-0.5"
-            style={{ fontSize: "0.625rem", letterSpacing: "0.04em" }}
+            style={{
+              position: "absolute",
+              top: "0.5rem",
+              left: "0.5rem",
+              zIndex: 20,
+              background: BADGE_COLORS[product.badge] ?? "#000",
+              color: "#fff",
+              fontSize: "0.5rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              padding: "0.2rem 0.375rem",
+              lineHeight: 1.4,
+              pointerEvents: "none",
+            }}
           >
-            [{product.badge}]
+            {product.badge}
           </span>
         )}
       </div>
 
-      {/* Info */}
-      <div className="flex flex-col gap-0.5">
+      {/* Info area */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", paddingBottom: "0.125rem" }}>
         <h2 className="product-name">{product.displayName}</h2>
-        <div className="flex items-center gap-2 text-caption">
-          <span style={{ fontSize: "0.6875rem" }}>
-            Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}
-          </span>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", letterSpacing: "0.01em" }}>
+          <span>Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}</span>
           {product.colors && product.colors > 1 && (
             <>
-              <span style={{ opacity: 0.3 }}>·</span>
-              <span style={{ fontStyle: "italic", opacity: 0.6, fontSize: "0.6875rem" }}>
+              <span style={{ opacity: 0.25 }}>·</span>
+              <span style={{ fontStyle: "italic", opacity: 0.55 }}>
                 {product.colors} colours
               </span>
             </>

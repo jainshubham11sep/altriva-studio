@@ -33,7 +33,7 @@ export default function Footer() {
           .footer-grid {
             grid-template-columns: 1fr 1fr 1.6fr;
             grid-template-areas: "about assistance newsletter";
-            padding-right: calc(var(--page-margin) + 140px);
+            padding-right: calc(var(--page-margin) + var(--logo-panel-width));
           }
         }
         .footer-about      { grid-area: about; }
@@ -87,20 +87,8 @@ export default function Footer() {
         }
         .footer-brand-desktop { display: none; }
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
           .footer-brand-mobile { display: none; }
-          .footer-brand-desktop {
-            display: flex;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 140px;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            overflow: hidden;
-          }
         }
       `}</style>
 

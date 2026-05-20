@@ -21,17 +21,14 @@ export default async function CollectionPage({
       <CategoryTabs />
       <div
         style={{
-          padding: "1rem var(--page-margin) 0.5rem",
-          fontSize: "0.6875rem",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
+          padding: "1.25rem var(--page-margin) 0.75rem",
           display: "flex",
           alignItems: "baseline",
           gap: "0.5rem",
         }}
       >
-        <span>{title}</span>
-        <span style={{ opacity: 0.45 }}>[{items.length}]</span>
+        <span style={{ fontSize: "0.5625rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>{title}</span>
+        <span style={{ fontSize: "0.5625rem", letterSpacing: "0.06em", opacity: 0.4 }}>[ {items.length} ]</span>
       </div>
       <ProductGrid items={items} />
       <MoreFeatured />

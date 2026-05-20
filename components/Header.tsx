@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 import { footerLinks } from "@/lib/products";
@@ -136,15 +135,18 @@ export default function Header() {
             height: "var(--nav-height)",
           }}
         >
-          <a href="/" aria-label="Home">
-            <Image
-              src="/images/logo.png"
-              alt="Altriva Studio"
-              width={73}
-              height={12}
-              style={{ height: "18px", width: "auto", display: "block", imageRendering: "crisp-edges" }}
-              priority
-            />
+          <a href="/" aria-label="Home" style={{ textDecoration: "none", color: "inherit" }}>
+            <span style={{
+              fontFamily: "'EB Garamond', Georgia, serif",
+              fontSize: "1.125rem",
+              fontWeight: 400,
+              letterSpacing: "0.1em",
+              lineHeight: 1,
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+            }}>
+              Altriva Studio
+            </span>
           </a>
         </div>
 
@@ -186,21 +188,20 @@ export default function Header() {
 
       {/* ── Right logo panel (desktop only) ── */}
       <div className="logo-panel">
-        <a href="/" aria-label="Home" className="flex items-center justify-center h-full">
-          <Image
-            src="/images/logo.png"
-            alt="Altriva Studio"
-            width={73}
-            height={12}
-            style={{
-              height: "60px",
-              width: "auto",
-              transform: "rotate(90deg)",
-              display: "block",
-              imageRendering: "crisp-edges",
-            }}
-            priority
-          />
+        <a href="/" aria-label="Home" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", textDecoration: "none", color: "inherit" }}>
+          <span style={{
+            fontFamily: "'EB Garamond', Georgia, serif",
+            fontSize: "5rem",
+            fontWeight: 400,
+            letterSpacing: "0.05em",
+            lineHeight: 0.9,
+            textTransform: "uppercase",
+            writingMode: "vertical-rl",
+            transform: "rotate(180deg)",
+            whiteSpace: "nowrap",
+          }}>
+            Altriva Studio
+          </span>
         </a>
       </div>
 

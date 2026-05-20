@@ -18,16 +18,17 @@ export default function ProductGrid({ items }: Props) {
       <style>{`
         .product-flex-grid {
           column-gap: 0.375rem;
-          row-gap: 3rem;
+          row-gap: 2.5rem;
         }
+        /* Desktop: 4-column grid (all card types same width like JWA) */
         @media (min-width: 1024px) {
-          .card-portrait { width: calc(26.23% - 0.375rem * 2 / 3); }
-          .card-square   { width: calc(32.79% - 0.375rem * 2 / 3); }
+          .card-portrait, .card-square { width: calc(25% - 0.28125rem); }
         }
+        /* Tablet: 3-column grid */
         @media (min-width: 768px) and (max-width: 1023px) {
-          .card-portrait { width: calc(26.23% - 0.375rem * 2 / 3); }
-          .card-square   { width: calc(32.79% - 0.375rem * 2 / 3); }
+          .card-portrait, .card-square { width: calc(33.333% - 0.25rem); }
         }
+        /* Mobile: 2-column grid, edge-to-edge */
         @media (max-width: 767px) {
           .product-section-mobile {
             padding-left: 0;

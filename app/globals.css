@@ -21,7 +21,7 @@
   :root {
     --nav-height: 2.75rem; /* 44px desktop */
     --page-margin: 1.5rem;
-    --logo-panel-width: 72px;
+    --logo-panel-width: 140px;
   }
 }
 
@@ -118,13 +118,14 @@ body {
 .sub-nav::-webkit-scrollbar { display: none; }
 
 .sub-nav a {
-  font-size: 0.75rem;
-  letter-spacing: 0.015em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
   white-space: nowrap;
   color: #000;
   text-decoration: none;
   transition: font-style 0.1s;
   flex-shrink: 0;
+  text-transform: uppercase;
 }
 
 .sub-nav a:hover {
@@ -142,7 +143,8 @@ body {
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 0.25rem;
+  padding: 0;
+  background: #fff;
 }
 
 @media (min-width: 1024px) {
@@ -167,7 +169,7 @@ body {
 
 /* Nav link style */
 .nav-link {
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
@@ -183,12 +185,11 @@ body {
 /* Product card hover italic */
 .product-name {
   font-size: 0.6875rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  text-transform: capitalize;
   transition: font-style 0.1s;
 }
 
