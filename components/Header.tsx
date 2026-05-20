@@ -191,10 +191,10 @@ export default function Header() {
         <a href="/" aria-label="Home" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", textDecoration: "none", color: "inherit" }}>
           <span style={{
             fontFamily: "'EB Garamond', Georgia, serif",
-            fontSize: "5rem",
+            fontSize: "clamp(3rem, calc((100svh - 2rem) / 9), 5rem)",
             fontWeight: 400,
-            letterSpacing: "0.05em",
-            lineHeight: 0.9,
+            letterSpacing: "0.03em",
+            lineHeight: 1,
             textTransform: "uppercase",
             writingMode: "vertical-rl",
             transform: "rotate(180deg)",
