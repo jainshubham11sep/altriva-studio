@@ -211,20 +211,20 @@ export default function Header() {
             /* ── Menu layout ── */
             .mo-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
             .mo-main { display: flex; flex-direction: column; flex: 1; }
-            .mo-cats-col { padding: 1.25rem var(--page-margin) 0; }
+            .mo-cats-col { padding: 1.5rem var(--page-margin) 0; }
             .mo-right { display: none; }
-            .mo-footer { border-top: 1px solid rgba(0,0,0,0.12); padding: 1.5rem var(--page-margin) 2rem; margin-top: auto; }
-            .mo-footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
+            .mo-footer { border-top: 1px solid rgba(0,0,0,0.12); padding: 1.75rem var(--page-margin) 2.5rem; margin-top: auto; }
+            .mo-footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 2.5rem; }
             .mo-newsletter { display: none; }
             .mo-brand { display: none; }
 
             @media (min-width: 1024px) {
               .mo-body { flex-direction: row; overflow: hidden; }
               .mo-main { flex-direction: row; flex: 1; overflow: hidden; }
-              .mo-cats-col { width: 220px; flex-shrink: 0; padding: 2rem 0 0 var(--page-margin); overflow-y: auto; display: flex; flex-direction: column; }
-              .mo-right { display: flex; flex: 1; padding: 2rem 0 0 3rem; overflow-y: auto; }
-              .mo-footer { padding: 1.5rem var(--page-margin); margin-top: 0; flex-shrink: 0; }
-              .mo-footer-grid { grid-template-columns: 1fr 1fr 1.5fr; gap: 1.5rem 3rem; }
+              .mo-cats-col { width: 250px; flex-shrink: 0; padding: 2.5rem 0 0 var(--page-margin); overflow-y: auto; display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.1); }
+              .mo-right { display: flex; flex: 1; padding: 2.5rem 0 0 3rem; overflow-y: auto; }
+              .mo-footer { border-top: none; padding: 2.5rem 5.5rem 2.5rem 3rem; margin-top: 0; flex-shrink: 0; }
+              .mo-footer-grid { grid-template-columns: 1fr 1fr 1.5fr; gap: 2rem 2.5rem; }
               .mo-newsletter { display: block; }
               .mo-brand { position: absolute; top: 0; right: 0; bottom: 0; width: 80px; display: flex; align-items: center; justify-content: center; pointer-events: none; overflow: hidden; }
             }
@@ -256,7 +256,7 @@ export default function Header() {
                 {/* Search */}
                 <form
                   onSubmit={handleMenuSearch}
-                  style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.35)", paddingBottom: "0.375rem", marginBottom: "1.75rem" }}
+                  style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.35)", paddingBottom: "0.4rem", marginBottom: "2.25rem" }}
                 >
                   <input
                     type="search"
@@ -281,8 +281,8 @@ export default function Header() {
                         style={{
                           background: "none", border: "none", cursor: "pointer",
                           fontFamily: "'EB Garamond', Georgia, serif",
-                          fontSize: "1.25rem", letterSpacing: "0.005em", color: "inherit",
-                          padding: "0.4rem 0", textAlign: "left", display: "block", width: "100%", lineHeight: 1.3,
+                          fontSize: "1.625rem", letterSpacing: "0.005em", color: "inherit",
+                          padding: "0.625rem 0", textAlign: "left", display: "block", width: "100%", lineHeight: 1.25,
                           textDecoration: openCategory === cat.label ? "underline" : "none",
                           textUnderlineOffset: "3px", textDecorationThickness: "1px",
                         }}
@@ -296,10 +296,10 @@ export default function Header() {
                             <li key={item.label}>
                               <a
                                 href={item.href}
-                                style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3125rem 0 0.3125rem 0.75rem", fontSize: "0.5625rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
+                                style={{ display: "flex", alignItems: "center", gap: "0.875rem", padding: "0.4rem 0 0.4rem 0.875rem", fontSize: "0.625rem", letterSpacing: "0.09em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
                                 onClick={() => setMenuOpen(false)}
                               >
-                                {item.count !== null && <span style={{ opacity: 0.4, minWidth: "3rem", fontVariantNumeric: "tabular-nums" }}>[ {item.count} ]</span>}
+                                {item.count !== null && <span style={{ opacity: 0.4, minWidth: "3.5rem", fontVariantNumeric: "tabular-nums" }}>[ {item.count} ]</span>}
                                 {item.label}
                               </a>
                             </li>
@@ -315,9 +315,9 @@ export default function Header() {
                   <div className="mo-footer-grid">
                     {Object.entries(footerLinks).map(([heading, items]) => (
                       <div key={heading}>
-                        <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", marginBottom: "0.75rem" }}>{heading}</span>
+                        <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.25rem", marginBottom: "0.875rem" }}>{heading}</span>
                         {items.map((item) => (
-                          <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.25rem 0" }} onClick={() => setMenuOpen(false)}>
+                          <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.35rem 0" }} onClick={() => setMenuOpen(false)}>
                             {item.label}
                           </a>
                         ))}
@@ -337,13 +337,13 @@ export default function Header() {
                         <li key={item.label}>
                           <a
                             href={item.href}
-                            style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "0.5rem 0", fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
+                            style={{ display: "flex", alignItems: "center", gap: "2rem", padding: "0.5625rem 0", fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
                             onClick={() => setMenuOpen(false)}
                             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "italic")}
                             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.fontStyle = "normal")}
                           >
                             {item.count !== null && (
-                              <span style={{ opacity: 0.35, minWidth: "4rem", fontSize: "0.5625rem", fontVariantNumeric: "tabular-nums" }}>[ {item.count} ]</span>
+                              <span style={{ opacity: 0.35, minWidth: "5rem", fontSize: "0.5625rem", fontVariantNumeric: "tabular-nums" }}>[ {item.count} ]</span>
                             )}
                             {item.label}
                           </a>
@@ -360,9 +360,9 @@ export default function Header() {
               <div className="mo-footer-grid">
                 {Object.entries(footerLinks).map(([heading, items]) => (
                   <div key={heading}>
-                    <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", marginBottom: "0.75rem" }}>{heading}</span>
+                    <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.125rem", marginBottom: "0.875rem" }}>{heading}</span>
                     {items.map((item) => (
-                      <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.25rem 0" }} onClick={() => setMenuOpen(false)}>
+                      <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.3rem 0" }} onClick={() => setMenuOpen(false)}>
                         {item.label}
                       </a>
                     ))}
@@ -370,10 +370,10 @@ export default function Header() {
                 ))}
                 {/* Newsletter */}
                 <div className="mo-newsletter">
-                  <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", lineHeight: 1.45, marginBottom: "1.25rem" }}>
+                  <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", lineHeight: 1.45, marginBottom: "1.25rem" }}>
                     Newsletters that smell nice.<br />Subscribe.
                   </p>
-                  <div style={{ borderBottom: "1px solid rgba(0,0,0,0.3)", paddingBottom: "0.4rem" }}>
+                  <div style={{ borderBottom: "1px solid rgba(0,0,0,0.3)", paddingBottom: "0.375rem" }}>
                     <input placeholder="Your email" type="email" style={{ background: "transparent", border: "none", outline: "none", fontSize: "0.6875rem", letterSpacing: "0.015em", color: "inherit", width: "100%" }} />
                   </div>
                 </div>

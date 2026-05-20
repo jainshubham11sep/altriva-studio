@@ -8,47 +8,72 @@ const moreFeatured = [
 
 export default function MoreFeatured() {
   return (
-    <section style={{ padding: "3rem var(--page-margin) 4rem" }}>
-      {/* SEO text block */}
-      <div className="mb-8" style={{ maxWidth: "480px" }}>
-        <h2
-          className="text-heading"
-          style={{ fontSize: "1rem", lineHeight: "1.6", letterSpacing: "0.01em" }}
+    <section style={{ padding: "2.5rem var(--page-margin) 3.5rem" }}>
+      <style>{`
+        .mf-link { display: flex; align-items: baseline; justify-content: space-between; padding: 1rem 0; border-top: 1px solid rgba(0,0,0,0.1); text-decoration: none; color: inherit; }
+        .mf-link:hover .mf-label { font-style: italic; }
+        .mf-learn:hover { font-style: italic; }
+      `}</style>
+
+      {/* Editorial text block */}
+      <div style={{ maxWidth: "520px", marginBottom: "3rem" }}>
+        <p
+          style={{
+            fontFamily: "'EB Garamond', Georgia, serif",
+            fontSize: "1.125rem",
+            lineHeight: 1.65,
+            letterSpacing: "0.01em",
+          }}
         >
           Iconic day-to-night silhouettes; each style reflecting the perfect
           balance of femininity and modernity. From tailored shirt dresses,
           long-line evening dresses to statement pieces straight from the runway.
-        </h2>
+        </p>
         <Link
           href="/pages/about-us"
-          className="text-caption block mt-3 hover:italic transition-all"
-          style={{ opacity: 0.6, textDecoration: "none", color: "inherit" }}
+          className="mf-learn"
+          style={{
+            display: "inline-block",
+            marginTop: "0.875rem",
+            fontSize: "0.6875rem",
+            letterSpacing: "0.06em",
+            opacity: 0.55,
+            textDecoration: "none",
+            color: "inherit",
+          }}
         >
           Learn more
         </Link>
       </div>
 
-      {/* More featured links */}
-      <div
-        className="border-t"
-        style={{ borderColor: "rgba(0,0,0,0.1)" }}
-      >
+      {/* More Featured links */}
+      <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
         <p
-          className="nav-link py-4"
-          style={{ opacity: 0.4 }}
+          style={{
+            fontSize: "0.5625rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            opacity: 0.4,
+            padding: "1rem 0",
+          }}
         >
-          More featured
+          More Featured
         </p>
+
         {moreFeatured.map((item) => (
           <Link
             key={item.label}
             href={item.href}
-            className="group flex items-center justify-between py-4 border-t hover:italic transition-all"
-            style={{ borderColor: "rgba(0,0,0,0.1)", textDecoration: "none", color: "inherit" }}
+            className="mf-link"
           >
-            <span className="text-heading text-xl">{item.label}</span>
-            <span className="text-caption opacity-50 group-hover:opacity-0 transition-opacity">
-              [{item.count}]
+            <span
+              className="mf-label"
+              style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.375rem", lineHeight: 1.2 }}
+            >
+              {item.label}
+            </span>
+            <span style={{ fontSize: "0.5625rem", letterSpacing: "0.06em", opacity: 0.45, fontVariantNumeric: "tabular-nums" }}>
+              [ {item.count} ]
             </span>
           </Link>
         ))}

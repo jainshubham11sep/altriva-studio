@@ -10,6 +10,7 @@ export default function ProductGrid({ items }: Props) {
 
   return (
     <section
+      className="product-section-mobile"
       style={{
         padding: "1rem var(--page-margin) 4rem",
       }}
@@ -28,9 +29,15 @@ export default function ProductGrid({ items }: Props) {
           .card-square   { width: calc(32.79% - 0.375rem * 2 / 3); }
         }
         @media (max-width: 767px) {
-          .product-flex-grid { row-gap: 1.5rem; }
-          .card-portrait { width: calc(44.44% - 0.1875rem); }
-          .card-square   { width: calc(55.56% - 0.1875rem); }
+          .product-section-mobile {
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .product-flex-grid {
+            column-gap: 0.1875rem;
+            row-gap: 1.5rem;
+          }
+          .card-portrait, .card-square { width: calc(50% - 0.09375rem); }
         }
       `}</style>
 

@@ -14,62 +14,118 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ backgroundColor: subscribed ? "oklch(0.85 0.0581 148.13)" : "#f2f2eb" }}>
+    <footer style={{ backgroundColor: subscribed ? "oklch(0.85 0.0581 148.13)" : "#f2f2eb", position: "relative", overflow: "hidden" }}>
       <style>{`
-        /* ── Footer grid ── */
-        .footer-main {
-          padding: 2.5rem var(--page-margin) 3rem;
+        /* ── Grid ── */
+        /* Mobile: About | Assistance (2-col), then Newsletter full-width below */
+        .footer-grid {
+          padding: 3rem var(--page-margin) 2.5rem;
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 2.5rem;
+          grid-template-columns: 1fr 1fr;
+          grid-template-areas:
+            "about      assistance"
+            "newsletter newsletter";
+          gap: 3rem 2rem;
+          align-items: start;
         }
+        /* Desktop: About | Assistance | Newsletter side by side */
         @media (min-width: 768px) {
-          .footer-main {
+          .footer-grid {
             grid-template-columns: 1fr 1fr 1.6fr;
-            gap: 2rem 3rem;
-            align-items: start;
+            grid-template-areas: "about assistance newsletter";
+            padding-right: calc(var(--page-margin) + 140px);
           }
         }
-        .footer-link { display: block; font-size: 0.6875rem; letter-spacing: 0.015em; color: inherit; text-decoration: none; padding: 0.25rem 0; transition: font-style 0.1s; }
+        .footer-about      { grid-area: about; }
+        .footer-assistance { grid-area: assistance; }
+        .footer-newsletter { grid-area: newsletter; display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* ── Column headings ── */
+        .footer-col-heading {
+          display: block;
+          font-family: 'EB Garamond', Georgia, serif;
+          font-size: 1.0625rem;
+          font-weight: 400;
+          margin-bottom: 1.25rem;
+          letter-spacing: 0.01em;
+        }
+
+        /* ── Links ── */
+        .footer-link {
+          display: block;
+          font-size: 0.625rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: inherit;
+          text-decoration: none;
+          padding: 0.5rem 0;
+          transition: font-style 0.1s;
+        }
         .footer-link:hover { font-style: italic; }
+
+        /* ── Instagram link ── */
+        .footer-ig {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.625rem;
+          font-size: 0.625rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: inherit;
+          text-decoration: none;
+          transition: opacity 0.15s;
+        }
+        .footer-ig:hover { opacity: 0.5; }
+
+        /* ── Vertical brand text ── */
+        .footer-brand-mobile {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 3rem 0 2rem;
+          overflow: hidden;
+        }
+        .footer-brand-desktop { display: none; }
+
+        @media (min-width: 768px) {
+          .footer-brand-mobile { display: none; }
+          .footer-brand-desktop {
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 140px;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            overflow: hidden;
+          }
+        }
       `}</style>
 
-      {/* ── Wordmark ── */}
-      <div style={{ padding: "2.5rem var(--page-margin) 2rem", borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/logo.png"
-          alt="Altriva Studio"
-          style={{ display: "block", width: "100%", height: "auto", objectFit: "contain", objectPosition: "left center" }}
-        />
-      </div>
-
-      {/* ── Main grid: About | Assistance | Newsletter ── */}
-      <div className="footer-main">
+      {/* ── Main grid ── */}
+      <div className="footer-grid">
 
         {/* About */}
-        <div>
-          <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", marginBottom: "1rem" }}>
-            {Object.keys(footerLinks)[0]}
-          </span>
+        <div className="footer-about">
+          <span className="footer-col-heading">{Object.keys(footerLinks)[0]}</span>
           {footerLinks[Object.keys(footerLinks)[0] as keyof typeof footerLinks].map((item) => (
             <a key={item.label} href={item.href} className="footer-link">{item.label}</a>
           ))}
         </div>
 
         {/* Assistance */}
-        <div>
-          <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", marginBottom: "1rem" }}>
-            {Object.keys(footerLinks)[1]}
-          </span>
+        <div className="footer-assistance">
+          <span className="footer-col-heading">{Object.keys(footerLinks)[1]}</span>
           {footerLinks[Object.keys(footerLinks)[1] as keyof typeof footerLinks].map((item) => (
             <a key={item.label} href={item.href} className="footer-link">{item.label}</a>
           ))}
         </div>
 
         {/* Newsletter */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "0.9375rem", lineHeight: 1.45 }}>
+        <div className="footer-newsletter">
+          <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.0625rem", lineHeight: 1.5, letterSpacing: "0.01em" }}>
             Newsletters that smell nice.<br />Subscribe.
           </p>
 
@@ -79,94 +135,106 @@ export default function Footer() {
             </p>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <div style={{ borderBottom: "1px solid rgba(0,0,0,0.25)", paddingBottom: "0.375rem" }}>
-                <label
-                  htmlFor="footer-email"
-                  style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: email ? 1 : 0.4, marginBottom: "0.25rem" }}
-                >
-                  Your email
-                </label>
+              <div style={{ borderBottom: "1px solid rgba(0,0,0,0.25)", paddingBottom: "0.5rem" }}>
                 <input
                   id="footer-email"
                   type="email"
                   required
+                  placeholder="Your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  style={{ width: "100%", background: "transparent", border: "none", outline: "none", fontSize: "0.75rem", letterSpacing: "0.015em", color: "inherit" }}
+                  style={{ width: "100%", background: "transparent", border: "none", outline: "none", fontSize: "0.875rem", letterSpacing: "0.02em", color: "inherit" }}
                 />
               </div>
 
               {email && (
-                <label style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", cursor: "pointer" }}>
-                  <input
-                    type="checkbox"
-                    checked={consent}
-                    onChange={(e) => setConsent(e.target.checked)}
-                    required
-                    style={{ marginTop: "0.125rem", width: "0.8125rem", height: "0.8125rem", flexShrink: 0, cursor: "pointer", accentColor: "#000" }}
-                  />
-                  <span style={{ fontSize: "0.5625rem", opacity: 0.6, lineHeight: 1.6, letterSpacing: "0.01em" }}>
-                    I agree to receive marketing communications from Altriva Studio and accept the{" "}
-                    <a href="/pages/terms-conditions" style={{ textDecoration: "underline", color: "inherit" }}>Terms of Use</a>{" "}
-                    and{" "}
-                    <a href="/pages/privacy-policy" style={{ textDecoration: "underline", color: "inherit" }}>Privacy Policy</a>.
-                  </span>
-                </label>
+                <>
+                  <label style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", cursor: "pointer" }}>
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      required
+                      style={{ marginTop: "0.125rem", width: "0.8125rem", height: "0.8125rem", flexShrink: 0, cursor: "pointer", accentColor: "#000" }}
+                    />
+                    <span style={{ fontSize: "0.5625rem", opacity: 0.6, lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      I agree to receive marketing emails from Altriva Studio and accept the{" "}
+                      <a href="/pages/terms-conditions" style={{ textDecoration: "underline", color: "inherit" }}>Terms of Use</a>{" "}
+                      and{" "}
+                      <a href="/pages/privacy-policy" style={{ textDecoration: "underline", color: "inherit" }}>Privacy Policy</a>.
+                    </span>
+                  </label>
+                  <button
+                    type="submit"
+                    style={{ background: "none", border: "none", padding: 0, fontSize: "0.625rem", letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", textAlign: "left", color: "inherit" }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.4")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+                  >
+                    Subscribe →
+                  </button>
+                </>
               )}
-
-              <button
-                type="submit"
-                style={{ background: "none", border: "none", padding: 0, fontSize: "0.625rem", letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", textAlign: "left", color: "inherit" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.4")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-              >
-                Subscribe →
-              </button>
             </form>
           )}
+
+          {/* Instagram — in newsletter column, matches JWA layout */}
+          <a
+            href="https://www.instagram.com/altrivastudio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-ig"
+          >
+            Follow us on Instagram
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" style={{ width: "1.125rem", height: "1.125rem", flexShrink: 0 }} aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <circle cx="12" cy="12" r="4.5" />
+              <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
         </div>
+      </div>
+
+      {/* ── Brand text: in-flow on mobile, absolute on desktop ── */}
+      <div className="footer-brand-mobile" aria-hidden="true">
+        <span style={{
+          fontFamily: "'EB Garamond', Georgia, serif",
+          fontSize: "clamp(4rem, 20vw, 8rem)",
+          fontWeight: 400,
+          writingMode: "vertical-rl",
+          transform: "rotate(180deg)",
+          lineHeight: 1,
+          whiteSpace: "nowrap",
+          letterSpacing: "0.02em",
+        }}>
+          ALTRIVA STUDIO
+        </span>
+      </div>
+
+      <div className="footer-brand-desktop" aria-hidden="true">
+        <span style={{
+          fontFamily: "'EB Garamond', Georgia, serif",
+          fontSize: "5rem",
+          fontWeight: 400,
+          writingMode: "vertical-rl",
+          transform: "rotate(180deg)",
+          lineHeight: 1,
+          whiteSpace: "nowrap",
+          letterSpacing: "0.02em",
+        }}>
+          ALTRIVA STUDIO
+        </span>
       </div>
 
       {/* ── Bottom bar ── */}
       <div
         style={{
-          padding: "1rem var(--page-margin)",
+          padding: "1.25rem var(--page-margin)",
           borderTop: "1px solid rgba(0,0,0,0.1)",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "0.5rem",
         }}
       >
-        <a
-          href="https://www.instagram.com/altrivastudio"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", textDecoration: "none" }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.4")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-        >
-          Instagram
-          <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "0.6875rem", height: "0.6875rem" }} aria-hidden="true">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-          </svg>
-        </a>
-
-        <p style={{ fontSize: "0.5625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.45 }}>
+        <p style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.5 }}>
           © 2025 ALTRIVA STUDIO
         </p>
-
-        <button
-          style={{ background: "none", border: "none", padding: 0, display: "flex", alignItems: "center", gap: "0.2rem", fontSize: "0.5625rem", letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer", color: "inherit", opacity: 0.6 }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.4")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.6")}
-        >
-          India (₹)
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "0.625rem", height: "0.625rem" }} aria-hidden="true">
-            <path d="M4 6l4 4 4-4" />
-          </svg>
-        </button>
       </div>
     </footer>
   );
