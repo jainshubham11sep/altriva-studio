@@ -61,7 +61,7 @@ export default function ProductClient({ product, related }: Props) {
     setRecentlyViewed(viewed.slice(0, 6));
   }, [product.slug]);
 
-  const images = [product.image, ...(product.hoverImage ? [product.hoverImage] : [])];
+  const images = product.images ?? [product.image, ...(product.hoverImage ? [product.hoverImage] : [])];
 
   const handleAddToBag = () => {
     const size = selectedSize ?? "O/S";

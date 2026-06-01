@@ -8,6 +8,7 @@ export interface Product {
   colors?: number;
   image: string;
   hoverImage?: string;
+  images?: string[];
   badge?: "New" | "Coming soon" | "Exclusive" | "Sold out";
   slug: string;
   aspect: "portrait" | "square";
@@ -35,7 +36,30 @@ const _i = [
 const pi = (n: number) => _i[(n - 1) % _i.length];
 const ph = (n: number) => _i[n % _i.length];
 
+const SKY_BLUE_TOP_IMAGES = [
+  "/images/product/sky_blue_top/Sky Blue top Front side.png",
+  "/images/product/sky_blue_top/Sky Blue top Left Side.png",
+  "/images/product/sky_blue_top/Sky Blue top back side.png",
+  "/images/product/sky_blue_top/Sky Blue top front side zoom shot.png",
+  "/images/product/sky_blue_top/Sky Blue top back side zoom shot.png",
+  "/images/product/sky_blue_top/Sky Blue top zoom shot.png",
+];
+
 export const products: Product[] = [
+  {
+    id: "61",
+    name: "WOMENS SKY BLUE CORSET TOP",
+    displayName: "womens sky blue corset top",
+    category: "T-SHIRTS & TOPS",
+    price: 95,
+    priceInr: 8500,
+    image: SKY_BLUE_TOP_IMAGES[0],
+    hoverImage: SKY_BLUE_TOP_IMAGES[2],
+    images: SKY_BLUE_TOP_IMAGES,
+    badge: "New",
+    slug: "womens-sky-blue-corset-top",
+    aspect: "portrait",
+  },
   { id:"1",  name:"WOMENS SHEER FAIRISLE TOP IN COBALT",                              displayName:"womens sheer fairisle top in cobalt",                              category:"KNITTED TOPS",          price:550,  priceInr:67700,  colors:2, image:pi(1),  hoverImage:ph(1),  badge:"New",         slug:"womens-sheer-fairisle-top-in-cobalt",                              aspect:"portrait" },
   { id:"2",  name:"WOMENS CONTRASTING LEATHER COIL SLIDE IN BLUE & YELLOW",           displayName:"womens contrasting leather coil slide in blue & yellow",           category:"SLIDES",                price:650,  priceInr:80300,  colors:3, image:pi(2),  hoverImage:ph(2),  badge:"New",         slug:"womens-contrasting-leather-coil-slide-blue-yellow",               aspect:"portrait" },
   { id:"3",  name:"LEATHER BEETLE CHARM IN GREEN & BLACK",                             displayName:"leather beetle charm in green & black",                             category:"CHARMS",                price:360,  priceInr:44500,           image:pi(3),  hoverImage:ph(3),  badge:"New",         slug:"leather-beetle-charm-green-black",                                 aspect:"portrait" },
