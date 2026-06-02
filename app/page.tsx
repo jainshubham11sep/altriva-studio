@@ -1,13 +1,5 @@
-import CategoryTabs from "@/components/CategoryTabs";
-import ProductGrid from "@/components/ProductGrid";
-import MoreFeatured from "@/components/MoreFeatured";
+import HomeContent from "@/components/HomeContent";
 
 export default function HomePage() {
-  return (
-    <>
-      <CategoryTabs />
-      <ProductGrid />
-      <MoreFeatured />
-    </>
-  );
+  return <HomeContent />;
 }
