@@ -74,7 +74,7 @@ export default function ProductClient({ product, related }: Props) {
     {
       id: "details",
       label: "Details",
-      content: `Colour: ${product.displayName.split(" ").slice(-2).join(" ")}\nMaterial: Premium quality materials\nDimensions: Please refer to size guide\nSKU: ALT-${product.id.padStart(5, "0")}\nMade with care.`,
+      content: product.description ?? `SKU: ALT-${product.id.padStart(5, "0")}\nMaterial: Premium quality materials\nPlease refer to our size guide for measurements.`,
     },
     {
       id: "shipping",
