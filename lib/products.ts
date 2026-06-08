@@ -28,7 +28,7 @@ export const products: Product[] = [
   {
     id: "1",
     name: "WOMENS SKY BLUE CORSET TOP",
-    displayName: "womens sky blue corset top",
+    displayName: "Womens Sky Blue Corset Top",
     category: "T-SHIRTS & TOPS",
     price: 44,
     priceInr: 3600,
@@ -43,7 +43,7 @@ export const products: Product[] = [
   {
     id: "2",
     name: "CHECKERED TANK TOP",
-    displayName: "checkered tank top",
+    displayName: "Checkered Tank Top",
     category: "T-SHIRTS & TOPS",
     price: 35,
     priceInr: 2895,
@@ -63,7 +63,7 @@ export const products: Product[] = [
   {
     id: "3",
     name: "COWL NECK TOP",
-    displayName: "cowl neck top",
+    displayName: "Cowl Neck Top",
     category: "T-SHIRTS & TOPS",
     price: 15,
     priceInr: 1250,
@@ -83,7 +83,7 @@ export const products: Product[] = [
   {
     id: "4",
     name: "MONOCHROME MUSE TSHIRT",
-    displayName: "monochrome muse tshirt",
+    displayName: "Monochrome Muse Tshirt",
     category: "T-SHIRTS & TOPS",
     price: 32,
     priceInr: 2650,
@@ -102,7 +102,7 @@ export const products: Product[] = [
   {
     id: "5",
     name: "GHOST T-SHIRT",
-    displayName: "ghost t-shirt",
+    displayName: "Ghost T-shirt",
     category: "T-SHIRTS & TOPS",
     price: 29,
     priceInr: 2400,
@@ -123,7 +123,7 @@ export const products: Product[] = [
   {
     id: "6",
     name: "GUJJI SILK SHIRT",
-    displayName: "gujji silk shirt",
+    displayName: "Gujji Silk Shirt",
     category: "SHIRTS",
     price: 39,
     priceInr: 3200,
@@ -146,7 +146,7 @@ export const products: Product[] = [
   {
     id: "7",
     name: "FUNK PANTS",
-    displayName: "funk pants",
+    displayName: "Funk Pants",
     category: "TROUSERS",
     price: 70,
     priceInr: 5699,
@@ -165,7 +165,7 @@ export const products: Product[] = [
   {
     id: "8",
     name: "TWILL PANTS",
-    displayName: "twill pants",
+    displayName: "Twill Pants",
     category: "TROUSERS",
     price: 39,
     priceInr: 3200,
@@ -184,7 +184,7 @@ export const products: Product[] = [
   {
     id: "9",
     name: "2IN1 CARGO PANTS",
-    displayName: "2in1 cargo pants",
+    displayName: "2in1 Cargo Pants",
     category: "TROUSERS",
     price: 51,
     priceInr: 4200,
@@ -206,7 +206,7 @@ export const products: Product[] = [
   {
     id: "10",
     name: "FASTLANE SHORTS",
-    displayName: "fastlane shorts",
+    displayName: "Fastlane Shorts",
     category: "SHORTS",
     price: 49,
     priceInr: 3999,
@@ -225,7 +225,7 @@ export const products: Product[] = [
   {
     id: "11",
     name: "BELT SKIRT",
-    displayName: "belt skirt",
+    displayName: "Belt Skirt",
     category: "SKIRTS",
     price: 14,
     priceInr: 1120,
@@ -243,7 +243,7 @@ export const products: Product[] = [
   {
     id: "12",
     name: "PLEATED WRAP AROUND SKIRT",
-    displayName: "pleated wrap around skirt",
+    displayName: "Pleated Wrap Around Skirt",
     category: "SKIRTS",
     price: 22,
     priceInr: 1800,
@@ -261,7 +261,7 @@ export const products: Product[] = [
   {
     id: "13",
     name: "WRAP AROUND SKIRT",
-    displayName: "wrap around skirt",
+    displayName: "Wrap Around Skirt",
     category: "SKIRTS",
     price: 41,
     priceInr: 3400,
@@ -282,7 +282,7 @@ export const products: Product[] = [
   {
     id: "14",
     name: "TWILL SKIRT",
-    displayName: "twill skirt",
+    displayName: "Twill Skirt",
     category: "SKIRTS",
     price: 34,
     priceInr: 2800,
@@ -306,7 +306,7 @@ export const products: Product[] = [
   {
     id: "15",
     name: "HEAVEN'S LONG TUBE SKIRT",
-    displayName: "heaven's long tube skirt",
+    displayName: "Heaven's Long Tube Skirt",
     category: "SKIRTS",
     price: 90,
     priceInr: 7400,
@@ -332,7 +332,7 @@ export const products: Product[] = [
   {
     id: "16",
     name: "LITTLE BLACK DRESS IN MOSAIC",
-    displayName: "little black dress in mosaic",
+    displayName: "Little Black Dress In Mosaic",
     category: "DRESSES",
     price: 77,
     priceInr: 6280,
@@ -357,7 +357,7 @@ export const products: Product[] = [
   {
     id: "17",
     name: "ASYMMETRIC DRESS",
-    displayName: "asymmetric dress",
+    displayName: "Asymmetric Dress",
     category: "DRESSES",
     price: 98,
     priceInr: 8000,
@@ -381,7 +381,7 @@ export const products: Product[] = [
   {
     id: "18",
     name: "COVERALL",
-    displayName: "coverall",
+    displayName: "Coverall",
     category: "COATS & JACKETS",
     price: 64,
     priceInr: 5240,
@@ -400,7 +400,7 @@ export const products: Product[] = [
   {
     id: "19",
     name: "REVERSIBLE SILK BOMBER",
-    displayName: "reversible silk bomber",
+    displayName: "Reversible Silk Bomber",
     category: "COATS & JACKETS",
     price: 117,
     priceInr: 9600,
@@ -424,7 +424,7 @@ export const products: Product[] = [
   {
     id: "20",
     name: "MOSAIC CHEEN JACKET",
-    displayName: "mosaic cheen jacket",
+    displayName: "Mosaic Cheen Jacket",
     category: "COATS & JACKETS",
     price: 66,
     priceInr: 5400,
@@ -445,7 +445,7 @@ export const products: Product[] = [
   {
     id: "21",
     name: "TWILL JACKET",
-    displayName: "twill jacket",
+    displayName: "Twill Jacket",
     category: "COATS & JACKETS",
     price: 60,
     priceInr: 4900,
@@ -471,7 +471,7 @@ export const products: Product[] = [
   {
     id: "22",
     name: "TWILL OVERSIZED JACKET",
-    displayName: "twill oversized jacket",
+    displayName: "Twill Oversized Jacket",
     category: "COATS & JACKETS",
     price: 51,
     priceInr: 4200,
@@ -491,7 +491,7 @@ export const products: Product[] = [
   {
     id: "23",
     name: "HEAVEN'S JACKET",
-    displayName: "heaven's jacket",
+    displayName: "Heaven's Jacket",
     category: "COATS & JACKETS",
     price: 146,
     priceInr: 12000,
@@ -521,7 +521,7 @@ export const products: Product[] = [
   {
     id: "24",
     name: "VELVET PAJAMAS",
-    displayName: "velvet pajamas",
+    displayName: "Velvet Pajamas",
     category: "LOUNGEWEAR",
     price: 59,
     priceInr: 4800,
@@ -542,7 +542,7 @@ export const products: Product[] = [
   {
     id: "25",
     name: "MONO CHROME T-SHIRT AND FASTLANE SHORTS",
-    displayName: "mono chrome t-shirt and fastlane shorts",
+    displayName: "Mono Chrome T-shirt And Fastlane Shorts",
     category: "SETS",
     price: 81,
     priceInr: 6650,
@@ -565,7 +565,7 @@ export const products: Product[] = [
   {
     id: "26",
     name: "MONOCHROME REBELLION WHOLE SET",
-    displayName: "monochrome rebellion whole set",
+    displayName: "Monochrome Rebellion Whole Set",
     category: "SETS",
     price: 49,
     priceInr: 3999,
