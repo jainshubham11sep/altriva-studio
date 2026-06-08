@@ -452,7 +452,6 @@ export const announcements = [
 export const mainNavLinks = [
   { label: "Men's New In",   href: "/collections/mens-new-in"   },
   { label: "Women's New In", href: "/collections/womens-new-in" },
-  { label: "All Home",       href: "/"                          },
 ];
 
 export const footerLinks = {

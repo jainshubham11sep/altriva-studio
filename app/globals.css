@@ -107,15 +107,11 @@ body {
   z-index: 70;
   background: #fff;
   display: flex;
-  overflow-x: auto;
   padding: 0 var(--page-margin);
-  scrollbar-width: none;
   height: var(--sub-nav-height);
   align-items: center;
   gap: 2rem;
 }
-
-.sub-nav::-webkit-scrollbar { display: none; }
 
 .sub-nav a {
   font-size: 0.6875rem;
