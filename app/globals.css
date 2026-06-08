@@ -154,11 +154,26 @@ body {
   }
 }
 
+/* Mobile logo bar — in-flow, scrolls away naturally */
+.mobile-logo-bar {
+  margin-top: calc(var(--announcement-bar-height) + var(--nav-height));
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Page content offset */
 .page-content {
-  padding-top: var(--total-header-height);
+  padding-top: 0; /* mobile: in-flow logo bar handles gap */
   padding-right: var(--logo-panel-width);
   min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+  .page-content {
+    padding-top: var(--total-header-height); /* desktop: fixed header + sticky sub-nav */
+  }
 }
 
 /* Product grid - flex wrap masonry */

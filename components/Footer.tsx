@@ -167,7 +167,7 @@ export default function Footer() {
 
           {/* Instagram — in newsletter column, matches JWA layout */}
           <a
-            href="https://www.instagram.com/altrivastudio"
+            href="https://www.instagram.com/altriva_?igsh=NzA5cWs1ZTB0amM2"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-ig"

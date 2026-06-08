@@ -124,30 +124,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Center: Logo — mobile only */}
-        <div
-          className="lg:hidden"
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            alignItems: "center",
-            height: "var(--nav-height)",
-          }}
-        >
-          <a href="/" aria-label="Home" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
-            <Image
-              src="/images/altriva-logo.png"
-              alt="Altriva Studio"
-              width={730}
-              height={160}
-              style={{ height: "18px", width: "auto" }}
-              priority
-            />
-          </a>
-        </div>
-
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}
         <div className="flex items-center gap-1 justify-end flex-1">
           {/* Desktop search */}
@@ -183,6 +159,20 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      {/* ── Mobile logo bar — fills gap between nav and sub-nav ── */}
+      <div className="mobile-logo-bar lg:hidden">
+        <a href="/" aria-label="Home" style={{ textDecoration: "none", display: "block", width: "100%" }}>
+          <Image
+            src="/images/altriva-logo.png"
+            alt="Altriva Studio"
+            width={730}
+            height={160}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            priority
+          />
+        </a>
+      </div>
 
       {/* ── Right logo panel (desktop only) ── */}
       <div className="logo-panel">
