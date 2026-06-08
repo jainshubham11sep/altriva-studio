@@ -65,7 +65,7 @@ const menuCategories = [
   {
     label: "Home",
     items: [
-      { label: "All Home", count: null, href: "/collections/all-home" },
+      { label: "All Home", count: null, href: "/" },
       { label: "Candles", count: null, href: "/collections/candles" },
       { label: "Objects", count: null, href: "/collections/objects" },
       { label: "Books", count: null, href: "/collections/books" },
@@ -122,6 +122,30 @@ export default function Header() {
               <path d="M3 15H21V16H3V15Z" fill="currentColor" />
             </svg>
           </button>
+        </div>
+
+        {/* Center: Logo — desktop only, small */}
+        <div
+          className="hidden lg:flex"
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            alignItems: "center",
+            height: "var(--nav-height)",
+            pointerEvents: "none",
+          }}
+        >
+          <a href="/" aria-label="Home" style={{ textDecoration: "none", display: "flex", alignItems: "center", pointerEvents: "auto" }}>
+            <Image
+              src="/images/altriva-logo.png"
+              alt="Altriva Studio"
+              width={730}
+              height={160}
+              style={{ height: "16px", width: "auto" }}
+              priority
+            />
+          </a>
         </div>
 
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}

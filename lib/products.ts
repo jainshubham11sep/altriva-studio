@@ -20,7 +20,7 @@ export const products: Product[] = [
     id: "1",
     name: "CORSET",
     displayName: "Corset",
-    category: "T-SHIRTS & TOPS",
+    category: "WOMENS NEW IN",
     price: 48,
     priceInr: 3899,
     image: "/images/product/shopify/6_20250810_121130_0005.png",
@@ -40,7 +40,7 @@ export const products: Product[] = [
     id: "2",
     name: "CHECKERED TANK TOP",
     displayName: "Checkered Tank Top",
-    category: "T-SHIRTS & TOPS",
+    category: "MENS NEW IN",
     price: 35,
     priceInr: 2895,
     image: "/images/product/shopify/2L1A0860.jpg",
@@ -60,7 +60,7 @@ export const products: Product[] = [
     id: "3",
     name: "MONO CHROME T-SHIRT AND FASTLANE SHORTS",
     displayName: "Mono Chrome T-Shirt And Fastlane Shorts",
-    category: "SETS",
+    category: "MENS NEW IN",
     price: 81,
     priceInr: 6650,
     image: "/images/product/shopify/IMG-20250610-WA0034.webp",
@@ -83,7 +83,7 @@ export const products: Product[] = [
     id: "4",
     name: "MONOCHROME REBELLION WHOLE SET",
     displayName: "Monochrome Rebellion Whole Set",
-    category: "SETS",
+    category: "WOMENS NEW IN",
     price: 49,
     priceInr: 3999,
     image: "/images/product/shopify/12_20250810_121130_0011.png",
@@ -102,7 +102,7 @@ export const products: Product[] = [
     id: "5",
     name: "FUNK PANTS",
     displayName: "Funk Pants",
-    category: "TROUSERS",
+    category: "WOMENS NEW IN",
     price: 70,
     priceInr: 5699,
     image: "/images/product/shopify/2L1A0759.jpg",
@@ -121,7 +121,7 @@ export const products: Product[] = [
     id: "6",
     name: "FASTLANE SHORTS",
     displayName: "Fastlane Shorts",
-    category: "SHORTS",
+    category: "WOMENS NEW IN",
     price: 49,
     priceInr: 3999,
     image: "/images/product/shopify/rn-image_picker_lib_temp_9b854c39-2c1a-4a91-bcaa-80364a16816a.png",
@@ -140,7 +140,7 @@ export const products: Product[] = [
     id: "7",
     name: "BELT SKIRT",
     displayName: "Belt Skirt",
-    category: "SKIRTS",
+    category: "WOMENS NEW IN",
     price: 14,
     priceInr: 1120,
     image: "/images/product/shopify/9_20250810_121130_0008_bfab384b-df53-43d1-af40-26b35dfe0ac6.png",
@@ -158,7 +158,7 @@ export const products: Product[] = [
     id: "8",
     name: "COWL NECK TOP",
     displayName: "Cowl Neck Top",
-    category: "T-SHIRTS & TOPS",
+    category: "WOMENS NEW IN",
     price: 15,
     priceInr: 1250,
     image: "/images/product/shopify/6_20250810_121130_0005.png",
@@ -178,7 +178,7 @@ export const products: Product[] = [
     id: "9",
     name: "MONOCHROME MUSE TSHIRT",
     displayName: "Monochrome Muse Tshirt",
-    category: "T-SHIRTS & TOPS",
+    category: "WOMENS NEW IN",
     price: 32,
     priceInr: 2650,
     image: "/images/product/shopify/rn-image_picker_lib_temp_ba482457-c2ce-451a-824e-cf236fe3a96e.png",
@@ -197,7 +197,7 @@ export const products: Product[] = [
     id: "10",
     name: "VELVET PAJAMAS",
     displayName: "Velvet Pajamas",
-    category: "LOUNGEWEAR",
+    category: "WOMENS NEW IN",
     price: 59,
     priceInr: 4800,
     image: "/images/product/shopify/17.1_3213x5000_17ad7d9a-6e55-4bca-8bc4-9cb1a9f6ad75.webp",
@@ -218,7 +218,7 @@ export const products: Product[] = [
     id: "11",
     name: "REVERSIBLE SILK BOMBER",
     displayName: "Reversible Silk Bomber",
-    category: "COATS & JACKETS",
+    category: "WOMENS NEW IN",
     price: 117,
     priceInr: 9600,
     image: "/images/product/shopify/DSC1155_copy_3335x5000_6e1753b5-284d-45e8-b588-47f5235c2b89.webp",
@@ -242,7 +242,7 @@ export const products: Product[] = [
     id: "12",
     name: "GUJJI SILK SHIRT",
     displayName: "Gujji Silk Shirt",
-    category: "SHIRTS",
+    category: "WOMENS NEW IN",
     price: 39,
     priceInr: 3200,
     image: "/images/product/shopify/DSC0225_copy_3335x5000_24861e6d-0631-4599-9002-7816d5e0b6b5.webp",
@@ -265,7 +265,7 @@ export const products: Product[] = [
     id: "13",
     name: "2IN1 CARGO PANTS",
     displayName: "2In1 Cargo Pants",
-    category: "TROUSERS",
+    category: "WOMENS NEW IN",
     price: 51,
     priceInr: 4200,
     image: "/images/product/shopify/2.3_3333x5000_9c3dbbba-8a21-4dcd-bc4b-07c34b6f890b.webp",
@@ -287,9 +287,9 @@ export const products: Product[] = [
     id: "15",
     name: "WOMENS SKY BLUE CORSET TOP",
     displayName: "Womens Sky Blue Corset Top",
-    category: "T-SHIRTS & TOPS",
-    price: 15,
-    priceInr: 1250,
+    category: "WOMENS NEW IN",
+    price: 48,
+    priceInr: 3899,
     image: "/images/product/sky_blue_top/Sky%20Blue%20top%20Front%20side.png",
     hoverImage: "/images/product/sky_blue_top/Sky%20Blue%20top%20Left%20Side.png",
     images: [
@@ -306,10 +306,32 @@ export const products: Product[] = [
     aspect: "portrait",
   },
   {
+    id: "16",
+    name: "DARK BLUE CORSET TOP",
+    displayName: "Dark Blue Corset Top",
+    category: "WOMENS NEW IN",
+    price: 48,
+    priceInr: 3899,
+    image: "/images/product/dark_blue_corset/Dark%20Blue%20top%20front%20side.png",
+    hoverImage: "/images/product/dark_blue_corset/Dark%20Blue%20top%20back%20side.png",
+    images: [
+      "/images/product/dark_blue_corset/Dark%20Blue%20top%20front%20side.png",
+      "/images/product/dark_blue_corset/Dark%20Blue%20top%20back%20side.png",
+      "/images/product/dark_blue_corset/Dark%20Blue%20top%20front%20side%20shot.png",
+      "/images/product/dark_blue_corset/Dark%20Blue%20top%20front%20side%20zoom%20shot.png",
+      "/images/product/dark_blue_corset/Dark%20Blue%20top%20back%20side%20zoom%20shot.png",
+      "/images/product/dark_blue_corset/Dark%20Blue%20top%20side%20pose%20zoom%20shot.png",
+    ],
+    description: "A deep dark blue corset top crafted for the modern wardrobe. This sleeveless piece features a structured corset silhouette in a rich dark blue tone, making it a versatile statement piece that can be dressed up or down.",
+    badge: "New",
+    slug: "dark-blue-corset-top",
+    aspect: "portrait",
+  },
+  {
     id: "14",
     name: "LITTLE BLACK DRESS IN MOSAIC",
     displayName: "Little Black Dress In Mosaic",
-    category: "DRESSES",
+    category: "WOMENS NEW IN",
     price: 77,
     priceInr: 6280,
     image: "/images/product/shopify/DSC1024_copy_3335x5000_13c9a655-a786-434d-be87-94e80893aa56.webp",
@@ -330,84 +352,95 @@ export const products: Product[] = [
     slug: "mosaic-mini-dress",
     aspect: "portrait",
   },
+  {
+    id: "17",
+    name: "MAGENTA CORSET TOP",
+    displayName: "Magenta Corset Top",
+    category: "WOMENS NEW IN",
+    price: 48,
+    priceInr: 3899,
+    image: "/images/product/magneta_corset_top/Magenta%20top%20front%20side%20shot.png",
+    hoverImage: "/images/product/magneta_corset_top/Magenta%20top%20back%20side%20shot.png",
+    images: [
+      "/images/product/magneta_corset_top/Magenta%20top%20front%20side%20shot.png",
+      "/images/product/magneta_corset_top/Magenta%20top%20back%20side%20shot.png",
+      "/images/product/magneta_corset_top/Magenta%20top%20front%20zoom%20shot.png",
+      "/images/product/magneta_corset_top/Magenta%20top%20side%20side%20shot.png",
+    ],
+    description: "A bold magenta corset top crafted for the modern wardrobe. This sleeveless piece features a structured corset silhouette in a vibrant magenta tone, making it a striking statement piece that can be dressed up or down.",
+    badge: "New",
+    slug: "magenta-corset-top",
+    aspect: "portrait",
+  },
+  {
+    id: "18",
+    name: "MEHROON CORSET TOP",
+    displayName: "Mehroon Corset Top",
+    category: "WOMENS NEW IN",
+    price: 48,
+    priceInr: 3899,
+    image: "/images/product/mehroon_corset_top/Mehrron%20Top%20Front%20Side.png",
+    hoverImage: "/images/product/mehroon_corset_top/Mehrron%20Top%20Backside.png",
+    images: [
+      "/images/product/mehroon_corset_top/Mehrron%20Top%20Front%20Side.png",
+      "/images/product/mehroon_corset_top/Mehrron%20Top%20Backside.png",
+      "/images/product/mehroon_corset_top/Mehrron%20Top%20Front%20pose%20candid%20Side.png",
+      "/images/product/mehroon_corset_top/Mehrron%20Top%20Side%20pose%20asthetic.png",
+      "/images/product/mehroon_corset_top/Mehrron%20Top%20Side%20pose.png",
+      "/images/product/mehroon_corset_top/Mehrron%20Top%20side%20asthetic%20pose.png",
+    ],
+    description: "A rich mehroon corset top crafted for the modern wardrobe. This sleeveless piece features a structured corset silhouette in a deep warm mehroon tone, making it a versatile statement piece that can be dressed up or down.",
+    badge: "New",
+    slug: "mehroon-corset-top",
+    aspect: "portrait",
+  },
+  {
+    id: "19",
+    name: "PINK CORSET TOP",
+    displayName: "Pink Corset Top",
+    category: "WOMENS NEW IN",
+    price: 48,
+    priceInr: 3899,
+    image: "/images/product/pink_corset_top/Pink%20Top%20Front%20side%20pose.png",
+    hoverImage: "/images/product/pink_corset_top/Pink%20Top%20Back%20side%20pose.png",
+    images: [
+      "/images/product/pink_corset_top/Pink%20Top%20Front%20side%20pose.png",
+      "/images/product/pink_corset_top/Pink%20Top%20Back%20side%20pose.png",
+      "/images/product/pink_corset_top/Pink%20Top%20Front%20accessories%20pose.png",
+      "/images/product/pink_corset_top/Pink%20Top%20Front%20asthetic%20pose%20new.png",
+      "/images/product/pink_corset_top/Pink%20Top%20Front%20asthetic%20pose.png",
+      "/images/product/pink_corset_top/Pink%20Top%20Side%20pose.png",
+    ],
+    description: "A soft pink corset top crafted for the modern wardrobe. This sleeveless piece features a structured corset silhouette in a fresh pink tone, making it a feminine statement piece that can be dressed up or down.",
+    badge: "New",
+    slug: "pink-corset-top",
+    aspect: "portrait",
+  },
 ];
 
 export function getCollectionProducts(slug: string): Product[] {
   switch (slug) {
-    case "summer-series":
-    case "new-in":
-    case "mens-new-in":
     case "womens-new-in":
+      return products.filter(p => p.category === "WOMENS NEW IN");
+    case "mens-new-in":
+      return products.filter(p => p.category === "MENS NEW IN");
     case "all-home":
       return products;
-    case "t-shirts-tops":
-    case "mens-tops":
-    case "womens-tops":
-      return products.filter(p => p.category === "T-SHIRTS & TOPS");
-    case "shirts":
-      return products.filter(p => p.category === "SHIRTS");
-    case "trousers":
-    case "mens-trousers":
-    case "womens-trousers":
-      return products.filter(p => p.category === "TROUSERS");
-    case "shorts":
-      return products.filter(p => p.category === "SHORTS");
-    case "skirts":
-      return products.filter(p => p.category === "SKIRTS");
-    case "dresses":
-      return products.filter(p => p.category === "DRESSES");
-    case "coats-jackets":
-    case "mens-outerwear":
-    case "womens-outerwear":
-      return products.filter(p => p.category === "COATS & JACKETS");
-    case "loungewear":
-      return products.filter(p => p.category === "LOUNGEWEAR");
-    case "sets":
-      return products.filter(p => p.category === "SETS");
-    case "collaborations":
-      return products.filter(p => p.badge === "Exclusive");
-    case "coming-soon":
-      return products.filter(p => p.badge === "Coming soon");
     default:
       return products;
   }
 }
 
 export const collectionTitles: Record<string, string> = {
-  "summer-series":       "Summer Series",
-  "new-in":              "New In",
-  "mens-new-in":         "Men's New In",
-  "womens-new-in":       "Women's New In",
-  "all-home":            "All",
-  "t-shirts-tops":       "T-Shirts & Tops",
-  "mens-tops":           "Men's Tops",
-  "womens-tops":         "Women's Tops",
-  "shirts":              "Shirts",
-  "trousers":            "Trousers",
-  "mens-trousers":       "Men's Trousers",
-  "womens-trousers":     "Women's Trousers",
-  "shorts":              "Shorts",
-  "skirts":              "Skirts",
-  "dresses":             "Dresses",
-  "coats-jackets":       "Coats & Jackets",
-  "mens-outerwear":      "Men's Outerwear",
-  "womens-outerwear":    "Women's Outerwear",
-  "loungewear":          "Loungewear",
-  "sets":                "Sets",
-  "collaborations":      "Collaborations",
-  "coming-soon":         "Coming Soon",
+  "mens-new-in":   "Men's New In",
+  "womens-new-in": "Women's New In",
+  "all-home":      "All Home",
 };
 
 export const categoryToCollectionSlug: Record<string, string> = {
-  "T-SHIRTS & TOPS":  "t-shirts-tops",
-  "SHIRTS":           "shirts",
-  "TROUSERS":         "trousers",
-  "SHORTS":           "shorts",
-  "SKIRTS":           "skirts",
-  "DRESSES":          "dresses",
-  "COATS & JACKETS":  "coats-jackets",
-  "LOUNGEWEAR":       "loungewear",
-  "SETS":             "sets",
+  "WOMENS NEW IN": "womens-new-in",
+  "MENS NEW IN":   "mens-new-in",
+  "ALL HOME":      "all-home",
 };
 
 export const announcements = [
@@ -417,16 +450,9 @@ export const announcements = [
 ];
 
 export const mainNavLinks = [
-  { label: "All",             href: "/collections/new-in"        },
-  { label: "T-Shirts & Tops", href: "/collections/t-shirts-tops" },
-  { label: "Shirts",          href: "/collections/shirts"        },
-  { label: "Trousers",        href: "/collections/trousers"      },
-  { label: "Shorts",          href: "/collections/shorts"        },
-  { label: "Skirts",          href: "/collections/skirts"        },
-  { label: "Dresses",         href: "/collections/dresses"       },
-  { label: "Coats & Jackets", href: "/collections/coats-jackets" },
-  { label: "Loungewear",      href: "/collections/loungewear"    },
-  { label: "Sets",            href: "/collections/sets"          },
+  { label: "Men's New In",   href: "/collections/mens-new-in"   },
+  { label: "Women's New In", href: "/collections/womens-new-in" },
+  { label: "All Home",       href: "/"                          },
 ];
 
 export const footerLinks = {

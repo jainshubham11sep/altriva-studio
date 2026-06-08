@@ -163,6 +163,12 @@ body {
   justify-content: center;
 }
 
+@media (min-width: 1024px) {
+  .mobile-logo-bar {
+    display: none;
+  }
+}
+
 /* Page content offset */
 .page-content {
   padding-top: 0; /* mobile: in-flow logo bar handles gap */
