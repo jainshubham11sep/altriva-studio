@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { categoryToCollectionSlug, products as allProducts } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
+import { pixelViewContent, pixelAddToCart } from "@/lib/pixel";
 
 const STATIC_REVIEWS = [
   { id: 1, name: "Priya S.",  rating: 5, date: "March 2025",    verified: true,  title: "Absolutely stunning",        text: "The quality is exceptional. Soft yet structured — exactly as described. Runs true to size." },
@@ -59,13 +60,15 @@ export default function ProductClient({ product, related }: Props) {
       .map(slug => allProducts.find(p => p.slug === slug))
       .filter(Boolean) as Product[];
     setRecentlyViewed(viewed.slice(0, 6));
-  }, [product.slug]);
+    pixelViewContent(product);
+  }, [product.slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const images = product.images ?? [product.image, ...(product.hoverImage ? [product.hoverImage] : [])];
 
   const handleAddToBag = () => {
     const size = selectedSize ?? "O/S";
     addItem(product, size);
+    pixelAddToCart(product, 1);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };

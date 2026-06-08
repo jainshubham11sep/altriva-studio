@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { useCart } from "@/contexts/CartContext";
+import { pixelInitiateCheckout, pixelAddPaymentInfo, pixelPurchase } from "@/lib/pixel";
 
 type Step = "contact" | "shipping" | "confirmed";
 
@@ -39,6 +40,10 @@ export default function CheckoutPage() {
     if (typeof window !== "undefined" && window.Razorpay) setRazorpayLoaded(true);
   }, []);
 
+  useEffect(() => {
+    if (items.length > 0) pixelInitiateCheckout(items, subtotal);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleRazorpayPayment = async () => {
     if (!razorpayLoaded) {
       alert("Payment gateway is loading. Please try again.");
@@ -53,6 +58,8 @@ export default function CheckoutPage() {
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
+
+      pixelAddPaymentInfo(total);
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -71,6 +78,7 @@ export default function CheckoutPage() {
         },
         theme: { color: "#000000" },
         handler: () => {
+          pixelPurchase(data.orderId, total, items);
           clearCart();
           setStep("confirmed");
         },
