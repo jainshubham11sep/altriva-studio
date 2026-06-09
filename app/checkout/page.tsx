@@ -20,6 +20,8 @@ export default function CheckoutPage() {
   const [orderNum] = useState(() => Math.floor(Math.random() * 900000 + 100000).toString());
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
 
+  const [paymentMethod, setPaymentMethod] = useState<"online" | "cod">("online");
+
   const [contact, setContact] = useState({
     email: "", firstName: "", lastName: "",
     address: "", city: "", state: "", zip: "", country: "India", phone: "",
@@ -35,11 +37,28 @@ export default function CheckoutPage() {
     if (items.length > 0) pixelInitiateCheckout(items, subtotal);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const sendOrderEmail = (extraNote?: string) =>
+    fetch("/api/send-order-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderNum, items, total, contact, paymentMethod, extraNote }),
+    }).catch(() => {});
+
   const handlePay = async () => {
     if (!contact.firstName || !contact.address) {
       alert("Please fill in your name and delivery address.");
       return;
     }
+
+    if (paymentMethod === "cod") {
+      setPaying(true);
+      pixelPurchase(orderNum, total, items);
+      sendOrderEmail("Payment: Cash on Delivery");
+      clearCart();
+      setConfirmed(true);
+      return;
+    }
+
     if (!razorpayLoaded) {
       alert("Payment gateway is loading. Please try again in a moment.");
       return;
@@ -74,11 +93,7 @@ export default function CheckoutPage() {
         theme: { color: "#000000" },
         handler: () => {
           pixelPurchase(data.orderId, total, items);
-          fetch("/api/send-order-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ orderNum, items, total, contact }),
-          }).catch(() => {});
+          sendOrderEmail("Payment: Online (Razorpay)");
           clearCart();
           setConfirmed(true);
         },
@@ -193,6 +208,39 @@ export default function CheckoutPage() {
                     onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))} />
                 </div>
 
+                {/* Payment method */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <span style={labelStyle}>Payment Method</span>
+                  {(["online", "cod"] as const).map((m) => (
+                    <label
+                      key={m}
+                      style={{
+                        display: "flex", alignItems: "center", gap: "0.75rem",
+                        padding: "0.875rem 1rem", cursor: "pointer",
+                        border: paymentMethod === m ? "1px solid #000" : "1px solid rgba(0,0,0,0.15)",
+                        transition: "border-color 0.15s",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value={m}
+                        checked={paymentMethod === m}
+                        onChange={() => setPaymentMethod(m)}
+                        style={{ accentColor: "#000", width: "14px", height: "14px", flexShrink: 0 }}
+                      />
+                      <div>
+                        <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em" }}>
+                          {m === "online" ? "Pay Online" : "Cash on Delivery"}
+                        </p>
+                        <p style={{ fontSize: "0.5625rem", opacity: 0.45, marginTop: "0.15rem" }}>
+                          {m === "online" ? "UPI, Cards, Net Banking & Wallets via Razorpay" : "Pay in cash when your order arrives"}
+                        </p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+
                 <button
                   onClick={handlePay}
                   disabled={paying}
@@ -214,13 +262,17 @@ export default function CheckoutPage() {
                       Processing…
                     </>
                   ) : (
-                    `Pay Rs. ${total.toLocaleString("en-IN")} →`
+                    paymentMethod === "cod"
+                      ? `Place Order — Rs. ${total.toLocaleString("en-IN")} (COD) →`
+                      : `Pay Rs. ${total.toLocaleString("en-IN")} →`
                   )}
                 </button>
 
-                <p style={{ fontSize: "0.5625rem", opacity: 0.4 }}>
-                  Secure payment via Razorpay — UPI, Cards, Net Banking &amp; Wallets accepted.
-                </p>
+                {paymentMethod === "online" && (
+                  <p style={{ fontSize: "0.5625rem", opacity: 0.4 }}>
+                    Secure payment via Razorpay — UPI, Cards, Net Banking &amp; Wallets accepted.
+                  </p>
+                )}
                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
               </div>
             ) : (

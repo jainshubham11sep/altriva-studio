@@ -7,7 +7,7 @@ const SENDER_PASS = "your_gmail_app_password_here";
 
 export async function POST(req: Request) {
   try {
-    const { orderNum, items, total, contact } = await req.json();
+    const { orderNum, items, total, contact, paymentMethod, extraNote } = await req.json();
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -40,6 +40,7 @@ export async function POST(req: Request) {
           <tr><td style="padding:4px 0;color:#666;">Email</td><td>${contact.email || "—"}</td></tr>
           <tr><td style="padding:4px 0;color:#666;">Phone</td><td>${contact.phone || "—"}</td></tr>
           <tr><td style="padding:4px 0;color:#666;">Address</td><td>${contact.address}, ${contact.city}, ${contact.state} ${contact.zip}, ${contact.country}</td></tr>
+          <tr><td style="padding:4px 0;color:#666;">Payment</td><td><strong>${paymentMethod === "cod" ? "Cash on Delivery" : "Online (Razorpay)"}</strong>${extraNote ? ` — ${extraNote}` : ""}</td></tr>
         </table>
 
         <h3 style="font-size:13px;letter-spacing:0.06em;text-transform:uppercase;margin-top:24px;margin-bottom:8px;">Items</h3>
@@ -64,7 +65,7 @@ export async function POST(req: Request) {
     await transporter.sendMail({
       from: `"Altriva Studio" <${SENDER_EMAIL}>`,
       to: NOTIFY_EMAILS.join(", "),
-      subject: `New Order #${orderNum} — Rs. ${total.toLocaleString("en-IN")}`,
+      subject: `New Order #${orderNum} — Rs. ${total.toLocaleString("en-IN")}${paymentMethod === "cod" ? " [COD]" : ""}`,
       html,
     });
 
