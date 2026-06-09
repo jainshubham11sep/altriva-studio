@@ -46,27 +46,119 @@ For returns and exchanges, please refer to our Delivery & Returns policy.`,
   },
   "delivery-and-returns": {
     title: "Delivery & Returns",
-    body: `Complimentary UK standard delivery on all orders over £300.
+    body: `India – 15 days replacements from the date of product delivered.
 
-Express delivery is available for an additional charge. International shipping is available to over 100 countries.
+International – 15 days replacements from the date of product delivered.
 
-Returns are accepted within 30 days of receipt. Items must be unworn, unwashed, and in their original packaging with all tags attached.
+Shipping charges for replacement requests will be borne by ALTRIVA. Exchanges will be processed only for the same amount as the original order value or a higher amount.
 
-To initiate a return, please contact our customer support team.`,
+Exchange orders are not eligible for returns or store credit. Exchanges are final and cannot be reversed for a refund once initiated.
+
+Please note that the product must be returned unused and all tags and labels should be attached.
+
+Shipping charges will be borne by the customer if you wish to return the piece. You will be charged Rs. 100 which will be deducted from the refund amount.
+
+Shipping will be borne by ALTRIVA only under the following conditions:
+
+If there is a manufacturing defect in the piece.
+
+If the package is received damaged.
+
+Please note that the product must be unused and all tags and labels should be attached.`,
   },
   "privacy-policy": {
     title: "Privacy Policy",
-    body: `We are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information.
+    body: `This privacy policy ("Policy") relates to the manner ALTRIVA ("we", "us", "our") in which we use, handle and process the data that you provide us in connection with using the products or services we offer. By using this website or by availing goods or services offered by us, you agree to the terms and conditions of this Policy, and consent to our use, storage, disclosure, and transfer of your information or data in the manner described in this Policy.
 
-We collect information you provide directly, such as when you create an account or place an order. We use this data to fulfil orders, improve our services, and communicate with you.
+We are committed to ensuring that your privacy is protected in accordance with applicable laws and regulations. We urge you to acquaint yourself with this Policy to familiarize yourself with the manner in which your data is being handled by us.
 
-We do not sell your personal data to third parties. For full details, please review our complete Privacy Policy document.`,
+ALTRIVA may change this Policy periodically and we urge you to check this page for the latest version of the Policy in order to keep yourself updated.
+
+What data is being collected
+
+We may collect the following information from you: Name; contact information including address and email address; demographic information or preferences or interests; personal data or other information relevant or required for providing the goods or services to you. The meaning of Personal Data will be as defined under relevant Indian laws.
+
+Note: Notwithstanding anything under this Policy as required under applicable Indian laws, we will not be storing any credit card, debit card or any other similar card data of yours. Please also note that all data or information collected from you will be strictly in accordance with applicable laws and guidelines.
+
+What we do with the data we gather
+
+We require this data to provide you with the goods or services offered by us including but not limited to: internal record keeping; improving our products or services; providing updates to you regarding our products or services including any special offers; communicating information to you; and internal training and quality assurance purposes.
+
+Who do we share your data with
+
+We may share your information or data with: third parties including our service providers in order to facilitate the provisions of goods or services to you; our group companies (to the extent relevant); our auditors or advisors to the extent required by them for performing their services; and governmental bodies, regulatory authorities, law enforcement authorities pursuant to our legal obligations or compliance requirements.
+
+How we use cookies
+
+We use "cookies" to collect information and to better understand customer behaviour. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to avail our goods or services to the full extent. We do not control the use of cookies by third parties. The third party service providers have their own privacy policies addressing how they use such information.
+
+Your rights relating to your data
+
+Right to Review – You can review the data provided by you and can request us to correct or amend such data (to the extent feasible, as determined by us). That said, we will not be responsible for the authenticity of the data or information provided by you.
+
+Withdrawal of your Consent – You can choose not to provide your data, at any time while availing our goods or services or otherwise withdraw your consent provided to us earlier, in writing to our email ID: altrivaindia@gmail.com. In the event you choose to not provide or later withdraw your consent, we may not be able to provide you our services or goods. Please note that these rights are subject to our compliance with applicable laws.
+
+How long will we retain your information or data?
+
+We may retain your information or data (i) for as long as we are providing goods and services to you; and (ii) as permitted under applicable law, we may also retain your data or information even after you terminate the business relationship with us. However, we will process such information or data in accordance with applicable laws and this Policy.
+
+Data Security
+
+We will use commercially reasonable and legally required precautions to preserve the integrity and security of your information and data.
+
+Queries / Grievance Officer
+
+For any queries, questions or grievances about this Policy, please contact us using the contact information provided on this website.`,
   },
   "terms-conditions": {
     title: "Terms & Conditions",
-    body: `By accessing and using this website, you accept these Terms and Conditions in full.
+    body: `These Terms and Conditions, along with privacy policy or other terms ("Terms") constitute a binding agreement by and between ALTRIVA ("Website Owner" or "we" or "us" or "our") and you ("you" or "your") and relate to your use of our website, goods (as applicable) or services (as applicable) (collectively, "Services").
 
-All content on this site is the property of Altriva Studio and may not be reproduced without permission. Prices are subject to change without notice. We reserve the right to refuse orders at our discretion.`,
+By using our website and availing the Services, you agree that you have read and accepted these Terms (including the Privacy Policy). We reserve the right to modify these Terms at any time and without assigning any reason. It is your responsibility to periodically review these Terms to stay informed of updates.
+
+The use of this website or availing of our Services is subject to the following terms of use:
+
+To access and use the Services, you agree to provide true, accurate and complete information to us during and after registration, and you shall be responsible for all acts done through the use of your registered account.
+
+Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials offered on this website or through the Services, for any specific purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.
+
+Your use of our Services and the website is solely at your own risk and discretion. You are required to independently assess and ensure that the Services meet your requirements.
+
+The contents of the Website and the Services are proprietary to us and you will not have any authority to claim any intellectual property rights, title, or interest in its contents.
+
+You acknowledge that unauthorized use of the Website or the Services may lead to action against you as per these Terms or applicable laws.
+
+You agree to pay us the charges associated with availing the Services.
+
+You agree not to use the website and/or Services for any purpose that is unlawful, illegal or forbidden by these Terms, or Indian or local laws that might apply to you.
+
+You agree and acknowledge that the website and the Services may contain links to other third party websites. On accessing these links, you will be governed by the terms of use, privacy policy and such other policies of such third party websites.
+
+You understand that upon initiating a transaction for availing the Services you are entering into a legally binding and enforceable contract with us for the Services.
+
+You shall be entitled to claim a refund of the payment made by you in case we are not able to provide the Service. The timelines for such return and refund will be according to the specific Service you have availed or within the time period provided in our policies (as applicable). In case you do not raise a refund claim within the stipulated time, then this would make you ineligible for a refund.
+
+Notwithstanding anything contained in these Terms, the parties shall not be liable for any failure to perform an obligation under these Terms if performance is prevented or delayed by a force majeure event.
+
+These Terms and any dispute or claim relating to it, or its enforceability, shall be governed by and construed in accordance with the laws of India.
+
+All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in Kota, Rajasthan.
+
+All concerns or communications relating to these Terms must be communicated to us using the contact information provided on this website.`,
+  },
+  "shipping": {
+    title: "Shipping",
+    body: `For international buyers, orders are shipped and delivered through registered international courier companies and/or international speed post only.
+
+For domestic buyers, orders are shipped through registered domestic courier companies and/or speed post only. Orders are shipped within 0–4 days or as per the delivery date agreed at the time of order confirmation and delivering of the shipment subject to courier company / post office norms.
+
+ALTRIVA provides free shipping all over India and free international shipping on orders over Rs. 20,000.
+
+ALTRIVA is not liable for any delay in delivery by the courier company / postal authorities and only guarantees to hand over the consignment to the courier company or postal authorities within 0–4 days from the date of the order and payment or as per the delivery date agreed at the time of order confirmation.
+
+Delivery of all orders will be to the address provided by the buyer. Delivery of our services will be confirmed on your mail ID as specified during registration.
+
+For any issues in utilizing our services you may contact our helpdesk on +91 96727 43384 or altrivaindia@gmail.com.`,
   },
   "book-appointment": {
     title: "Book an Appointment",

@@ -467,6 +467,7 @@ export const footerLinks = {
   Assistance: [
     { label: "Contact",               href: "/pages/contact-us"          },
     { label: "Customer Support",      href: "/pages/customer-support"    },
+    { label: "Shipping",              href: "/pages/shipping"            },
     { label: "Delivery & Returns",    href: "/pages/delivery-and-returns"},
     { label: "Privacy",               href: "/pages/privacy-policy"      },
     { label: "Terms & Conditions",    href: "/pages/terms-conditions"    },
