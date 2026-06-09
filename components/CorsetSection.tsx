@@ -15,9 +15,9 @@ export default function CorsetSection() {
   return (
     <section
       style={{
-        padding: "2rem 0 3rem",
+        padding: "2.5rem 0 4rem",
         borderBottom: "1px solid rgba(0,0,0,0.07)",
-        marginBottom: "3rem",
+        marginBottom: "4rem",
       }}
     >
       <style>{`
@@ -26,12 +26,13 @@ export default function CorsetSection() {
           align-items: baseline;
           justify-content: space-between;
           padding: 0 var(--page-margin);
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.75rem;
         }
         .corset-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 0.25rem;
+          gap: 0.375rem;
+          row-gap: 2.5rem;
         }
         .corset-card-main {
           grid-column: span 2;
@@ -39,7 +40,8 @@ export default function CorsetSection() {
         @media (min-width: 768px) {
           .corset-grid {
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            gap: 0.75rem;
+            row-gap: 3rem;
             padding: 0 var(--page-margin);
           }
           .corset-card-main {
@@ -49,7 +51,8 @@ export default function CorsetSection() {
         @media (min-width: 1024px) {
           .corset-grid {
             grid-template-columns: repeat(6, 1fr);
-            gap: 0.5rem;
+            gap: 0.75rem;
+            row-gap: 3rem;
           }
           .corset-card-main {
             grid-column: span 1;
@@ -109,7 +112,7 @@ function CorsetCard({ product, index, isMain }: { product: ReturnType<typeof pro
       style={{
         textDecoration: "none",
         color: "inherit",
-        gap: "0.5rem",
+        gap: "0.75rem",
         animationDelay: `${index * 0.05}s`,
       }}
       onMouseEnter={() => setHovered(true)}
@@ -158,7 +161,7 @@ function CorsetCard({ product, index, isMain }: { product: ReturnType<typeof pro
       </div>
 
       {/* Info */}
-      <div style={{ padding: "0 var(--page-margin)", display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+      <div style={{ padding: "0 var(--page-margin)", display: "flex", flexDirection: "column", gap: "0.3rem" }}>
         <p style={{
           fontSize: "0.6875rem", letterSpacing: "0.01em",
           overflow: "hidden", display: "-webkit-box",
