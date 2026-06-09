@@ -17,14 +17,14 @@ export default function ProductGrid({ items }: Props) {
     >
       <style>{`
         .product-flex-grid {
-          column-gap: 0.5rem;
+          column-gap: 0.75rem;
           row-gap: 3rem;
         }
         @media (min-width: 1024px) {
-          .card-portrait, .card-square { width: calc(25% - 0.375rem); }
+          .card-portrait, .card-square { width: calc(25% - 0.5625rem); }
         }
         @media (min-width: 768px) and (max-width: 1023px) {
-          .card-portrait, .card-square { width: calc(33.333% - 0.334rem); }
+          .card-portrait, .card-square { width: calc(33.333% - 0.5rem); }
         }
         @media (max-width: 767px) {
           .product-section-mobile {
@@ -32,10 +32,10 @@ export default function ProductGrid({ items }: Props) {
             padding-right: 0;
           }
           .product-flex-grid {
-            column-gap: 0.25rem;
-            row-gap: 2rem;
+            column-gap: 0.375rem;
+            row-gap: 2.5rem;
           }
-          .card-portrait, .card-square { width: calc(50% - 0.125rem); }
+          .card-portrait, .card-square { width: calc(50% - 0.1875rem); }
         }
       `}</style>
 
