@@ -153,10 +153,12 @@ body {
 /* Mobile logo bar — in-flow, scrolls away naturally */
 .mobile-logo-bar {
   margin-top: calc(var(--announcement-bar-height) + var(--nav-height));
-  background: var(--off-white);
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 4rem;
 }
 
 @media (min-width: 1024px) {

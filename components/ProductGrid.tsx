@@ -12,33 +12,30 @@ export default function ProductGrid({ items }: Props) {
     <section
       className="product-section-mobile"
       style={{
-        padding: "1rem var(--page-margin) 4rem",
+        padding: "0 var(--page-margin) 5rem",
       }}
     >
       <style>{`
         .product-flex-grid {
-          column-gap: 0.375rem;
-          row-gap: 2.5rem;
+          column-gap: 0.5rem;
+          row-gap: 3rem;
         }
-        /* Desktop: 4-column grid (all card types same width like JWA) */
         @media (min-width: 1024px) {
-          .card-portrait, .card-square { width: calc(25% - 0.28125rem); }
+          .card-portrait, .card-square { width: calc(25% - 0.375rem); }
         }
-        /* Tablet: 3-column grid */
         @media (min-width: 768px) and (max-width: 1023px) {
-          .card-portrait, .card-square { width: calc(33.333% - 0.25rem); }
+          .card-portrait, .card-square { width: calc(33.333% - 0.334rem); }
         }
-        /* Mobile: 2-column grid, edge-to-edge */
         @media (max-width: 767px) {
           .product-section-mobile {
             padding-left: 0;
             padding-right: 0;
           }
           .product-flex-grid {
-            column-gap: 0.1875rem;
-            row-gap: 1.5rem;
+            column-gap: 0.25rem;
+            row-gap: 2rem;
           }
-          .card-portrait, .card-square { width: calc(50% - 0.09375rem); }
+          .card-portrait, .card-square { width: calc(50% - 0.125rem); }
         }
       `}</style>
 

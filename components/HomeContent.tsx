@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { products, mainNavLinks, type Product } from "@/lib/products";
 import ProductGrid from "./ProductGrid";
+import CorsetSection from "./CorsetSection";
 import MoreFeatured from "./MoreFeatured";
 
 type SortKey = "fresh" | "price-asc" | "price-desc" | "trending" | "top-rated" | "discounted";
@@ -38,7 +39,11 @@ function applySort(items: Product[], key: SortKey): Product[] {
 export default function HomeContent() {
   const [activeSort, setActiveSort] = useState<SortKey>("fresh");
 
-  const displayed = useMemo(() => applySort(products, activeSort), [activeSort]);
+  const nonCorsets = useMemo(
+    () => products.filter((p) => !p.displayName.toLowerCase().includes("corset")),
+    []
+  );
+  const displayed = useMemo(() => applySort(nonCorsets, activeSort), [activeSort, nonCorsets]);
 
   return (
     <>
@@ -89,6 +94,7 @@ export default function HomeContent() {
         </div>
       </nav>
 
+      <CorsetSection />
       <ProductGrid items={displayed} />
       <MoreFeatured />
     </>

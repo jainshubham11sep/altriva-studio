@@ -62,12 +62,46 @@ export async function POST(req: Request) {
       </div>
     `;
 
+    // Admin notification
     await transporter.sendMail({
       from: `"Altriva Studio" <${SENDER_EMAIL}>`,
       to: NOTIFY_EMAILS.join(", "),
       subject: `New Order #${orderNum} — Rs. ${total.toLocaleString("en-IN")}${paymentMethod === "cod" ? " [COD]" : ""}`,
       html,
     });
+
+    // Customer confirmation
+    if (contact.email) {
+      const customerHtml = `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#000;">
+          <h2 style="letter-spacing:0.05em;font-size:18px;margin-bottom:4px;">Thank you for your order.</h2>
+          <p style="font-size:13px;color:#666;margin-top:0;">Order #${orderNum}</p>
+          <p style="font-size:13px;line-height:1.6;">Hi ${contact.firstName}, we've received your order and it's being processed. We'll be in touch shortly.</p>
+          ${itemRows.replace(/<table[^>]*>[\s\S]*?<\/table>/, "")}
+          <table style="font-size:13px;width:100%;border-collapse:collapse;">
+            <thead>
+              <tr style="background:#f5f5f5;">
+                <th style="padding:8px 12px;text-align:left;font-weight:500;">Product</th>
+                <th style="padding:8px 12px;text-align:left;font-weight:500;">Size</th>
+                <th style="padding:8px 12px;text-align:left;font-weight:500;">Qty</th>
+                <th style="padding:8px 12px;text-align:left;font-weight:500;">Price</th>
+              </tr>
+            </thead>
+            <tbody>${itemRows}</tbody>
+          </table>
+          <div style="margin-top:16px;font-size:15px;font-weight:600;">
+            Total: Rs. ${total.toLocaleString("en-IN")}
+          </div>
+          <p style="font-size:12px;color:#888;margin-top:24px;">Questions? Reach us at altrivaindia@gmail.com or +91 96727 43384.</p>
+        </div>
+      `;
+      await transporter.sendMail({
+        from: `"Altriva Studio" <${SENDER_EMAIL}>`,
+        to: contact.email,
+        subject: `Your Altriva Order #${orderNum} is confirmed`,
+        html: customerHtml,
+      });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
