@@ -457,6 +457,8 @@ export const mainNavLinks = [
 export const footerLinks = {
   About: [
     { label: "About Altriva",         href: "/pages/about-us"            },
+    { label: "Brand Narrative",       href: "/pages/brand-narrative"     },
+    { label: "Founder's Note",        href: "/pages/founders-note"       },
     { label: "Stores",                href: "/pages/store-locations"     },
     { label: "Careers",               href: "/pages/careers"             },
     { label: "Sign Up",               href: "/pages/sign-up"             },

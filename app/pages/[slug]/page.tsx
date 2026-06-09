@@ -20,7 +20,7 @@ Paris — 8 Rue du Faubourg Saint-Honoré`,
     title: "Careers",
     body: `We are always looking for talented, passionate people to join our team. If you are driven by creativity and excellence, we would love to hear from you.
 
-Please send your CV and portfolio to careers@altrivastudio.com.`,
+Please send your CV and portfolio to altrivaindia@gmail.com.`,
   },
   "sign-up": {
     title: "Sign Up",
@@ -28,16 +28,19 @@ Please send your CV and portfolio to careers@altrivastudio.com.`,
   },
   "contact-us": {
     title: "Contact Us",
-    body: `For general enquiries, please email us at hello@altrivastudio.com.
+    body: `For general enquiries, reach us at:
 
-We aim to respond within 2 business days. For urgent matters, please reach out via our customer support line.`,
+Phone: +91 96727 43384
+Email: altrivaindia@gmail.com
+
+We aim to respond within 2 business days.`,
   },
   "customer-support": {
     title: "Customer Support",
-    body: `Our customer support team is available Monday to Friday, 9am–6pm GMT.
+    body: `Our customer support team is available Monday to Saturday, 10am–7pm IST.
 
-Email: support@altrivastudio.com
-Phone: +44 20 7123 4567
+Phone: +91 96727 43384
+Email: altrivaindia@gmail.com
 
 For returns and exchanges, please refer to our Delivery & Returns policy.`,
   },
@@ -71,7 +74,37 @@ All content on this site is the property of Altriva Studio and may not be reprod
 
 Sessions are available in all flagship stores and last approximately 60 minutes. Please book at least 48 hours in advance.
 
-To book, contact your nearest store directly or email appointments@altrivastudio.com.`,
+To book, contact us at +91 96727 43384 or email altrivaindia@gmail.com.`,
+  },
+  "brand-narrative": {
+    title: "Brand Narrative",
+    body: `Altriva is a fashion label built on the belief that clothing should feel right before it looks right. We see garments not as disposable products, but as personal objects — pieces that stay with you, support how you feel, and age with use.
+
+The modern fashion system has moved away from this idea. Quality has been compromised by speed, fabrics are chosen for convenience rather than longevity, and production is pushed into large-scale environments where both craft and people are often undervalued. At the same time, garments are made without consideration for their afterlife, contributing to unnecessary waste.
+
+Altriva exists to respond to this. We begin with fabric — selecting top-quality materials and studying their composition with intention. Every textile is chosen with its full lifecycle in mind: from fibre and weaving, to garment-making, to a long life of wear, and eventually to responsible recycling or upcycling. Innovation, for us, lies in designing clothes that already understand what comes next.
+
+Our garments are produced in collaboration with small-scale master tailors and artisans rather than large production houses. This allows for care, precision, and fair recognition of skill, while helping build a sustainable community around craft.
+
+Altriva is created through mindful design, controlled production, and respect for material, maker, and wearer. The result is clothing that feels familiar, lasts well, and continues its journey beyond a single season.
+
+Altriva is not about trends. It is about building clothes — and systems — that are meant to endure.`,
+  },
+  "founders-note": {
+    title: "Founder's Note",
+    body: `Altriva began with a simple question I kept coming back to: why do some clothes feel right, while others never do?
+
+I grew up drawing, observing, and making. Over time, those drawings became garments, and garments became a way of understanding how fabric, form, and feeling come together. Clothing, for me, was never just about how it looked — it was about how it sat on the body, how it moved, and how it stayed with you through a day.
+
+Like many people, I took a path that felt expected before choosing to step away from it. Spending time in London gave me clarity and reminded me that meaningful work comes from listening closely to what you're drawn to. I chose fashion not as an industry, but as a craft that carries responsibility.
+
+Altriva exists because something felt missing. Too much clothing today is made quickly, from convenient materials, with little thought for longevity or consequence. At Altriva, we begin with fabric. We choose materials for their quality and composition, and we think carefully about their full lifecycle — from fibre and weaving, to wear, and eventually to recycling or upcycling. Innovation, for us, is designing garments that already understand their next life.
+
+Our pieces are made in collaboration with small-scale master tailors and artisans. Working this way allows us to move with care, honour skill, and build a community around making — not scale.
+
+If you've ever had a garment you keep returning to, you already understand what we're trying to do. Altriva is made for that feeling — clothing that feels familiar, wears well, and continues its journey long after the first season.
+
+Thank you for being part of it.`,
   },
 };
 
@@ -88,10 +121,12 @@ export default async function StaticPage({
   const page = pageContent[slug];
   if (!page) notFound();
 
+  const isFoundersNote = slug === "founders-note";
+
   return (
     <div
       style={{
-        padding: "2rem var(--page-margin) 4rem",
+        padding: "2rem var(--page-margin) 5rem",
         maxWidth: "640px",
       }}
     >
@@ -100,7 +135,7 @@ export default async function StaticPage({
           fontFamily: "'EB Garamond', Georgia, serif",
           fontSize: "1.75rem",
           letterSpacing: "0.01em",
-          marginBottom: "1.5rem",
+          marginBottom: "1.75rem",
           fontWeight: 400,
         }}
       >
@@ -112,14 +147,27 @@ export default async function StaticPage({
           style={{
             fontSize: "0.875rem",
             letterSpacing: "0.015em",
-            lineHeight: 1.6,
-            marginBottom: "1rem",
+            lineHeight: 1.8,
+            marginBottom: "1.25rem",
             color: "rgba(0,0,0,0.8)",
           }}
         >
           {para}
         </p>
       ))}
+      {isFoundersNote && (
+        <div style={{ marginTop: "2.5rem", borderTop: "1px solid rgba(0,0,0,0.1)", paddingTop: "2rem" }}>
+          <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.125rem", letterSpacing: "0.01em", marginBottom: "0.25rem" }}>
+            — Vaiez
+          </p>
+          <p style={{ fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.5, marginBottom: "1rem" }}>
+            Founder, Altriva
+          </p>
+          <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", fontStyle: "italic", letterSpacing: "0.01em", opacity: 0.7 }}>
+            Clothing should feel right before it looks right.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
