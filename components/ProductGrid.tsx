@@ -9,44 +9,34 @@ export default function ProductGrid({ items }: Props) {
   const products = items ?? allProducts;
 
   return (
-    <section
-      className="product-section-mobile"
-      style={{
-        padding: "0 var(--page-margin) 5rem",
-      }}
-    >
+    <section style={{ paddingBottom: "5rem" }}>
       <style>{`
-        .product-flex-grid {
-          column-gap: 0.75rem;
-          row-gap: 3rem;
+        .product-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.375rem;
+          row-gap: 2.5rem;
+        }
+        @media (min-width: 768px) {
+          .product-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            row-gap: 3rem;
+            padding: 0 var(--page-margin);
+          }
         }
         @media (min-width: 1024px) {
-          .card-portrait, .card-square { width: calc(25% - 0.5625rem); }
-        }
-        @media (min-width: 768px) and (max-width: 1023px) {
-          .card-portrait, .card-square { width: calc(33.333% - 0.5rem); }
-        }
-        @media (max-width: 767px) {
-          .product-section-mobile {
-            padding-left: 0;
-            padding-right: 0;
+          .product-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            row-gap: 3rem;
           }
-          .product-flex-grid {
-            column-gap: 0.375rem;
-            row-gap: 2.5rem;
-          }
-          .card-portrait, .card-square { width: calc(50% - 0.1875rem); }
         }
       `}</style>
 
-      <div className="product-flex-grid flex flex-wrap">
+      <div className="product-grid">
         {products.map((product, i) => (
-          <div
-            key={product.id}
-            className={product.aspect === "portrait" ? "card-portrait" : "card-square"}
-          >
-            <ProductCard product={product} index={i} />
-          </div>
+          <ProductCard key={product.id} product={product} index={i} />
         ))}
       </div>
     </section>
