@@ -6,7 +6,7 @@ import Link from "next/link";
 import { products } from "@/lib/products";
 
 const corsets = products.filter((p) =>
-  p.displayName.toLowerCase().includes("corset")
+  p.displayName.toLowerCase().includes("corset") && p.slug !== "corset"
 );
 
 export default function CorsetSection() {

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const NOTIFY_EMAILS = ["vaieziqbal29@gmail.com", "altrivaindia@gmail.com"];
 const SENDER_EMAIL = "altrivaindia@gmail.com";
-const SENDER_PASS = "your_gmail_app_password_here"; // replace with Gmail App Password
+const SENDER_PASS = "bswzeytwujlnptnv"; // replace with Gmail App Password
 
 type Item = {
   product: { displayName: string; priceInr: number };

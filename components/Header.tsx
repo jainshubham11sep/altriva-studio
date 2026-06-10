@@ -5,70 +5,21 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 import { footerLinks } from "@/lib/products";
 
 const menuCategories = [
   {
-    label: "Featured",
+    label: "Menswear",
     items: [
-      { label: "Summer Series", count: 83, href: "/collections/summer-series" },
-      { label: "Men's New In", count: 56, href: "/collections/mens-new-in" },
-      { label: "Women's New In", count: 79, href: "/collections/womens-new-in" },
-      { label: "Coming Soon", count: null, href: "/collections/coming-soon" },
-      { label: "Collaborations", count: null, href: "/collections/collaborations" },
+      { label: "Men's New In", count: null, href: "/collections/mens-new-in" },
     ],
   },
   {
-    label: "Bags",
+    label: "Womenswear",
     items: [
-
-      { label: "Shoulder Bags", count: null, href: "/collections/shoulder-bags" },
-      { label: "Totes", count: null, href: "/collections/totes" },
-      { label: "Clutches", count: null, href: "/collections/clutches" },
-      { label: "Mini Bags", count: null, href: "/collections/mini-bags" },
-      { label: "Bulb Bags", count: null, href: "/collections/bulb-bags" },
-    ],
-  },
-  {
-    label: "Mens",
-    items: [
-      { label: "Men's New In", count: 56, href: "/collections/mens-new-in" },
-      { label: "Tops", count: null, href: "/collections/mens-tops" },
-      { label: "Trousers", count: null, href: "/collections/mens-trousers" },
-      { label: "Outerwear", count: null, href: "/collections/mens-outerwear" },
-      { label: "Footwear", count: null, href: "/collections/mens-footwear" },
-      { label: "Accessories", count: null, href: "/collections/mens-accessories" },
-    ],
-  },
-  {
-    label: "Womens",
-    items: [
-      { label: "Women's New In", count: 79, href: "/collections/womens-new-in" },
-      { label: "Dresses", count: null, href: "/collections/dresses" },
-      { label: "Tops", count: null, href: "/collections/womens-tops" },
-      { label: "Trousers", count: null, href: "/collections/womens-trousers" },
-      { label: "Outerwear", count: null, href: "/collections/womens-outerwear" },
-      { label: "Footwear", count: null, href: "/collections/womens-footwear" },
-    ],
-  },
-  {
-    label: "Accessories",
-    items: [
-      { label: "Jewellery", count: null, href: "/collections/jewellery" },
-      { label: "Sunglasses", count: null, href: "/collections/sunglasses" },
-      { label: "Hats", count: null, href: "/collections/hats" },
-      { label: "Scarves", count: null, href: "/collections/scarves" },
-      { label: "Belts", count: null, href: "/collections/belts" },
-      { label: "Charms", count: null, href: "/collections/charms" },
-    ],
-  },
-  {
-    label: "Home",
-    items: [
-      { label: "All Home", count: null, href: "/" },
-      { label: "Candles", count: null, href: "/collections/candles" },
-      { label: "Objects", count: null, href: "/collections/objects" },
-      { label: "Books", count: null, href: "/collections/books" },
+      { label: "Women's New In", count: null, href: "/collections/womens-new-in" },
+      { label: "The Corset Edit", count: null, href: "/collections/womens-new-in" },
     ],
   },
 ];
@@ -78,6 +29,7 @@ export default function Header() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [menuSearch, setMenuSearch] = useState("");
   const { totalItems } = useCart();
+  const { count: wishlistCount } = useWishlist();
   const router = useRouter();
 
   const handleMenuSearch = (e: React.FormEvent) => {
@@ -150,6 +102,18 @@ export default function Header() {
 
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}
         <div className="flex items-center gap-1 justify-end flex-1">
+          {/* Desktop wishlist */}
+          <Link href="/wishlist" className="hidden lg:flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Wishlist" style={{ position: "relative" }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+            {wishlistCount > 0 && (
+              <span style={{ position: "absolute", top: "4px", right: "4px", background: "#000", color: "#fff", borderRadius: "50%", width: "14px", height: "14px", fontSize: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
+
           {/* Desktop search */}
           <Link href="/search" className="hidden lg:flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Search">
             <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4" aria-hidden="true">
@@ -159,6 +123,16 @@ export default function Header() {
 
           {/* Mobile icons group */}
           <div className="lg:hidden flex items-center gap-1">
+            <Link href="/wishlist" className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Wishlist" style={{ position: "relative" }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+              {wishlistCount > 0 && (
+                <span style={{ position: "absolute", top: "4px", right: "4px", background: "#000", color: "#fff", borderRadius: "50%", width: "14px", height: "14px", fontSize: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
             <Link href="/search" className="flex items-center justify-center w-9 h-9 p-1.5 hover:opacity-50 transition-opacity" aria-label="Search">
               <svg viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4" aria-hidden="true">
                 <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />

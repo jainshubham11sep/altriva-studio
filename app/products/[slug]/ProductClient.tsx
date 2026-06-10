@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { categoryToCollectionSlug, products as allProducts } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 import { pixelViewContent, pixelAddToCart } from "@/lib/pixel";
 
 const STATIC_REVIEWS = [
@@ -26,7 +27,7 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-const SIZES_APPAREL = ["XS", "S", "M", "L", "XL", "XXL"];
+const SIZES_APPAREL = ["28", "30", "32", "34", "36", "38", "40"];
 const SIZES_SHOES = ["36", "37", "38", "39", "40", "41", "42"];
 
 function getSizes(category: string) {
@@ -43,6 +44,8 @@ interface Props {
 
 export default function ProductClient({ product, related }: Props) {
   const { addItem } = useCart();
+  const { toggle: toggleWishlist, isWishlisted } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
   const sizes = getSizes(product.category);
   const [selectedSize, setSelectedSize] = useState<string | null>(sizes ? null : "O/S");
   const [imgIdx, setImgIdx] = useState(0);
@@ -287,20 +290,28 @@ export default function ProductClient({ product, related }: Props) {
               {added ? "Added to Bag ✓" : "Add to Bag"}
             </button>
             <button
+              onClick={() => toggleWishlist(product)}
               style={{
                 width: "100%",
-                background: "transparent",
-                color: "inherit",
+                background: wishlisted ? "#000" : "transparent",
+                color: wishlisted ? "#fff" : "inherit",
                 border: "1px solid rgba(0,0,0,0.2)",
                 padding: "0.9375rem 1.5rem",
                 fontSize: "0.6875rem",
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 cursor: "pointer",
-                transition: "border-color 0.15s",
+                transition: "all 0.15s",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "0.5rem",
               }}
             >
-              Save to Wishlist
+              <svg viewBox="0 0 24 24" fill={wishlisted ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" style={{ width: "0.875rem", height: "0.875rem", flexShrink: 0 }}>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+              {wishlisted ? "Saved to Wishlist" : "Save to Wishlist"}
             </button>
           </div>
 
@@ -392,9 +403,10 @@ export default function ProductClient({ product, related }: Props) {
           </button>
         )}
         <button
+          onClick={() => toggleWishlist(product)}
           style={{
-            background: "transparent",
-            color: "inherit",
+            background: wishlisted ? "#000" : "transparent",
+            color: wishlisted ? "#fff" : "inherit",
             border: "1px solid rgba(0,0,0,0.2)",
             padding: "0.875rem",
             cursor: "pointer",
@@ -402,10 +414,11 @@ export default function ProductClient({ product, related }: Props) {
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
+            transition: "all 0.15s",
           }}
-          aria-label="Save to wishlist"
+          aria-label={wishlisted ? "Remove from wishlist" : "Save to wishlist"}
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "1rem", height: "1rem" }}>
+          <svg viewBox="0 0 24 24" fill={wishlisted ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" style={{ width: "1rem", height: "1rem" }}>
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </button>

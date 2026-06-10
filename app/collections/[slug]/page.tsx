@@ -1,6 +1,4 @@
-import CategoryTabs from "@/components/CategoryTabs";
-import ProductGrid from "@/components/ProductGrid";
-import MoreFeatured from "@/components/MoreFeatured";
+import CollectionContent from "@/components/CollectionContent";
 import { getCollectionProducts, collectionTitles } from "@/lib/products";
 
 export async function generateStaticParams() {
@@ -15,11 +13,5 @@ export default async function CollectionPage({
   const { slug } = await params;
   const items = getCollectionProducts(slug);
 
-  return (
-    <>
-      <CategoryTabs />
-      <ProductGrid items={items} />
-      <MoreFeatured />
-    </>
-  );
+  return <CollectionContent items={items} />;
 }

@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { products } from "@/lib/products";
+
+const mensCount = products.filter(p => p.category === "MENS NEW IN").length;
+const womensCount = products.filter(p => p.category === "WOMENS NEW IN").length;
 
 const moreFeatured = [
-  { count: 56, label: "Men's New In",   href: "/collections/mens-new-in" },
-  { count: 79, label: "Women's New In", href: "/collections/womens-new-in" },
-  { count: 24, label: "All Bags",       href: "/collections/all-bags" },
+  { count: mensCount,   label: "Men's New In",   href: "/collections/mens-new-in" },
+  { count: womensCount, label: "Women's New In",  href: "/collections/womens-new-in" },
 ];
 
 export default function MoreFeatured() {

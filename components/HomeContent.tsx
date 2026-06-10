@@ -40,57 +40,21 @@ export default function HomeContent() {
   const [activeSort, setActiveSort] = useState<SortKey>("fresh");
 
   const nonCorsets = useMemo(
-    () => products.filter((p) => !p.displayName.toLowerCase().includes("corset")),
+    () => products.filter((p) => p.slug === "corset" || !p.displayName.toLowerCase().includes("corset")),
     []
   );
   const displayed = useMemo(() => applySort(nonCorsets, activeSort), [activeSort, nonCorsets]);
 
   return (
     <>
-      {/* Sub-nav row: category links left, sort dropdown right */}
-      <nav className="sub-nav" style={{ justifyContent: "space-between" }}>
-        {/* Category links */}
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem", overflowX: "auto", scrollbarWidth: "none" }}>
+      {/* Sub-nav row: category links only on home */}
+      <nav className="sub-nav">
+        <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
           {mainNavLinks.map((link) => (
             <a key={link.label} href={link.href} style={{ flexShrink: 0 }}>
               {link.label}
             </a>
           ))}
-        </div>
-
-        {/* Sort by dropdown */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0, marginLeft: "1.5rem" }}>
-          <span style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.4, whiteSpace: "nowrap" }}>
-            Sort by
-          </span>
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-            <select
-              value={activeSort}
-              onChange={(e) => setActiveSort(e.target.value as SortKey)}
-              aria-label="Sort products"
-              style={{
-                appearance: "none",
-                background: "transparent",
-                border: "none",
-                padding: "0 1rem 0 0",
-                fontSize: "0.5625rem",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                color: "inherit",
-                fontFamily: "inherit",
-                outline: "none",
-              }}
-            >
-              {SORTS.map((s) => (
-                <option key={s.key} value={s.key}>{s.label}</option>
-              ))}
-            </select>
-            <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="1.3"
-              style={{ width: "0.45rem", height: "0.45rem", position: "absolute", right: 0, pointerEvents: "none", opacity: 0.45 }}>
-              <path d="M1 1l4 4 4-4" />
-            </svg>
-          </div>
         </div>
       </nav>
 

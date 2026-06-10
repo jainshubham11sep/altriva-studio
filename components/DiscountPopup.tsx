@@ -14,7 +14,8 @@ export default function DiscountPopup() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (sessionStorage.getItem(STORAGE_KEY)) return;
-    const timer = setTimeout(() => setVisible(true), 2500);
+    // Show after 2.5 minutes of browsing
+    const timer = setTimeout(() => setVisible(true), 150000);
     return () => clearTimeout(timer);
   }, []);
 
