@@ -3,9 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function CartPage() {
   const { items, removeItem, updateQty, subtotal, totalItems } = useCart();
+  const { formatPrice } = useCurrency();
 
   return (
     <div style={{ padding: "2rem var(--page-margin) 4rem", minHeight: "60vh" }}>
@@ -86,7 +88,7 @@ export default function CartPage() {
                     <p style={{ fontSize: "0.6875rem", opacity: 0.6 }}>Size: {item.size}</p>
                   )}
                   <p style={{ fontSize: "0.6875rem", marginTop: "0.25rem" }}>
-                    Rs.&nbsp;{item.product.priceInr.toLocaleString("en-IN")}
+                    {formatPrice(item.product.priceInr)}
                   </p>
 
                   {/* Quantity + Remove */}
@@ -128,7 +130,7 @@ export default function CartPage() {
 
                 {/* Line total */}
                 <p style={{ fontSize: "0.6875rem", flexShrink: 0, paddingTop: "0.125rem" }}>
-                  Rs.&nbsp;{(item.product.priceInr * item.quantity).toLocaleString("en-IN")}
+                  {formatPrice(item.product.priceInr * item.quantity)}
                 </p>
               </div>
             ))}
@@ -147,7 +149,7 @@ export default function CartPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid rgba(0,0,0,0.1)", paddingTop: "1rem" }}>
               <span style={{ fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase" }}>Subtotal</span>
-              <span style={{ fontSize: "0.6875rem" }}>Rs.&nbsp;{subtotal.toLocaleString("en-IN")}</span>
+              <span style={{ fontSize: "0.6875rem" }}>{formatPrice(subtotal)}</span>
             </div>
             <p style={{ fontSize: "0.625rem", opacity: 0.5 }}>
               Duties and taxes included. Shipping calculated at checkout.

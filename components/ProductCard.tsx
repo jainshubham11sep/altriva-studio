@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface Props {
   product: Product;
@@ -14,6 +15,7 @@ interface Props {
 export default function ProductCard({ product, index }: Props) {
   const [hovered, setHovered] = useState(false);
   const { toggle, isWishlisted } = useWishlist();
+  const { formatPrice } = useCurrency();
   const wishlisted = isWishlisted(product.id);
 
   return (
@@ -94,7 +96,7 @@ export default function ProductCard({ product, index }: Props) {
             {product.displayName}
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", letterSpacing: "0.01em", opacity: 0.65 }}>
-            <span>Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}</span>
+            <span>{formatPrice(product.priceInr)}</span>
             {product.colors && product.colors > 1 && (
               <>
                 <span style={{ opacity: 0.4 }}>·</span>

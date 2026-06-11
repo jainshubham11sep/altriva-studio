@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/lib/products";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const corsets = products.filter((p) =>
   p.displayName.toLowerCase().includes("corset") && p.slug !== "corset"
@@ -18,6 +19,10 @@ export default function CorsetSection() {
         padding: "2.5rem 0 4rem",
         borderBottom: "1px solid rgba(0,0,0,0.07)",
         marginBottom: "4rem",
+        minHeight: "calc(100svh - var(--total-header-height))",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       <style>{`
@@ -104,6 +109,7 @@ export default function CorsetSection() {
 
 function CorsetCard({ product, index, isMain }: { product: ReturnType<typeof products.filter>[0]; index: number; isMain: boolean }) {
   const [hovered, setHovered] = useState(false);
+  const { formatPrice } = useCurrency();
 
   return (
     <Link
@@ -173,7 +179,7 @@ function CorsetCard({ product, index, isMain }: { product: ReturnType<typeof pro
           {product.displayName}
         </p>
         <p style={{ fontSize: "0.6875rem", letterSpacing: "0.01em", opacity: 0.65 }}>
-          Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}
+          {formatPrice(product.priceInr)}
         </p>
       </div>
     </Link>

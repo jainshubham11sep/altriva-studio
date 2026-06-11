@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { products } from "@/lib/products";
 
@@ -10,6 +13,8 @@ const moreFeatured = [
 ];
 
 export default function MoreFeatured() {
+  const [open, setOpen] = useState(true);
+
   return (
     <section style={{ padding: "2.5rem var(--page-margin) 3.5rem" }}>
       <style>{`
@@ -49,30 +54,33 @@ export default function MoreFeatured() {
         </Link>
       </div>
 
-      {/* More Featured links */}
+      {/* More Featured accordion */}
       <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
-        <p
+        <button
+          onClick={() => setOpen(o => !o)}
           style={{
-            fontSize: "0.5625rem",
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            opacity: 0.4,
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
             padding: "1rem 0",
+            color: "inherit",
           }}
         >
-          More Featured
-        </p>
+          <p style={{ fontSize: "0.5625rem", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.4 }}>
+            More Featured
+          </p>
+          <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "0.5rem", height: "0.5rem", opacity: 0.4, transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
+            <path d="M2 4l3 3 3-3" />
+          </svg>
+        </button>
 
-        {moreFeatured.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className="mf-link"
-          >
-            <span
-              className="mf-label"
-              style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.375rem", lineHeight: 1.2 }}
-            >
+        {open && moreFeatured.map((item) => (
+          <Link key={item.label} href={item.href} className="mf-link">
+            <span className="mf-label" style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.375rem", lineHeight: 1.2 }}>
               {item.label}
             </span>
             <span style={{ fontSize: "0.5625rem", letterSpacing: "0.06em", opacity: 0.45, fontVariantNumeric: "tabular-nums" }}>

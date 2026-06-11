@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { useCart } from "@/contexts/CartContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function WishlistPage() {
   const { items, toggle } = useWishlist();
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
 
   return (
     <div style={{ paddingBottom: "5rem" }}>
@@ -93,7 +95,7 @@ export default function WishlistPage() {
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
                     <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize" }}>{product.displayName}</p>
-                    <p style={{ fontSize: "0.6875rem", opacity: 0.55 }}>Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}</p>
+                    <p style={{ fontSize: "0.6875rem", opacity: 0.55 }}>{formatPrice(product.priceInr)}</p>
                   </div>
                 </Link>
 

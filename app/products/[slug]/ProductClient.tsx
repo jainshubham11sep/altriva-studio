@@ -7,6 +7,7 @@ import type { Product } from "@/lib/products";
 import { categoryToCollectionSlug, products as allProducts } from "@/lib/products";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { pixelViewContent, pixelAddToCart } from "@/lib/pixel";
 
 const STATIC_REVIEWS = [
@@ -45,6 +46,7 @@ interface Props {
 export default function ProductClient({ product, related }: Props) {
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
+  const { formatPrice } = useCurrency();
   const wishlisted = isWishlisted(product.id);
   const sizes = getSizes(product.category);
   const [selectedSize, setSelectedSize] = useState<string | null>(sizes ? null : "O/S");
@@ -147,7 +149,7 @@ export default function ProductClient({ product, related }: Props) {
           </h1>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <span style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}>
-              Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}
+              {formatPrice(product.priceInr)}
             </span>
             {product.colors && product.colors > 1 && (
               <span style={{ fontSize: "0.6875rem", opacity: 0.55, fontStyle: "italic" }}>
@@ -224,7 +226,7 @@ export default function ProductClient({ product, related }: Props) {
             </h1>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginTop: "0.25rem" }}>
               <span style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}>
-                Rs.&nbsp;{product.priceInr.toLocaleString("en-IN")}
+                {formatPrice(product.priceInr)}
               </span>
               {product.colors && product.colors > 1 && (
                 <span style={{ fontSize: "0.6875rem", opacity: 0.55, fontStyle: "italic" }}>
@@ -443,7 +445,7 @@ export default function ProductClient({ product, related }: Props) {
                 </div>
                 <div>
                   <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{p.displayName}</p>
-                  <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
+                  <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>{formatPrice(p.priceInr)}</p>
                 </div>
               </Link>
             ))}
@@ -481,7 +483,7 @@ export default function ProductClient({ product, related }: Props) {
                   <div>
                     <Link href={`/products/${p.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
                       <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{p.displayName}</p>
-                      <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
+                      <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>{formatPrice(p.priceInr)}</p>
                     </Link>
                     <button
                       onClick={() => addItem(p, "O/S")}
@@ -589,7 +591,7 @@ export default function ProductClient({ product, related }: Props) {
                     <Image src={p.image} alt={p.displayName} fill className="object-cover" sizes="40vw" />
                   </div>
                   <p style={{ fontSize: "0.6875rem", letterSpacing: "0.02em", textTransform: "capitalize", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{p.displayName}</p>
-                  <p style={{ fontSize: "0.6875rem", opacity: 0.55 }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
+                  <p style={{ fontSize: "0.6875rem", opacity: 0.55 }}>{formatPrice(p.priceInr)}</p>
                 </Link>
               ))}
             </div>

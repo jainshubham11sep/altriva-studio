@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { products } from "@/lib/products";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const FEATURED = [
   { count: 83, label: "Summer Series",  href: "/collections/summer-series" },
@@ -23,6 +24,7 @@ const BROWSE = [
 function SearchContent() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const { formatPrice } = useCurrency();
 
   useEffect(() => {
     const q = searchParams.get("q");
@@ -76,7 +78,7 @@ function SearchContent() {
                   </div>
                   <div>
                     <p style={{ fontSize: "0.6875rem", textTransform: "capitalize", lineHeight: 1.3 }}>{p.displayName}</p>
-                    <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>Rs.&nbsp;{p.priceInr.toLocaleString("en-IN")}</p>
+                    <p style={{ fontSize: "0.6875rem", opacity: 0.55, marginTop: "0.2rem" }}>{formatPrice(p.priceInr)}</p>
                   </div>
                 </Link>
               ))}

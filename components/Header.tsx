@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { useCurrency, CURRENCIES } from "@/contexts/CurrencyContext";
 import { footerLinks } from "@/lib/products";
 
 const menuCategories = [
@@ -28,6 +29,10 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [menuSearch, setMenuSearch] = useState("");
+  const [currencyOpen, setCurrencyOpen] = useState(false);
+  const [menuEmail, setMenuEmail] = useState("");
+  const [menuSubscribed, setMenuSubscribed] = useState(false);
+  const { currency, setCurrency } = useCurrency();
   const { totalItems } = useCart();
   const { count: wishlistCount } = useWishlist();
   const router = useRouter();
@@ -76,29 +81,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Center: Logo — desktop only, small */}
-        <div
-          className="hidden lg:flex"
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            alignItems: "center",
-            height: "var(--nav-height)",
-            pointerEvents: "none",
-          }}
-        >
-          <a href="/" aria-label="Home" style={{ textDecoration: "none", display: "flex", alignItems: "center", pointerEvents: "auto" }}>
-            <Image
-              src="/images/altriva-logo.png"
-              alt="Altriva Studio"
-              width={730}
-              height={160}
-              style={{ height: "16px", width: "auto" }}
-              priority
-            />
-          </a>
-        </div>
 
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}
         <div className="flex items-center gap-1 justify-end flex-1">
@@ -214,9 +196,8 @@ export default function Header() {
             @media (min-width: 1024px) {
               .mo-body { flex-direction: row; overflow: hidden; }
               .mo-main { flex-direction: row; flex: 1; overflow: hidden; }
-              .mo-cats-col { width: 250px; flex-shrink: 0; padding: 2.5rem 0 0 var(--page-margin); overflow-y: auto; display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.1); }
-              .mo-right { display: flex; flex: 1; padding: 2.5rem 0 0 3rem; overflow-y: auto; }
-              .mo-footer { border-top: none; padding: 2.5rem 5.5rem 2.5rem 3rem; margin-top: 0; flex-shrink: 0; }
+              .mo-cats-col { width: 260px; flex-shrink: 0; padding: 2.5rem 0 0 var(--page-margin); overflow-y: auto; display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.1); }
+              .mo-right { display: flex; flex-direction: column; flex: 1; padding: 2.5rem 3rem 2.5rem 3rem; overflow-y: auto; gap: 2.5rem; }
               .mo-footer-grid { grid-template-columns: 1fr 1fr 1.5fr; gap: 2rem 2.5rem; }
               .mo-newsletter { display: block; }
               .mo-brand { position: absolute; top: 0; right: 0; bottom: 0; width: 80px; display: flex; align-items: center; justify-content: center; pointer-events: none; overflow: hidden; }
@@ -224,20 +205,40 @@ export default function Header() {
           `}</style>
 
           {/* ── Top bar: bordered close + currency ── */}
-          <div style={{ height: "var(--nav-height)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 var(--page-margin)", flexShrink: 0 }}>
+          <div style={{ height: "var(--nav-height)", display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 0, paddingBottom: 0, paddingLeft: "var(--page-margin)", paddingRight: "calc(var(--page-margin) + var(--logo-panel-width))", flexShrink: 0 }}>
             <button
               onClick={() => setMenuOpen(false)}
-              style={{ border: "1px solid rgba(0,0,0,0.5)", background: "none", cursor: "pointer", color: "inherit", padding: "0.25rem 0.5rem", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", color: "inherit" }}
               aria-label="Close menu"
             >
-              {/* Mobile: X icon */}
-              <svg className="lg:hidden" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "0.8125rem", height: "0.8125rem", display: "block" }} aria-hidden="true">
-                <path d="M1 1l12 12M13 1L1 13" />
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "1rem", height: "1rem" }}>
+                <path d="M2 2l12 12M14 2L2 14" />
               </svg>
-              {/* Desktop: CLOSE text */}
-              <span className="hidden lg:inline" style={{ fontSize: "0.5625rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Close</span>
             </button>
-            <span className="hidden lg:block" style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.6 }}>IN / ₹</span>
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setCurrencyOpen((o) => !o)}
+                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", opacity: 0.6, color: "inherit", padding: 0, display: "flex", alignItems: "center", gap: "0.25rem" }}
+              >
+                {currency.label}
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2" style={{ width: "0.5rem", height: "0.5rem", transform: currencyOpen ? "rotate(180deg)" : "none", transition: "transform 0.15s", flexShrink: 0 }}>
+                  <path d="M2 4l3 3 3-3" />
+                </svg>
+              </button>
+              {currencyOpen && (
+                <div style={{ position: "absolute", right: 0, top: "calc(100% + 0.375rem)", background: "#f2f2eb", border: "1px solid rgba(0,0,0,0.12)", zIndex: 20, minWidth: "6.5rem" }}>
+                  {CURRENCIES.map((c) => (
+                    <button
+                      key={c.code}
+                      onClick={() => { setCurrency(c.code); setCurrencyOpen(false); }}
+                      style={{ display: "block", width: "100%", textAlign: "left", background: c.code === currency.code ? "rgba(0,0,0,0.06)" : "none", border: "none", cursor: "pointer", padding: "0.5rem 0.75rem", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit" }}
+                    >
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* ── Scrollable body ── */}
@@ -303,27 +304,79 @@ export default function Header() {
                   ))}
                 </ul>
 
-                {/* Mobile footer (lives inside left col so it scrolls naturally) */}
-                <div className="mo-footer lg:hidden" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                  <div className="mo-footer-grid">
+                {/* Mobile: About + Assistance flat lists + newsletter (hidden on desktop) */}
+                <div className="lg:hidden" style={{ marginTop: "auto", paddingTop: "1.5rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 1.5rem", borderTop: "1px solid rgba(0,0,0,0.12)", paddingTop: "1.25rem" }}>
                     {Object.entries(footerLinks).map(([heading, items]) => (
                       <div key={heading}>
-                        <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.25rem", marginBottom: "0.875rem" }}>{heading}</span>
+                        <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", letterSpacing: "0.01em", marginBottom: "0.625rem" }}>
+                          {heading}
+                        </p>
                         {items.map((item) => (
-                          <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.35rem 0" }} onClick={() => setMenuOpen(false)}>
+                          <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.07em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.3rem 0", opacity: 0.75 }} onClick={() => setMenuOpen(false)}>
                             {item.label}
                           </a>
                         ))}
                       </div>
                     ))}
                   </div>
+
+                  {/* Mobile newsletter */}
+                  <div style={{ borderTop: "1px solid rgba(0,0,0,0.12)", marginTop: "1.5rem", paddingTop: "1.25rem", paddingBottom: "2rem" }}>
+                    <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", letterSpacing: "0.01em", marginBottom: "0.875rem" }}>
+                      Subscribe.
+                    </p>
+                    {menuSubscribed ? (
+                      <p style={{ fontSize: "0.625rem", opacity: 0.6 }}>You&apos;re on the list!</p>
+                    ) : (
+                      <form
+                        onSubmit={(e) => { e.preventDefault(); if (menuEmail) setMenuSubscribed(true); }}
+                        style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.25)", paddingBottom: "0.375rem" }}
+                      >
+                        <input
+                          type="email"
+                          required
+                          placeholder="Your email"
+                          value={menuEmail}
+                          onChange={(e) => setMenuEmail(e.target.value)}
+                          style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.75rem", letterSpacing: "0.01em", color: "inherit" }}
+                        />
+                        <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", padding: 0, flexShrink: 0 }}>
+                          →
+                        </button>
+                      </form>
+                    )}
+                  </div>
+
+                  {/* Vertical brand logo — always visible in mobile menu, below newsletter */}
+                  <div style={{ display: "flex", justifyContent: "center", padding: "4rem 0 3rem" }}>
+                    <div style={{ position: "relative", width: "22vw", height: "calc(22vw * 4.5625)" }}>
+                      <Image
+                        src="/images/altriva-logo.png"
+                        alt=""
+                        width={730}
+                        height={160}
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          height: "22vw",
+                          width: "auto",
+                          maxWidth: "none",
+                          transform: "translate(-50%, -50%) rotate(-90deg)",
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
+
               </div>
 
-              {/* Right panel: active category sub-items (desktop only) */}
+              {/* Right panel: category sub-items + About/Assistance flat + newsletter (desktop only) */}
               <div className="mo-right">
+                {/* Category sub-items when a category is clicked */}
                 {(() => {
-                  const active = menuCategories.find(c => c.label === (openCategory ?? menuCategories[0].label));
+                  const active = openCategory ? menuCategories.find(c => c.label === openCategory) : null;
                   return active ? (
                     <ul style={{ listStyle: "none" }}>
                       {active.items.map((item) => (
@@ -345,40 +398,84 @@ export default function Header() {
                     </ul>
                   ) : null;
                 })()}
-              </div>
-            </div>
 
-            {/* Desktop footer: About | Assistance | Newsletter */}
-            <div className="mo-footer hidden lg:block">
-              <div className="mo-footer-grid">
-                {Object.entries(footerLinks).map(([heading, items]) => (
-                  <div key={heading}>
-                    <span style={{ display: "block", fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.125rem", marginBottom: "0.875rem" }}>{heading}</span>
-                    {items.map((item) => (
-                      <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.3rem 0" }} onClick={() => setMenuOpen(false)}>
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                ))}
-                {/* Newsletter */}
-                <div className="mo-newsletter">
-                  <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1rem", lineHeight: 1.45, marginBottom: "1.25rem" }}>
+                {/* About + Assistance — flat, always expanded */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 2rem" }}>
+                  {Object.entries(footerLinks).map(([heading, items]) => (
+                    <div key={heading}>
+                      <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.0625rem", letterSpacing: "0.01em", marginBottom: "0.75rem", opacity: 0.9 }}>
+                        {heading}
+                      </p>
+                      {items.map((item) => (
+                        <a key={item.label} href={item.href} style={{ display: "block", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", textDecoration: "none", padding: "0.3rem 0", opacity: 0.7, transition: "opacity 0.1s" }}
+                          onClick={() => setMenuOpen(false)}
+                          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+                          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.7")}
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop newsletter */}
+                <div style={{ borderTop: "1px solid rgba(0,0,0,0.12)", paddingTop: "1.25rem" }}>
+                  <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.0625rem", letterSpacing: "0.01em", marginBottom: "0.875rem" }}>
                     Newsletters that smell nice.<br />Subscribe.
                   </p>
-                  <div style={{ borderBottom: "1px solid rgba(0,0,0,0.3)", paddingBottom: "0.375rem" }}>
-                    <input placeholder="Your email" type="email" style={{ background: "transparent", border: "none", outline: "none", fontSize: "0.6875rem", letterSpacing: "0.015em", color: "inherit", width: "100%" }} />
-                  </div>
+                  {menuSubscribed ? (
+                    <p style={{ fontSize: "0.625rem", opacity: 0.6, letterSpacing: "0.04em" }}>You&apos;re on the list!</p>
+                  ) : (
+                    <form
+                      onSubmit={(e) => { e.preventDefault(); if (menuEmail) setMenuSubscribed(true); }}
+                      style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(0,0,0,0.25)", paddingBottom: "0.375rem", maxWidth: "320px" }}
+                    >
+                      <input
+                        type="email"
+                        required
+                        placeholder="Your email"
+                        value={menuEmail}
+                        onChange={(e) => setMenuEmail(e.target.value)}
+                        style={{ flex: 1, background: "transparent", border: "none", outline: "none", fontSize: "0.8125rem", letterSpacing: "0.01em", color: "inherit" }}
+                      />
+                      <button type="submit" style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "inherit", padding: 0, flexShrink: 0 }}>
+                        Subscribe →
+                      </button>
+                    </form>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Decorative vertical brand text (desktop only, absolutely positioned) */}
-          <div className="mo-brand" aria-hidden="true">
-            <span style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "5rem", fontWeight: 400, writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", lineHeight: 0.9, whiteSpace: "nowrap", letterSpacing: "0.02em" }}>
-              ALTRIVA STUDIO
-            </span>
+          {/* ZING card — white box, beside the fixed logo panel */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              bottom: "2.5rem",
+              right: "calc(var(--logo-panel-width) + 2rem)",
+              transform: "rotate(-8deg)",
+              transformOrigin: "bottom right",
+              background: "#f5f3ee",
+              padding: "1rem 2rem 1.5rem",
+              zIndex: 5,
+              pointerEvents: "none",
+              userSelect: "none",
+            }}
+          >
+            <p style={{
+              fontFamily: "'EB Garamond', Georgia, serif",
+              fontSize: "3rem",
+              fontWeight: 500,
+              letterSpacing: "0.04em",
+              color: "#111",
+              lineHeight: 1,
+              textTransform: "uppercase",
+            }}>
+              ZING
+            </p>
           </div>
         </div>
       )}

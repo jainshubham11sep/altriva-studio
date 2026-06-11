@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import ContactForm from "@/components/ContactForm";
 
 const pageContent: Record<string, { title: string; body: string }> = {
   "about-us": {
@@ -28,12 +29,7 @@ Please send your CV and portfolio to altrivaindia@gmail.com.`,
   },
   "contact-us": {
     title: "Contact Us",
-    body: `For general enquiries, reach us at:
-
-Phone: +91 96727 43384
-Email: altrivaindia@gmail.com
-
-We aim to respond within 2 business days.`,
+    body: "",
   },
   "customer-support": {
     title: "Customer Support",
@@ -214,6 +210,47 @@ export default async function StaticPage({
   if (!page) notFound();
 
   const isFoundersNote = slug === "founders-note";
+  const isContact = slug === "contact-us";
+
+  if (isContact) {
+    return (
+      <div style={{ padding: "2rem var(--page-margin) 5rem", maxWidth: "640px" }}>
+        <h1 style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.75rem", letterSpacing: "0.01em", marginBottom: "2.5rem", fontWeight: 400 }}>
+          Contact Us
+        </h1>
+
+        {/* Contact details */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "3rem" }}>
+          <p style={{ fontSize: "0.75rem", letterSpacing: "0.015em", lineHeight: 1.7, opacity: 0.6 }}>
+            For general enquiries, reach us at:
+          </p>
+          <p style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}>
+            <span style={{ opacity: 0.45, fontSize: "0.625rem", letterSpacing: "0.08em", textTransform: "uppercase", display: "block", marginBottom: "0.25rem" }}>Phone</span>
+            <a href="tel:+919672743384" style={{ color: "inherit", textDecoration: "none" }}>+91 96727 43384</a>
+          </p>
+          <p style={{ fontSize: "0.875rem", letterSpacing: "0.02em" }}>
+            <span style={{ opacity: 0.45, fontSize: "0.625rem", letterSpacing: "0.08em", textTransform: "uppercase", display: "block", marginBottom: "0.25rem" }}>Email</span>
+            <a href="mailto:altrivaindia@gmail.com" style={{ color: "inherit", textDecoration: "none" }}>altrivaindia@gmail.com</a>
+          </p>
+          <p style={{ fontSize: "0.75rem", opacity: 0.5, letterSpacing: "0.015em" }}>
+            We aim to respond within 2 business days.
+          </p>
+        </div>
+
+        {/* Custom orders */}
+        <div style={{ background: "#f7f7f2", padding: "1.5rem", marginBottom: "3rem" }}>
+          <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: "1.125rem", fontWeight: 400, lineHeight: 1.5, marginBottom: "0.625rem" }}>
+            Custom orders, just for you.
+          </p>
+          <p style={{ fontSize: "0.75rem", letterSpacing: "0.015em", lineHeight: 1.7, opacity: 0.65 }}>
+            We entertain and encourage custom orders so your Altriva piece can be just yours. Contact us to know more.
+          </p>
+        </div>
+
+        <ContactForm />
+      </div>
+    );
+  }
 
   return (
     <div

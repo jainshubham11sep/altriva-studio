@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function BagDrawer() {
   const { drawerOpen, closeDrawer, lastAdded, items, subtotal, totalItems } = useCart();
+  const { formatPrice } = useCurrency();
 
   // Close on Escape
   useEffect(() => {
@@ -112,7 +114,7 @@ export default function BagDrawer() {
                       <p style={{ fontSize: "0.625rem", opacity: 0.5 }}>Size: {item.size}</p>
                     )}
                     <p style={{ fontSize: "0.6875rem", marginTop: "0.25rem" }}>
-                      Rs.&nbsp;{item.product.priceInr.toLocaleString("en-IN")}
+                      {formatPrice(item.product.priceInr)}
                     </p>
                     <p style={{ fontSize: "0.625rem", opacity: 0.45, marginTop: "0.125rem" }}>
                       Qty: {item.quantity}
@@ -129,7 +131,7 @@ export default function BagDrawer() {
           <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "0.6875rem", letterSpacing: "0.06em", textTransform: "uppercase" }}>Subtotal</span>
-              <span style={{ fontSize: "0.875rem" }}>Rs.&nbsp;{subtotal.toLocaleString("en-IN")}</span>
+              <span style={{ fontSize: "0.875rem" }}>{formatPrice(subtotal)}</span>
             </div>
             <p style={{ fontSize: "0.5625rem", opacity: 0.4 }}>Duties &amp; taxes included. Shipping calculated at checkout.</p>
 

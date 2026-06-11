@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { useCart } from "@/contexts/CartContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { pixelInitiateCheckout, pixelAddPaymentInfo, pixelPurchase } from "@/lib/pixel";
 
 declare global {
@@ -15,6 +16,7 @@ declare global {
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
+  const { formatPrice } = useCurrency();
   const [paying, setPaying] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [orderNum] = useState(() => Math.floor(Math.random() * 900000 + 100000).toString());
@@ -263,8 +265,8 @@ export default function CheckoutPage() {
                     </>
                   ) : (
                     paymentMethod === "cod"
-                      ? `Place Order — Rs. ${total.toLocaleString("en-IN")} (COD) →`
-                      : `Pay Rs. ${total.toLocaleString("en-IN")} →`
+                      ? `Place Order — ${formatPrice(total)} (COD) →`
+                      : `Pay ${formatPrice(total)} →`
                   )}
                 </button>
 
@@ -322,14 +324,14 @@ export default function CheckoutPage() {
                       <p style={{ fontSize: "0.6875rem", textTransform: "capitalize", lineHeight: 1.3 }}>{item.product.displayName}</p>
                       {item.size !== "O/S" && <p style={{ fontSize: "0.625rem", opacity: 0.5, marginTop: "0.2rem" }}>{item.size}</p>}
                     </div>
-                    <p style={{ fontSize: "0.6875rem", flexShrink: 0 }}>Rs.&nbsp;{(item.product.priceInr * item.quantity).toLocaleString("en-IN")}</p>
+                    <p style={{ fontSize: "0.6875rem", flexShrink: 0 }}>{formatPrice(item.product.priceInr * item.quantity)}</p>
                   </div>
                 ))}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", paddingTop: "1rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span style={{ fontSize: "0.6875rem", opacity: 0.6 }}>Subtotal</span>
-                  <span style={{ fontSize: "0.6875rem" }}>Rs.&nbsp;{subtotal.toLocaleString("en-IN")}</span>
+                  <span style={{ fontSize: "0.6875rem" }}>{formatPrice(subtotal)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span style={{ fontSize: "0.6875rem", opacity: 0.6 }}>Shipping</span>
@@ -337,7 +339,7 @@ export default function CheckoutPage() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid rgba(0,0,0,0.1)", paddingTop: "0.75rem" }}>
                   <span style={{ fontSize: "0.75rem", letterSpacing: "0.04em", textTransform: "uppercase" }}>Total</span>
-                  <span style={{ fontSize: "0.75rem" }}>Rs.&nbsp;{total.toLocaleString("en-IN")}</span>
+                  <span style={{ fontSize: "0.75rem" }}>{formatPrice(total)}</span>
                 </div>
                 <p style={{ fontSize: "0.5625rem", opacity: 0.4 }}>Duties &amp; taxes included</p>
               </div>
