@@ -465,7 +465,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Heart image card — beside the fixed logo panel */}
+          {/* Red heart — transparent SVG, beside the fixed logo panel */}
           <div
             aria-hidden="true"
             style={{
@@ -477,16 +477,16 @@ export default function Header() {
               zIndex: 5,
               pointerEvents: "none",
               userSelect: "none",
-              width: "180px",
+              width: "120px",
+              filter: "drop-shadow(0 8px 24px rgba(180,20,20,0.45))",
             }}
           >
-            <Image
-              src="/images/heart_menu_pic.jpeg"
-              alt=""
-              width={400}
-              height={500}
-              style={{ width: "100%", height: "auto", display: "block", mixBlendMode: "multiply" }}
-            />
+            <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }}>
+              <path
+                d="M50 85 C50 85 5 52 5 28 C5 14 16 5 28 5 C36 5 44 9 50 16 C56 9 64 5 72 5 C84 5 95 14 95 28 C95 52 50 85 50 85Z"
+                fill="#cc1a1a"
+              />
+            </svg>
           </div>
         </div>
       )}
