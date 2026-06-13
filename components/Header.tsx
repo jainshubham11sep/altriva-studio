@@ -56,6 +56,7 @@ export default function Header() {
         {/* Left: Menu | Login | Bag (desktop) / Hamburger (mobile) */}
         <div className="flex items-center gap-4 flex-1">
           {/* Desktop: text buttons */}
+          <Link href="/" className="nav-link hidden lg:block">Home</Link>
           <button
             className="nav-link hidden lg:block"
             onClick={() => setMenuOpen(true)}
@@ -81,19 +82,6 @@ export default function Header() {
           </button>
         </div>
 
-
-        {/* Center: Home link */}
-        <Link
-          href="/"
-          style={{ textDecoration: "none", color: "inherit", position: "absolute", left: "50%", transform: "translateX(-50%)" }}
-          aria-label="Home"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" style={{ width: "1.1rem", height: "1.1rem", display: "block" }} aria-hidden="true">
-            <path d="M3 12L12 3l9 9" />
-            <path d="M9 21V12h6v9" />
-            <path d="M3 12v9h18V12" />
-          </svg>
-        </Link>
 
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}
         <div className="flex items-center gap-1 justify-end flex-1">
@@ -497,7 +485,7 @@ export default function Header() {
               alt=""
               width={400}
               height={500}
-              style={{ width: "100%", height: "auto", display: "block" }}
+              style={{ width: "100%", height: "auto", display: "block", mixBlendMode: "multiply" }}
             />
           </div>
         </div>
