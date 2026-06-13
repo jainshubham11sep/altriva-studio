@@ -416,6 +416,26 @@ export const products: Product[] = [
     slug: "pink-corset-top",
     aspect: "portrait",
   },
+  {
+    id: "20",
+    name: "WHITE CORSET TOP",
+    displayName: "White Corset Top",
+    category: "WOMENS NEW IN",
+    price: 48,
+    priceInr: 3899,
+    image: "/images/product/white_corset_top/White%20Top%20Front%20pose%20candid%20Side.png",
+    hoverImage: "/images/product/white_corset_top/White%20Top%20Back%20pose%20zoom%20candid%20Side.png",
+    images: [
+      "/images/product/white_corset_top/White%20Top%20Front%20pose%20candid%20Side.png",
+      "/images/product/white_corset_top/White%20Top%20Back%20pose%20zoom%20candid%20Side.png",
+      "/images/product/white_corset_top/White%20Top%20Front%20pose%20whole%20candid%20Side.png",
+      "/images/product/white_corset_top/White%20Top%20Front%20pose%20zoomcandid%20Side.png",
+    ],
+    description: "A clean, structured white corset top crafted from soft jersey fabric. This sleeveless silhouette offers timeless versatility — style it with tailored trousers for a refined look or layer it under a blazer for elevated everyday wear. The model is 5 feet 8 inches and is wearing a size S.",
+    badge: "New",
+    slug: "white-corset-top",
+    aspect: "portrait",
+  },
 ];
 
 export function getCollectionProducts(slug: string): Product[] {

@@ -87,7 +87,7 @@ export default function ProductClient({ product, related }: Props) {
     {
       id: "shipping",
       label: "Shipping & Returns",
-      content: "Complimentary standard shipping on orders over £300.\nExpress delivery available.\nFree returns within 14 days of receipt.\nItems must be unworn and in original packaging.",
+      content: "ALTRIVA provides free shipping all over India and free international shipping on orders over ₹20,000.\n\nOrders are shipped within 0–4 days of order confirmation via registered courier companies.\n\nFor returns, shipping charges of ₹100 will be deducted from the refund amount unless the item is defective or incorrect, in which case ALTRIVA bears the shipping cost.\n\nExchanges are accepted for the same or higher order value. Exchange orders are final and cannot be reversed for a refund.\n\nFor assistance: +91 96727 43384 or altrivaindia@gmail.com",
     },
   ];
 
