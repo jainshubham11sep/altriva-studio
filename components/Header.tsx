@@ -182,6 +182,7 @@ export default function Header() {
 
       {/* ── Menu overlay ── */}
       {menuOpen && (
+        <>
         <div className="menu-overlay" style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
           <style>{`
             /* ── Menu layout ── */
@@ -465,30 +466,32 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Red heart — transparent SVG, beside the fixed logo panel */}
+        </div>
+
+          {/* Heart image — fixed to viewport, unaffected by menu scroll */}
           <div
             aria-hidden="true"
             style={{
-              position: "absolute",
+              position: "fixed",
               bottom: "2.5rem",
               right: "calc(var(--logo-panel-width) + 2rem)",
               transform: "rotate(-8deg)",
               transformOrigin: "bottom right",
-              zIndex: 5,
+              zIndex: 210,
               pointerEvents: "none",
               userSelect: "none",
-              width: "120px",
-              filter: "drop-shadow(0 8px 24px rgba(180,20,20,0.45))",
+              width: "130px",
             }}
           >
-            <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block" }}>
-              <path
-                d="M50 85 C50 85 5 52 5 28 C5 14 16 5 28 5 C36 5 44 9 50 16 C56 9 64 5 72 5 C84 5 95 14 95 28 C95 52 50 85 50 85Z"
-                fill="#cc1a1a"
-              />
-            </svg>
+            <Image
+              src="/images/WhatsApp_Image_2026-06-13_at_12.17.35-removebg-preview.png"
+              alt=""
+              width={400}
+              height={400}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
           </div>
-        </div>
+        </>
       )}
     </>
   );
