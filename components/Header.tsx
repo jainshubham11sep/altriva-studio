@@ -82,6 +82,19 @@ export default function Header() {
         </div>
 
 
+        {/* Center: Home link */}
+        <Link
+          href="/"
+          style={{ textDecoration: "none", color: "inherit", position: "absolute", left: "50%", transform: "translateX(-50%)" }}
+          aria-label="Home"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" style={{ width: "1.1rem", height: "1.1rem", display: "block" }} aria-hidden="true">
+            <path d="M3 12L12 3l9 9" />
+            <path d="M9 21V12h6v9" />
+            <path d="M3 12v9h18V12" />
+          </svg>
+        </Link>
+
         {/* Right: Desktop nav links + Search; Mobile: Search | Login | Bag icons */}
         <div className="flex items-center gap-1 justify-end flex-1">
           {/* Desktop wishlist */}
@@ -304,8 +317,23 @@ export default function Header() {
                   ))}
                 </ul>
 
+                {/* Lookbook link */}
+                <Link
+                  href="/lookbook"
+                  style={{
+                    fontFamily: "'EB Garamond', Georgia, serif",
+                    fontSize: "1.625rem", letterSpacing: "0.005em", color: "inherit",
+                    padding: "0.625rem 0", display: "block", lineHeight: 1.25, textDecoration: "none",
+                  }}
+                  onClick={() => setMenuOpen(false)}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.textDecoration = "underline")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.textDecoration = "none")}
+                >
+                  Lookbook
+                </Link>
+
                 {/* Mobile: About + Assistance flat lists + newsletter (hidden on desktop) */}
-                <div className="lg:hidden" style={{ marginTop: "auto", paddingTop: "1.5rem" }}>
+                <div className="lg:hidden" style={{ marginTop: "auto", paddingTop: "5rem" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 1.5rem", borderTop: "1px solid rgba(0,0,0,0.12)", paddingTop: "1.25rem" }}>
                     {Object.entries(footerLinks).map(([heading, items]) => (
                       <div key={heading}>
@@ -449,7 +477,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* ZING card — white box, beside the fixed logo panel */}
+          {/* Heart image card — beside the fixed logo panel */}
           <div
             aria-hidden="true"
             style={{
@@ -458,24 +486,19 @@ export default function Header() {
               right: "calc(var(--logo-panel-width) + 2rem)",
               transform: "rotate(-8deg)",
               transformOrigin: "bottom right",
-              background: "#f5f3ee",
-              padding: "1rem 2rem 1.5rem",
               zIndex: 5,
               pointerEvents: "none",
               userSelect: "none",
+              width: "180px",
             }}
           >
-            <p style={{
-              fontFamily: "'EB Garamond', Georgia, serif",
-              fontSize: "3rem",
-              fontWeight: 500,
-              letterSpacing: "0.04em",
-              color: "#111",
-              lineHeight: 1,
-              textTransform: "uppercase",
-            }}>
-              ZING
-            </p>
+            <Image
+              src="/images/heart_menu_pic.jpeg"
+              alt=""
+              width={400}
+              height={500}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
           </div>
         </div>
       )}
