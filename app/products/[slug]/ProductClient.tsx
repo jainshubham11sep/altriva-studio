@@ -78,12 +78,19 @@ export default function ProductClient({ product, related }: Props) {
     setTimeout(() => setAdded(false), 2000);
   };
 
+  const isCorset = product.name.toUpperCase().includes("CORSET");
+
   const accordions = [
     {
       id: "details",
       label: "Details",
       content: product.description ?? `SKU: ALT-${product.id.padStart(5, "0")}\nMaterial: Premium quality materials\nPlease refer to our size guide for measurements.`,
     },
+    ...(isCorset ? [{
+      id: "size-guide",
+      label: "Size Guide",
+      content: "__SIZE_GUIDE__",
+    }] : []),
     {
       id: "shipping",
       label: "Shipping & Returns",
@@ -336,9 +343,51 @@ export default function ProductClient({ product, related }: Props) {
                 </button>
                 {openAccordion === acc.id && (
                   <div style={{ paddingBottom: "1rem" }}>
-                    {acc.content.split("\n").map((line, i) => (
-                      <p key={i} style={{ fontSize: "0.75rem", letterSpacing: "0.015em", lineHeight: 1.6, opacity: 0.7 }}>{line}</p>
-                    ))}
+                    {acc.content === "__SIZE_GUIDE__" ? (
+                      <div style={{ overflowX: "auto" }}>
+                        <p style={{ fontSize: "0.625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.5, marginBottom: "0.75rem" }}>
+                          All measurements are body measurements in inches, not garment measurements.
+                        </p>
+                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.6875rem" }}>
+                          <thead>
+                            <tr style={{ background: "#000", color: "#fff" }}>
+                              {["Size", "Bust", "Under Bust", "Waist", "Hip"].map(h => (
+                                <th key={h} style={{ padding: "0.5rem 0.625rem", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 500, textAlign: "center", whiteSpace: "nowrap" }}>{h}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              ["32", `32"`, `27"`, `26"`, `35"`],
+                              ["34", `34"`, `29"`, `28"`, `37"`],
+                              ["36", `36"`, `31"`, `30"`, `39"`],
+                              ["38", `38"`, `33"`, `32"`, `41"`],
+                              ["40", `40"`, `35"`, `34"`, `43"`],
+                              ["42", `42"`, `37"`, `36"`, `45"`],
+                              ["44", `44"`, `39"`, `38"`, `47"`],
+                              ["46", `46"`, `41"`, `40"`, `49"`],
+                              ["48", `48"`, `43"`, `42"`, `51"`],
+                            ].map(([size, ...vals], i) => (
+                              <tr key={size} style={{ background: i % 2 === 0 ? "rgba(0,0,0,0.02)" : "transparent" }}>
+                                <td style={{ padding: "0.5rem 0.625rem", fontWeight: 600, textAlign: "center", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>{size}</td>
+                                {vals.map((v, j) => (
+                                  <td key={j} style={{ padding: "0.5rem 0.625rem", textAlign: "center", opacity: 0.7, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>{v}</td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        <p style={{ fontSize: "0.5625rem", opacity: 0.5, marginTop: "0.75rem", lineHeight: 1.6 }}>
+                          Sizes 44–48 are made to order and ship within 7–10 working days.<br />
+                          Between sizes? Choose the larger size for a comfortable fit.<br />
+                          If bust and waist suggest different sizes, choose the size closest to your waist.
+                        </p>
+                      </div>
+                    ) : (
+                      acc.content.split("\n").map((line, i) => (
+                        <p key={i} style={{ fontSize: "0.75rem", letterSpacing: "0.015em", lineHeight: 1.6, opacity: 0.7 }}>{line}</p>
+                      ))
+                    )}
                   </div>
                 )}
               </div>
