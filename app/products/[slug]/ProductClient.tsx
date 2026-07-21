@@ -99,7 +99,7 @@ export default function ProductClient({ product, related }: Props) {
   ];
 
   return (
-    <div style={{ paddingBottom: "5rem" }}>
+    <div style={{ paddingBottom: "5rem", overflowX: "hidden" }}>
       <style>{`
         .product-layout {
           display: grid;
@@ -206,7 +206,7 @@ export default function ProductClient({ product, related }: Props) {
             )}
           </div>
           {images.length > 1 && (
-            <div style={{ display: "flex", gap: "0.375rem" }}>
+            <div style={{ display: "flex", gap: "0.375rem", overflowX: "auto", paddingBottom: "2px" }}>
               {images.map((src, i) => (
                 <button
                   key={i}
@@ -345,6 +345,21 @@ export default function ProductClient({ product, related }: Props) {
                   <div style={{ paddingBottom: "1rem" }}>
                     {acc.content === "__SIZE_GUIDE__" ? (
                       <div style={{ overflowX: "auto" }}>
+                        <p style={{ fontSize: "0.6875rem", fontFamily: "'EB Garamond', Georgia, serif", letterSpacing: "0.02em", marginBottom: "0.625rem", lineHeight: 1.4 }}>
+                          How to Find Your Size
+                        </p>
+                        <ol style={{ paddingLeft: "1.125rem", marginBottom: "0.875rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                          {[
+                            "Measure your bust at the fullest point, keeping the tape parallel to the floor.",
+                            "Measure your waist at the narrowest point, usually just above the navel.",
+                            "Measure your hips at the fullest point, about 8\" below the waist.",
+                            "Find your measurements in the chart below.",
+                            "If your bust and waist fall in different sizes, choose the size closest to your waist.",
+                            "Between sizes? Always go up — the structured boning gives a snug fit.",
+                          ].map((step, i) => (
+                            <li key={i} style={{ fontSize: "0.6875rem", lineHeight: 1.55, opacity: 0.75 }}>{step}</li>
+                          ))}
+                        </ol>
                         <p style={{ fontSize: "0.625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.5, marginBottom: "0.75rem" }}>
                           All measurements are body measurements in inches, not garment measurements.
                         </p>

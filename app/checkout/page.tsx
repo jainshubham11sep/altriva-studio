@@ -29,7 +29,8 @@ export default function CheckoutPage() {
     address: "", city: "", state: "", zip: "", country: "India", phone: "",
   });
 
-  const total = subtotal;
+  const discount = Math.round(subtotal * 0.1);
+  const total = subtotal - discount;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Razorpay) setRazorpayLoaded(true);
@@ -310,6 +311,15 @@ export default function CheckoutPage() {
               <p style={{ fontSize: "0.6875rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem", opacity: 0.45 }}>
                 Order Summary
               </p>
+              {/* Auto-applied coupon badge */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "#f0faf4", border: "1px solid #b7e5c9", borderRadius: "3px", padding: "0.5rem 0.75rem", marginBottom: "1rem" }}>
+                <svg viewBox="0 0 16 16" fill="none" stroke="#1a7a3c" strokeWidth="1.5" style={{ width: "0.875rem", height: "0.875rem", flexShrink: 0 }}>
+                  <path d="M2 8l4 4 8-8" />
+                </svg>
+                <p style={{ fontSize: "0.625rem", letterSpacing: "0.04em", color: "#1a7a3c" }}>
+                  10% discount automatically applied
+                </p>
+              </div>
               <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
                 {items.map((item) => (
                   <div key={`${item.product.id}-${item.size}`}
@@ -332,6 +342,10 @@ export default function CheckoutPage() {
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span style={{ fontSize: "0.6875rem", opacity: 0.6 }}>Subtotal</span>
                   <span style={{ fontSize: "0.6875rem" }}>{formatPrice(subtotal)}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ fontSize: "0.6875rem", color: "#1a7a3c" }}>Discount (10%)</span>
+                  <span style={{ fontSize: "0.6875rem", color: "#1a7a3c" }}>− {formatPrice(discount)}</span>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span style={{ fontSize: "0.6875rem", opacity: 0.6 }}>Shipping</span>
