@@ -20,7 +20,12 @@ const menuCategories = [
     label: "Womenswear",
     items: [
       { label: "Women's New In", count: null, href: "/collections/womens-new-in" },
-      { label: "The Corset Edit", count: null, href: "/collections/womens-new-in" },
+    ],
+  },
+  {
+    label: "Corset Edit",
+    items: [
+      { label: "The Corset Edit", count: null, href: "/collections/corset-tops" },
     ],
   },
 ];

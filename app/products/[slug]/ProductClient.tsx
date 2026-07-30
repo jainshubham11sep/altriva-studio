@@ -174,6 +174,7 @@ export default function ProductClient({ product, related }: Props) {
               alt={product.displayName}
               fill
               className="object-cover"
+              style={{ objectPosition: "top center" }}
               sizes="(max-width: 1024px) 100vw, 55vw"
               priority
             />
@@ -213,7 +214,7 @@ export default function ProductClient({ product, related }: Props) {
                   onClick={() => setImgIdx(i)}
                   style={{ position: "relative", width: "72px", aspectRatio: "4/5", backgroundColor: "#f5f5f3", border: imgIdx === i ? "1px solid #000" : "1px solid transparent", padding: 0, cursor: "pointer", flexShrink: 0 }}
                 >
-                  <Image src={src} alt="" fill className="object-cover" sizes="72px" />
+                  <Image src={src} alt="" fill className="object-cover" style={{ objectPosition: "top center" }} sizes="72px" />
                 </button>
               ))}
             </div>

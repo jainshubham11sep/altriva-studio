@@ -446,6 +446,8 @@ export function getCollectionProducts(slug: string): Product[] {
       return products.filter(p => p.category === "WOMENS NEW IN");
     case "mens-new-in":
       return products.filter(p => p.category === "MENS NEW IN");
+    case "corset-tops":
+      return products.filter(p => p.name.toUpperCase().includes("CORSET"));
     case "all-home":
       return products;
     default:
@@ -456,6 +458,7 @@ export function getCollectionProducts(slug: string): Product[] {
 export const collectionTitles: Record<string, string> = {
   "mens-new-in":   "Men's New In",
   "womens-new-in": "Women's New In",
+  "corset-tops":   "The Corset Edit",
   "all-home":      "All Home",
 };
 
