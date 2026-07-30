@@ -99,30 +99,30 @@ export default function ProductClient({ product, related }: Props) {
   ];
 
   return (
-    <div style={{ paddingBottom: "5rem", overflowX: "hidden" }}>
+    <div style={{ paddingBottom: "5rem" }}>
       <style>{`
         .product-layout {
           display: grid;
           grid-template-areas: "mobile-title" "gallery" "sidebar";
-          grid-template-columns: 1fr;
-          padding: 0 var(--page-margin);
+          grid-template-columns: minmax(0, 1fr);
         }
-        .product-mobile-title { grid-area: mobile-title; padding: 0.75rem 0 1rem; }
-        .product-gallery-block { grid-area: gallery; }
-        .product-sidebar { grid-area: sidebar; padding-top: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; }
+        .product-mobile-title { grid-area: mobile-title; padding: 0.75rem var(--page-margin) 1rem; min-width: 0; }
+        .product-gallery-block { grid-area: gallery; min-width: 0; }
+        .product-sidebar { grid-area: sidebar; padding: 1.25rem var(--page-margin) 0; display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
         .product-title-desktop { display: none; }
         .product-actions-inline { display: none; }
         .mobile-sticky-bar { display: flex; }
         @media (min-width: 1024px) {
           .product-layout {
             grid-template-areas: "gallery sidebar";
-            grid-template-columns: 1fr 360px;
+            grid-template-columns: minmax(0, 1fr) 360px;
             gap: 3rem;
             align-items: start;
+            padding: 0 var(--page-margin);
           }
           .product-mobile-title { display: none; }
           .product-gallery-block { position: relative; }
-          .product-sidebar { padding-top: 0.5rem; position: sticky; top: var(--total-header-height); }
+          .product-sidebar { padding: 0.5rem 0 0; position: sticky; top: var(--total-header-height); }
           .product-title-desktop { display: flex; }
           .product-actions-inline { display: flex; flex-direction: column; gap: 0.625rem; }
           .mobile-sticky-bar { display: none; }
@@ -130,7 +130,7 @@ export default function ProductClient({ product, related }: Props) {
       `}</style>
 
       {/* Breadcrumb */}
-      <nav style={{ padding: "0.75rem var(--page-margin)", fontSize: "0.625rem", letterSpacing: "0.04em", display: "flex", gap: "0.375rem", opacity: 0.45, flexWrap: "wrap" }}>
+      <nav style={{ padding: "0.75rem var(--page-margin)", fontSize: "0.625rem", letterSpacing: "0.04em", display: "flex", gap: "0.375rem", opacity: 0.45, flexWrap: "wrap", minWidth: 0, overflow: "hidden" }}>
         <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
         <span>/</span>
         <Link
@@ -207,7 +207,7 @@ export default function ProductClient({ product, related }: Props) {
             )}
           </div>
           {images.length > 1 && (
-            <div style={{ display: "flex", gap: "0.375rem", overflowX: "auto", paddingBottom: "2px" }}>
+            <div style={{ display: "flex", gap: "0.375rem", overflowX: "auto", paddingBottom: "2px", paddingLeft: "var(--page-margin)", paddingRight: "var(--page-margin)" }}>
               {images.map((src, i) => (
                 <button
                   key={i}
