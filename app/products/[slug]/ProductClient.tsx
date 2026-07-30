@@ -250,7 +250,15 @@ export default function ProductClient({ product, related }: Props) {
                 <span style={{ fontSize: "0.625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.5 }}>
                   Size{selectedSize ? `: ${selectedSize}` : ""}
                 </span>
-                <button style={{ fontSize: "0.625rem", letterSpacing: "0.04em", opacity: 0.45, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
+                <button
+                  onClick={() => {
+                    setOpenAccordion("size-guide");
+                    setTimeout(() => {
+                      document.getElementById("accordion-size-guide")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 50);
+                  }}
+                  style={{ fontSize: "0.625rem", letterSpacing: "0.04em", opacity: 0.45, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}
+                >
                   Size guide
                 </button>
               </div>
@@ -327,7 +335,7 @@ export default function ProductClient({ product, related }: Props) {
           {/* Accordions */}
           <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
             {accordions.map((acc) => (
-              <div key={acc.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
+              <div key={acc.id} id={`accordion-${acc.id}`} style={{ borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
                 <button
                   onClick={() => setOpenAccordion(openAccordion === acc.id ? null : acc.id)}
                   style={{
