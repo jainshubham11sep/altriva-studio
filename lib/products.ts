@@ -477,6 +477,7 @@ export const announcements = [
 export const mainNavLinks = [
   { label: "Menswear",   href: "/collections/mens-new-in"   },
   { label: "Womenswear", href: "/collections/womens-new-in" },
+  { label: "Corset",     href: "/collections/corset-tops"   },
 ];
 
 export const footerLinks = {
