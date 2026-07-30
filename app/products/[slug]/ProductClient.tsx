@@ -344,59 +344,120 @@ export default function ProductClient({ product, related }: Props) {
                 {openAccordion === acc.id && (
                   <div style={{ paddingBottom: "1rem" }}>
                     {acc.content === "__SIZE_GUIDE__" ? (
-                      <div style={{ overflowX: "auto" }}>
-                        <p style={{ fontSize: "0.6875rem", fontFamily: "'EB Garamond', Georgia, serif", letterSpacing: "0.02em", marginBottom: "0.625rem", lineHeight: 1.4 }}>
-                          How to Find Your Size
-                        </p>
-                        <ol style={{ paddingLeft: "1.125rem", marginBottom: "0.875rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                          {[
-                            "Measure your bust at the fullest point, keeping the tape parallel to the floor.",
-                            "Measure your waist at the narrowest point, usually just above the navel.",
-                            "Measure your hips at the fullest point, about 8\" below the waist.",
-                            "Find your measurements in the chart below.",
-                            "If your bust and waist fall in different sizes, choose the size closest to your waist.",
-                            "Between sizes? Always go up — the structured boning gives a snug fit.",
-                          ].map((step, i) => (
-                            <li key={i} style={{ fontSize: "0.6875rem", lineHeight: 1.55, opacity: 0.75 }}>{step}</li>
-                          ))}
-                        </ol>
-                        <p style={{ fontSize: "0.625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.5, marginBottom: "0.75rem" }}>
-                          All measurements are body measurements in inches, not garment measurements.
-                        </p>
-                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.6875rem" }}>
-                          <thead>
-                            <tr style={{ background: "#000", color: "#fff" }}>
-                              {["Size", "Bust", "Under Bust", "Waist", "Hip"].map(h => (
-                                <th key={h} style={{ padding: "0.5rem 0.625rem", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 500, textAlign: "center", whiteSpace: "nowrap" }}>{h}</th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {[
-                              ["32", `32"`, `27"`, `26"`, `35"`],
-                              ["34", `34"`, `29"`, `28"`, `37"`],
-                              ["36", `36"`, `31"`, `30"`, `39"`],
-                              ["38", `38"`, `33"`, `32"`, `41"`],
-                              ["40", `40"`, `35"`, `34"`, `43"`],
-                              ["42", `42"`, `37"`, `36"`, `45"`],
-                              ["44", `44"`, `39"`, `38"`, `47"`],
-                              ["46", `46"`, `41"`, `40"`, `49"`],
-                              ["48", `48"`, `43"`, `42"`, `51"`],
-                            ].map(([size, ...vals], i) => (
-                              <tr key={size} style={{ background: i % 2 === 0 ? "rgba(0,0,0,0.02)" : "transparent" }}>
-                                <td style={{ padding: "0.5rem 0.625rem", fontWeight: 600, textAlign: "center", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>{size}</td>
-                                {vals.map((v, j) => (
-                                  <td key={j} style={{ padding: "0.5rem 0.625rem", textAlign: "center", opacity: 0.7, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>{v}</td>
+                      <div style={{ fontSize: "0.6875rem", lineHeight: 1.5 }}>
+
+                        {/* Measure callout */}
+                        <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: "3px", padding: "0.75rem 1rem", marginBottom: "1rem", display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "1.75rem", height: "1.75rem", flexShrink: 0, marginTop: "0.1rem" }}>
+                            <rect x="4" y="11" width="24" height="10" rx="2" />
+                            <line x1="8" y1="11" x2="8" y2="14" /><line x1="12" y1="11" x2="12" y2="13" />
+                            <line x1="16" y1="11" x2="16" y2="14" /><line x1="20" y1="11" x2="20" y2="13" />
+                            <line x1="24" y1="11" x2="24" y2="14" />
+                          </svg>
+                          <div>
+                            <p style={{ fontWeight: 600, letterSpacing: "0.03em", marginBottom: "0.2rem" }}>MEASURE YOUR BUST &amp; WAIST BEFORE ORDERING.</p>
+                            <p style={{ opacity: 0.6, fontSize: "0.625rem" }}>It takes less than a minute and helps ensure the perfect fit.</p>
+                          </div>
+                        </div>
+
+                        {/* Size table */}
+                        <div style={{ overflowX: "auto", marginBottom: "1rem" }}>
+                          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.625rem", minWidth: "280px" }}>
+                            <thead>
+                              <tr style={{ background: "#000", color: "#fff" }}>
+                                {[["SIZE",""], ["BUST","(inches)"], ["UNDER BUST","(inches)"], ["WAIST","(inches)"], ["HIP","(inches)"]].map(([h, sub]) => (
+                                  <th key={h} style={{ padding: "0.5rem 0.5rem", textAlign: "center", fontWeight: 600, letterSpacing: "0.05em" }}>
+                                    <div>{h}</div>
+                                    {sub && <div style={{ fontWeight: 400, opacity: 0.7, fontSize: "0.5rem" }}>{sub}</div>}
+                                  </th>
                                 ))}
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                        <p style={{ fontSize: "0.5625rem", opacity: 0.5, marginTop: "0.75rem", lineHeight: 1.6 }}>
-                          Sizes 44–48 are made to order and ship within 7–10 working days.<br />
-                          Between sizes? Choose the larger size for a comfortable fit.<br />
-                          If bust and waist suggest different sizes, choose the size closest to your waist.
+                            </thead>
+                            <tbody>
+                              {[
+                                ["32", `32"`, `27"`, `26"`, `35"`],
+                                ["34", `34"`, `29"`, `28"`, `37"`],
+                                ["36", `36"`, `31"`, `30"`, `39"`],
+                                ["38", `38"`, `33"`, `32"`, `41"`],
+                                ["40", `40"`, `35"`, `34"`, `43"`],
+                                ["42", `42"`, `37"`, `36"`, `45"`],
+                                ["44", `44"`, `39"`, `38"`, `47"`],
+                                ["46", `46"`, `41"`, `40"`, `49"`],
+                                ["48", `48"`, `43"`, `42"`, `51"`],
+                              ].map(([size, ...vals], i) => (
+                                <tr key={size} style={{ background: i % 2 === 0 ? "rgba(0,0,0,0.025)" : "transparent", borderBottom: "1px solid rgba(0,0,0,0.07)" }}>
+                                  <td style={{ padding: "0.5rem", textAlign: "center", fontWeight: 700 }}>{size}</td>
+                                  {vals.map((v, j) => (
+                                    <td key={j} style={{ padding: "0.5rem", textAlign: "center", opacity: 0.75 }}>{v}</td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                        <p style={{ fontSize: "0.5625rem", letterSpacing: "0.05em", textTransform: "uppercase", opacity: 0.45, textAlign: "center", marginBottom: "1.25rem" }}>
+                          ♡ All measurements are body measurements, not garment measurements.
                         </p>
+
+                        {/* How to find your size */}
+                        <div style={{ borderTop: "1px solid rgba(0,0,0,0.1)", paddingTop: "1rem", marginBottom: "1rem" }}>
+                          <p style={{ fontSize: "0.625rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, textAlign: "center", marginBottom: "1rem" }}>
+                            — How to Find Your Size —
+                          </p>
+                          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", marginBottom: "1rem" }}>
+                            {[
+                              { n: "1", title: "MEASURE YOUR WAIST", desc: "Measure your waist at its narrowest point." },
+                              { n: "2", title: "FIND YOUR WAIST SIZE", desc: "Find the matching waist measurement in the chart." },
+                              { n: "3", title: "CHECK YOUR BUST", desc: `Confirm your bust measurement is within ±1" of that size.` },
+                              { n: "4", title: "BETWEEN SIZES?", desc: "Choose the larger size for a comfortable fit." },
+                            ].map(({ n, title, desc }) => (
+                              <div key={n} style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "0.375rem" }}>
+                                <div style={{ width: "1.5rem", height: "1.5rem", borderRadius: "50%", background: "#000", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.625rem", fontWeight: 700, flexShrink: 0 }}>{n}</div>
+                                <p style={{ fontSize: "0.5625rem", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>{title}</p>
+                                <p style={{ fontSize: "0.5625rem", opacity: 0.6, lineHeight: 1.5 }}>{desc}</p>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Examples */}
+                          <div style={{ border: "1px solid rgba(0,0,0,0.12)", borderRadius: "3px", padding: "0.625rem 0.75rem", marginBottom: "0.875rem" }}>
+                            <p style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, textAlign: "center", marginBottom: "0.5rem" }}>Examples</p>
+                            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+                              <p style={{ fontSize: "0.5625rem", opacity: 0.75, textAlign: "center" }}>Waist 30&quot; + Bust 36&quot;<br /><strong>= Size 36</strong></p>
+                              <p style={{ fontSize: "0.5625rem", opacity: 0.75, textAlign: "center" }}>Waist 32&quot; + Bust 38&quot;<br /><strong>= Size 38</strong></p>
+                            </div>
+                          </div>
+
+                          {/* Fit notes */}
+                          <div style={{ border: "1px solid rgba(0,0,0,0.12)", borderRadius: "3px", padding: "0.625rem 0.75rem", marginBottom: "0.875rem" }}>
+                            <p style={{ fontSize: "0.5625rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.5rem" }}>Fit Notes</p>
+                            {[
+                              "All measurements are body measurements, not garment measurements.",
+                              "Measure over fitted clothing or directly on the body.",
+                              "Do not pull the tape too tight.",
+                              "If your bust and waist suggest different sizes, choose the size closest to your waist.",
+                              "Need help? Contact us with your measurements for a personalised recommendation.",
+                            ].map((note, i) => (
+                              <p key={i} style={{ fontSize: "0.5625rem", opacity: 0.65, lineHeight: 1.6, display: "flex", gap: "0.35rem" }}>
+                                <span style={{ flexShrink: 0 }}>♡</span>{note}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Bottom banners */}
+                        <div style={{ background: "#000", color: "#fff", padding: "0.625rem 0.75rem", borderRadius: "3px", marginBottom: "0.5rem" }}>
+                          <p style={{ fontSize: "0.5625rem", letterSpacing: "0.06em", fontWeight: 600, textTransform: "uppercase" }}>
+                            Sizes 44–48 are made to order and ship within 7–10 working days.
+                          </p>
+                        </div>
+                        <div style={{ border: "1px solid rgba(0,0,0,0.12)", borderRadius: "3px", padding: "0.625rem 0.75rem" }}>
+                          <p style={{ fontSize: "0.5625rem", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.2rem" }}>Still Unsure?</p>
+                          <p style={{ fontSize: "0.5625rem", opacity: 0.65, lineHeight: 1.6 }}>
+                            DM us or WhatsApp us your measurements. We&apos;re here to help you get the perfect fit. ♡
+                          </p>
+                        </div>
+
                       </div>
                     ) : (
                       acc.content.split("\n").map((line, i) => (
