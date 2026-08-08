@@ -12,6 +12,7 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addItem: (product: Product, size: string, qty?: number) => void;
+  addItemSilent: (product: Product, size: string, qty?: number) => void;
   removeItem: (productId: string, size: string) => void;
   updateQty: (productId: string, size: string, qty: number) => void;
   clearCart: () => void;
@@ -57,6 +58,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setDrawerOpen(true);
   }, []);
 
+  const addItemSilent = useCallback((product: Product, size: string, qty = 1) => {
+    setItems((prev) => {
+      const existing = prev.find((i) => i.product.id === product.id && i.size === size);
+      if (existing) {
+        return prev.map((i) =>
+          i.product.id === product.id && i.size === size
+            ? { ...i, quantity: i.quantity + qty }
+            : i
+        );
+      }
+      return [...prev, { product, size, quantity: qty }];
+    });
+  }, []);
+
   const removeItem = useCallback((productId: string, size: string) => {
     setItems((prev) => prev.filter((i) => !(i.product.id === productId && i.size === size)));
   }, []);
@@ -80,7 +95,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const subtotal = items.reduce((sum, i) => sum + i.product.priceInr * i.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, totalItems, subtotal, drawerOpen, lastAdded, closeDrawer }}>
+    <CartContext.Provider value={{ items, addItem, addItemSilent, removeItem, updateQty, clearCart, totalItems, subtotal, drawerOpen, lastAdded, closeDrawer }}>
       {children}
     </CartContext.Provider>
   );

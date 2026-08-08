@@ -45,7 +45,7 @@ interface Props {
 }
 
 export default function ProductClient({ product, related }: Props) {
-  const { addItem } = useCart();
+  const { addItem, addItemSilent } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
   const { formatPrice } = useCurrency();
   const router = useRouter();
@@ -82,7 +82,7 @@ export default function ProductClient({ product, related }: Props) {
 
   const handleBuyNow = () => {
     const size = selectedSize ?? "O/S";
-    addItem(product, size);
+    addItemSilent(product, size);
     pixelAddToCart(product, 1);
     router.push("/checkout");
   };

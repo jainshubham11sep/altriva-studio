@@ -7,7 +7,7 @@ import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function BagDrawer() {
-  const { drawerOpen, closeDrawer, lastAdded, items, subtotal, totalItems } = useCart();
+  const { drawerOpen, closeDrawer, lastAdded, items, subtotal, totalItems, removeItem, updateQty } = useCart();
   const { formatPrice } = useCurrency();
 
   // Close on Escape
@@ -116,9 +116,25 @@ export default function BagDrawer() {
                     <p style={{ fontSize: "0.6875rem", marginTop: "0.25rem" }}>
                       {formatPrice(item.product.priceInr)}
                     </p>
-                    <p style={{ fontSize: "0.625rem", opacity: 0.45, marginTop: "0.125rem" }}>
-                      Qty: {item.quantity}
-                    </p>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginTop: "0.5rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <button
+                          onClick={() => updateQty(item.product.id, item.size, item.quantity - 1)}
+                          style={{ background: "none", border: "1px solid rgba(0,0,0,0.15)", cursor: "pointer", width: "22px", height: "22px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.875rem", lineHeight: 1 }}
+                        >−</button>
+                        <span style={{ fontSize: "0.625rem", minWidth: "1rem", textAlign: "center" }}>{item.quantity}</span>
+                        <button
+                          onClick={() => updateQty(item.product.id, item.size, item.quantity + 1)}
+                          style={{ background: "none", border: "1px solid rgba(0,0,0,0.15)", cursor: "pointer", width: "22px", height: "22px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.875rem", lineHeight: 1 }}
+                        >+</button>
+                      </div>
+                      <button
+                        onClick={() => removeItem(item.product.id, item.size)}
+                        style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.5625rem", letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0.4, padding: 0 }}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
