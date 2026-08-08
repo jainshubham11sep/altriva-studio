@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
@@ -47,6 +48,7 @@ export default function ProductClient({ product, related }: Props) {
   const { addItem } = useCart();
   const { toggle: toggleWishlist, isWishlisted } = useWishlist();
   const { formatPrice } = useCurrency();
+  const router = useRouter();
   const wishlisted = isWishlisted(product.id);
   const sizes = getSizes(product.category);
   const [selectedSize, setSelectedSize] = useState<string | null>(sizes ? null : "O/S");
@@ -76,6 +78,13 @@ export default function ProductClient({ product, related }: Props) {
     pixelAddToCart(product, 1);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+  };
+
+  const handleBuyNow = () => {
+    const size = selectedSize ?? "O/S";
+    addItem(product, size);
+    pixelAddToCart(product, 1);
+    router.push("/checkout");
   };
 
   const isCorset = product.name.toUpperCase().includes("CORSET");
@@ -286,7 +295,7 @@ export default function ProductClient({ product, related }: Props) {
             </div>
           )}
 
-          {/* Add to bag + Wishlist — desktop only inline */}
+          {/* Add to bag + Buy Now + Wishlist — desktop only inline */}
           <div className="product-actions-inline">
             <button
               onClick={handleAddToBag}
@@ -306,6 +315,25 @@ export default function ProductClient({ product, related }: Props) {
               }}
             >
               {added ? "Added to Bag ✓" : "Add to Bag"}
+            </button>
+            <button
+              onClick={handleBuyNow}
+              disabled={sizes !== null && !selectedSize}
+              style={{
+                width: "100%",
+                background: "transparent",
+                color: "inherit",
+                border: "1px solid #000",
+                padding: "0.9375rem 1.5rem",
+                fontSize: "0.6875rem",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                cursor: sizes !== null && !selectedSize ? "not-allowed" : "pointer",
+                opacity: sizes !== null && !selectedSize ? 0.4 : 1,
+                transition: "all 0.15s",
+              }}
+            >
+              Buy Now →
             </button>
             <button
               onClick={() => toggleWishlist(product)}
@@ -520,23 +548,42 @@ export default function ProductClient({ product, related }: Props) {
             Select a Size
           </button>
         ) : (
-          <button
-            onClick={handleAddToBag}
-            style={{
-              flex: 1,
-              background: added ? "#2d6a4f" : "#000",
-              color: "#fff",
-              border: "none",
-              padding: "0.875rem 1rem",
-              fontSize: "0.6875rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              transition: "background 0.2s",
-            }}
-          >
-            {added ? "Added to Bag ✓" : "Add to Bag"}
-          </button>
+          <>
+            <button
+              onClick={handleAddToBag}
+              style={{
+                flex: 1,
+                background: added ? "#2d6a4f" : "#000",
+                color: "#fff",
+                border: "none",
+                padding: "0.875rem 0.5rem",
+                fontSize: "0.6875rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                transition: "background 0.2s",
+              }}
+            >
+              {added ? "Added ✓" : "Add to Bag"}
+            </button>
+            <button
+              onClick={handleBuyNow}
+              style={{
+                flex: 1,
+                background: "transparent",
+                color: "inherit",
+                border: "1px solid #000",
+                padding: "0.875rem 0.5rem",
+                fontSize: "0.6875rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                transition: "all 0.15s",
+              }}
+            >
+              Buy Now →
+            </button>
+          </>
         )}
         <button
           onClick={() => toggleWishlist(product)}
