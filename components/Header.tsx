@@ -28,6 +28,12 @@ const menuCategories = [
       { label: "The Corset Edit", count: null, href: "/collections/corset-tops" },
     ],
   },
+  {
+    label: "Shirts",
+    items: [
+      { label: "Silk Crepe Shirts", count: null, href: "/collections/shirts" },
+    ],
+  },
 ];
 
 export default function Header() {

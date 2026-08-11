@@ -663,6 +663,8 @@ export function getCollectionProducts(slug: string): Product[] {
       return products.filter(p => p.category === "MENS NEW IN");
     case "corset-tops":
       return products.filter(p => p.name.toUpperCase().includes("CORSET"));
+    case "shirts":
+      return products.filter(p => p.name.toUpperCase().includes("SILK CREPE SHIRT"));
     case "all-home":
       return products;
     default:
@@ -674,6 +676,7 @@ export const collectionTitles: Record<string, string> = {
   "mens-new-in":   "Men's New In",
   "womens-new-in": "Women's New In",
   "corset-tops":   "The Corset Edit",
+  "shirts":        "Silk Crepe Shirts",
   "all-home":      "All Home",
 };
 
@@ -693,6 +696,7 @@ export const mainNavLinks = [
   { label: "Menswear",   href: "/collections/mens-new-in"   },
   { label: "Womenswear", href: "/collections/womens-new-in" },
   { label: "Corset",     href: "/collections/corset-tops"   },
+  { label: "Shirts",     href: "/collections/shirts"        },
 ];
 
 export const footerLinks = {
