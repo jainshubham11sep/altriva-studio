@@ -440,11 +440,11 @@ export const products: Product[] = [
   },
   {
     id: "22",
-    name: "STRAPLESS SLIM FIT CORSET TOP IN BLACK",
-    displayName: "Strapless Slim Fit Corset Top in Black",
+    name: "SILK VELVET CORSET",
+    displayName: "Silk Velvet Corset",
     category: "WOMENS NEW IN",
-    price: 48,
-    priceInr: 3899,
+    price: 51,
+    priceInr: 4199,
     image: "/images/product/strapless_corset_black/Black%20Corset%20front%20side%20shot.png",
     hoverImage: "/images/product/strapless_corset_black/Black%20Corset%20back%20side%20shot.png",
     images: [
@@ -455,9 +455,9 @@ export const products: Product[] = [
       "/images/product/strapless_corset_black/Black%20Corset%20left%20side%20zipper%20close%20shot.png",
       "/images/product/strapless_corset_black/Black%20Corset%20full%20outfit%20shot.png",
     ],
-    description: "A sleek strapless slim-fit corset top in classic black. Structured boning gives a defined silhouette while the strapless neckline creates an effortlessly sophisticated look. Versatile enough for day or evening styling.",
+    description: "A luxurious silk velvet corset in deep black — structured boning meets sumptuous fabric for a silhouette that commands attention. The strapless neckline and velvet finish make it an instant statement piece.",
     badge: "New",
-    slug: "strapless-slim-fit-corset-black",
+    slug: "silk-velvet-corset",
     aspect: "portrait",
   },
   {
@@ -550,11 +550,11 @@ export const products: Product[] = [
   },
   {
     id: "27",
-    name: "SILK CREPE SHIRT IN BLACK",
-    displayName: "Silk Crepe Shirt (Black)",
+    name: "SHIONSTONE SHIRT",
+    displayName: "Shionstone Shirt",
     category: "WOMENS NEW IN",
-    price: 40,
-    priceInr: 3299,
+    price: 54,
+    priceInr: 4499,
     image: "/images/product/silk_crepe_shirt_black_new/Black%20Shirt%20front%20side%20shot.png",
     hoverImage: "/images/product/silk_crepe_shirt_black_new/Black%20Shirt%20back%20side%20shot.png",
     images: [
@@ -564,9 +564,9 @@ export const products: Product[] = [
       "/images/product/silk_crepe_shirt_black_new/Black%20Shirt%20back%20side%20close%20up%20shot.png",
       "/images/product/silk_crepe_shirt_black_new/Black%20Shirt%20full%20outfit%20shot.png",
     ],
-    description: "A fluid silk crepe shirt in deep black — effortlessly sophisticated. Cut with a relaxed silhouette that drapes beautifully, this piece transitions seamlessly from day to evening. Style open as a layer or buttoned for a polished finish.",
+    description: "A statement silk crepe shirt adorned with rhinestone detailing — where luxury meets edge. The fluid drape and embellished finish make it a standout piece for any occasion.",
     badge: "New",
-    slug: "silk-crepe-shirt-black-2",
+    slug: "shionstone-shirt",
     aspect: "portrait",
   },
   {
@@ -664,7 +664,7 @@ export function getCollectionProducts(slug: string): Product[] {
     case "corset-tops":
       return products.filter(p => p.name.toUpperCase().includes("CORSET"));
     case "shirts":
-      return products.filter(p => p.name.toUpperCase().includes("SILK CREPE SHIRT"));
+      return products.filter(p => p.name.toUpperCase().includes("SILK CREPE SHIRT") || p.name.toUpperCase().includes("SHIONSTONE SHIRT"));
     case "all-home":
       return products;
     default:
