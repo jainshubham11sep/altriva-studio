@@ -550,8 +550,8 @@ export const products: Product[] = [
   },
   {
     id: "27",
-    name: "SHIONSTONE SHIRT",
-    displayName: "Shionstone Shirt",
+    name: "RHIONSTONE SHIRT",
+    displayName: "Rhionstone Shirt",
     category: "WOMENS NEW IN",
     price: 54,
     priceInr: 4499,
@@ -566,7 +566,7 @@ export const products: Product[] = [
     ],
     description: "A statement silk crepe shirt adorned with rhinestone detailing — where luxury meets edge. The fluid drape and embellished finish make it a standout piece for any occasion.",
     badge: "New",
-    slug: "shionstone-shirt",
+    slug: "rhionstone-shirt",
     aspect: "portrait",
   },
   {
@@ -664,7 +664,7 @@ export function getCollectionProducts(slug: string): Product[] {
     case "corset-tops":
       return products.filter(p => p.name.toUpperCase().includes("CORSET"));
     case "shirts":
-      return products.filter(p => p.name.toUpperCase().includes("SILK CREPE SHIRT") || p.name.toUpperCase().includes("SHIONSTONE SHIRT"));
+      return products.filter(p => p.name.toUpperCase().includes("SILK CREPE SHIRT") || p.name.toUpperCase().includes("RHIONSTONE SHIRT"));
     case "all-home":
       return products;
     default:
