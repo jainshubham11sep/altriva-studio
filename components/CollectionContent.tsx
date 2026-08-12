@@ -49,8 +49,12 @@ export default function CollectionContent({ items }: Props) {
   return (
     <>
       {/* Sub-nav row with Sort By on the right */}
-      <nav className="sub-nav" style={{ justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
+      <nav className="sub-nav" style={{ justifyContent: "space-between", overflow: "hidden" }}>
+        <div
+          className="sub-nav-links"
+          style={{ display: "flex", alignItems: "center", gap: "2.5rem", flex: 1, minWidth: 0, overflowX: "auto", overflowY: "visible" }}
+        >
+          <style>{`.sub-nav-links { scrollbar-width: none; -ms-overflow-style: none; } .sub-nav-links::-webkit-scrollbar { display: none; }`}</style>
           {mainNavLinks.map((link) => (
             <a key={link.label} href={link.href} style={{ flexShrink: 0 }}>
               {link.label}
