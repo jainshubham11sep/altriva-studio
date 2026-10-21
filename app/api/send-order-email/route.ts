@@ -1,10 +1,13 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
-// Credentials come from env vars (set locally in .env.local and in Vercel → Settings → Environment Variables).
-// GMAIL_APP_PASSWORD must be a Google App Password, not the normal account password.
-const SENDER_EMAIL = process.env.GMAIL_USER || "altrivaindia@gmail.com";
-const SENDER_PASS = process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, "");
+// Gmail account that sends the order emails, plus its App Password (myaccount.google.com/apppasswords),
+// not the normal account password. GMAIL_USER / GMAIL_APP_PASSWORD env vars, if set, take priority over these.
+const GMAIL_USER = "altrivaindia@gmail.com";
+const GMAIL_APP_PASSWORD = "ksvppabmzsenennu";
+
+const SENDER_EMAIL = (process.env.GMAIL_USER || GMAIL_USER).trim();
+const SENDER_PASS = (process.env.GMAIL_APP_PASSWORD || GMAIL_APP_PASSWORD).replace(/\s+/g, "");
 const NOTIFY_EMAILS = (process.env.ORDER_NOTIFY_EMAILS || "vaieziqbal29@gmail.com,altrivaindia@gmail.com")
   .split(",")
   .map((e) => e.trim())
@@ -105,8 +108,8 @@ export async function POST(req: Request) {
     const contact = escapeContact(rawContact);
     const customerEmail = rawContact.email?.trim();
 
-    if (!SENDER_PASS) {
-      console.error(`[order-email] GMAIL_APP_PASSWORD is not set — cannot send email for order #${orderNum}`);
+    if (!SENDER_EMAIL || !SENDER_PASS) {
+      console.error(`[order-email] GMAIL_USER or GMAIL_APP_PASSWORD is not set — cannot send email for order #${orderNum}`);
       return NextResponse.json({ ok: false, error: "Email not configured" }, { status: 500 });
     }
 
@@ -114,6 +117,8 @@ export async function POST(req: Request) {
       service: "gmail",
       auth: { user: SENDER_EMAIL, pass: SENDER_PASS },
     });
+    const sendEmail = ({ to, subject, html }: { to: string[]; subject: string; html: string }) =>
+      transporter.sendMail({ from: `"Altriva Studio" <${SENDER_EMAIL}>`, to: to.join(", "), subject, html });
 
     const rows = buildItemRows(items);
     const paymentLabel = paymentMethod === "cod" ? "Cash on Delivery" : "Online (Razorpay)";
@@ -143,9 +148,8 @@ export async function POST(req: Request) {
         </div>
       </div>`;
 
-    const adminInfo = await transporter.sendMail({
-      from: `"Altriva Studio" <${SENDER_EMAIL}>`,
-      to: NOTIFY_EMAILS.join(", "),
+    const adminInfo = await sendEmail({
+      to: NOTIFY_EMAILS,
       subject: `New Order #${orderNum} — Rs. ${total.toLocaleString("en-IN")}${paymentMethod === "cod" ? " [COD]" : ""}`,
       html: adminHtml,
     });
@@ -201,9 +205,8 @@ export async function POST(req: Request) {
 
       // The admin email already went out, so a bad customer address shouldn't fail the whole request.
       try {
-        await transporter.sendMail({
-          from: `"Altriva Studio" <${SENDER_EMAIL}>`,
-          to: customerEmail,
+        await sendEmail({
+          to: [customerEmail],
           subject: `Order Confirmed — #${orderNum} | Altriva Studio`,
           html: customerHtml,
         });
@@ -222,7 +225,7 @@ export async function POST(req: Request) {
       message: e.message,
     });
     if (e.code === "EAUTH") {
-      console.error("[order-email] Gmail rejected the login — the App Password is wrong or was revoked. Generate a new one and update GMAIL_APP_PASSWORD.");
+      console.error(`[order-email] Gmail rejected the login for ${SENDER_EMAIL} — the App Password is wrong or was revoked. Generate a new one and update GMAIL_APP_PASSWORD.`);
     }
     return NextResponse.json({ ok: false, error: "Failed to send order email" }, { status: 500 });
   }
