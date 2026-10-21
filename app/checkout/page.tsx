@@ -43,9 +43,14 @@ export default function CheckoutPage() {
   const sendOrderEmail = (extraNote?: string) =>
     fetch("/api/send-order-email", {
       method: "POST",
+      keepalive: true, // let the request finish even if the customer leaves the page right away
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ orderNum, items, total, contact, paymentMethod, extraNote }),
-    }).catch(() => {});
+    })
+      .then(async (res) => {
+        if (!res.ok) console.error(`Order email failed for #${orderNum}:`, res.status, await res.text());
+      })
+      .catch((err) => console.error(`Order email request failed for #${orderNum}:`, err));
 
   const handlePay = async () => {
     if (!contact.firstName || !contact.address) {

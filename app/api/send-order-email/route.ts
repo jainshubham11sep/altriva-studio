@@ -1,9 +1,14 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
-const NOTIFY_EMAILS = ["vaieziqbal29@gmail.com", "altrivaindia@gmail.com"];
-const SENDER_EMAIL = "altrivaindia@gmail.com";
-const SENDER_PASS = "bswzeytwujlnptnv"; // replace with Gmail App Password
+// Credentials come from env vars (set locally in .env.local and in Vercel → Settings → Environment Variables).
+// GMAIL_APP_PASSWORD must be a Google App Password, not the normal account password.
+const SENDER_EMAIL = process.env.GMAIL_USER || "altrivaindia@gmail.com";
+const SENDER_PASS = process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, "");
+const NOTIFY_EMAILS = (process.env.ORDER_NOTIFY_EMAILS || "vaieziqbal29@gmail.com,altrivaindia@gmail.com")
+  .split(",")
+  .map((e) => e.trim())
+  .filter(Boolean);
 
 type Item = {
   product: { displayName: string; priceInr: number };
@@ -11,14 +16,50 @@ type Item = {
   quantity: number;
 };
 
+type Contact = {
+  email?: string;
+  firstName: string;
+  lastName?: string;
+  address: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  country?: string;
+  phone?: string;
+};
+
+// Everything below comes from the checkout form, so escape it before putting it into email HTML.
+function esc(value: unknown) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function escapeContact(c: Contact): Required<Contact> {
+  return {
+    email: esc(c.email),
+    firstName: esc(c.firstName),
+    lastName: esc(c.lastName),
+    address: esc(c.address),
+    city: esc(c.city),
+    state: esc(c.state),
+    zip: esc(c.zip),
+    country: esc(c.country),
+    phone: esc(c.phone),
+  };
+}
+
 function buildItemRows(items: Item[]) {
   return items
     .map(
       (item) => `
       <tr>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${item.product.displayName}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${item.size}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${item.quantity}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${esc(item.product.displayName)}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${esc(item.size)}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${esc(item.quantity)}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">Rs. ${(item.product.priceInr * item.quantity).toLocaleString("en-IN")}</td>
       </tr>`
     )
@@ -41,8 +82,33 @@ function itemsTable(rows: string) {
 }
 
 export async function POST(req: Request) {
+  let orderNum: string | undefined;
   try {
-    const { orderNum, items, total, contact, paymentMethod } = await req.json();
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== "object") {
+      console.error("[order-email] request body is not valid JSON");
+      return NextResponse.json({ ok: false, error: "Invalid order data" }, { status: 400 });
+    }
+    orderNum = esc(body.orderNum);
+    const { items, total, paymentMethod } = body as { items: Item[]; total: number; paymentMethod: string };
+    const rawContact = body.contact as Contact | undefined;
+
+    if (
+      !orderNum ||
+      !Array.isArray(items) || items.length === 0 ||
+      typeof total !== "number" ||
+      !rawContact?.firstName || !rawContact?.address
+    ) {
+      console.error(`[order-email] invalid request for order #${orderNum || "unknown"}:`, JSON.stringify(body).slice(0, 500));
+      return NextResponse.json({ ok: false, error: "Invalid order data" }, { status: 400 });
+    }
+    const contact = escapeContact(rawContact);
+    const customerEmail = rawContact.email?.trim();
+
+    if (!SENDER_PASS) {
+      console.error(`[order-email] GMAIL_APP_PASSWORD is not set — cannot send email for order #${orderNum}`);
+      return NextResponse.json({ ok: false, error: "Email not configured" }, { status: 500 });
+    }
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -77,15 +143,16 @@ export async function POST(req: Request) {
         </div>
       </div>`;
 
-    await transporter.sendMail({
+    const adminInfo = await transporter.sendMail({
       from: `"Altriva Studio" <${SENDER_EMAIL}>`,
       to: NOTIFY_EMAILS.join(", "),
       subject: `New Order #${orderNum} — Rs. ${total.toLocaleString("en-IN")}${paymentMethod === "cod" ? " [COD]" : ""}`,
       html: adminHtml,
     });
+    console.log(`[order-email] admin notification sent for order #${orderNum} (messageId ${adminInfo.messageId})`);
 
     // ── Customer confirmation email ──────────────────────────────────────────
-    if (contact.email) {
+    if (customerEmail) {
       const customerHtml = `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#000;padding:24px 0;">
           <p style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#999;margin:0 0 8px;">Altriva Studio</p>
@@ -132,17 +199,31 @@ export async function POST(req: Request) {
           </p>
         </div>`;
 
-      await transporter.sendMail({
-        from: `"Altriva Studio" <${SENDER_EMAIL}>`,
-        to: contact.email,
-        subject: `Order Confirmed — #${orderNum} | Altriva Studio`,
-        html: customerHtml,
-      });
+      // The admin email already went out, so a bad customer address shouldn't fail the whole request.
+      try {
+        await transporter.sendMail({
+          from: `"Altriva Studio" <${SENDER_EMAIL}>`,
+          to: customerEmail,
+          subject: `Order Confirmed — #${orderNum} | Altriva Studio`,
+          html: customerHtml,
+        });
+      } catch (err) {
+        console.error(`[order-email] customer confirmation failed for order #${orderNum} (${customerEmail}):`, err);
+      }
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("Order email failed:", err);
-    return NextResponse.json({ ok: false });
+    const e = err as { code?: string; responseCode?: number; response?: string; message?: string };
+    console.error(`[order-email] FAILED for order #${orderNum ?? "unknown"}:`, {
+      code: e.code,
+      responseCode: e.responseCode,
+      response: e.response,
+      message: e.message,
+    });
+    if (e.code === "EAUTH") {
+      console.error("[order-email] Gmail rejected the login — the App Password is wrong or was revoked. Generate a new one and update GMAIL_APP_PASSWORD.");
+    }
+    return NextResponse.json({ ok: false, error: "Failed to send order email" }, { status: 500 });
   }
 }
