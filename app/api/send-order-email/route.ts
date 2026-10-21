@@ -1,13 +1,11 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
-// Gmail account that sends the order emails, plus its App Password (myaccount.google.com/apppasswords),
-// not the normal account password. GMAIL_USER / GMAIL_APP_PASSWORD env vars, if set, take priority over these.
-const GMAIL_USER = "altrivaindia@gmail.com";
-const GMAIL_APP_PASSWORD = "ksvppabmzsenennu";
-
-const SENDER_EMAIL = (process.env.GMAIL_USER || GMAIL_USER).trim();
-const SENDER_PASS = (process.env.GMAIL_APP_PASSWORD || GMAIL_APP_PASSWORD).replace(/\s+/g, "");
+// Credentials come only from env vars (.env.local locally, Vercel → Settings → Environment Variables in production).
+// Never hardcode them here: this repo is public, and Google revokes App Passwords that leak.
+// GMAIL_APP_PASSWORD must be a Google App Password (myaccount.google.com/apppasswords), not the normal account password.
+const SENDER_EMAIL = (process.env.GMAIL_USER || "altrivaindia@gmail.com").trim();
+const SENDER_PASS = (process.env.GMAIL_APP_PASSWORD || "").replace(/\s+/g, "");
 const NOTIFY_EMAILS = (process.env.ORDER_NOTIFY_EMAILS || "vaieziqbal29@gmail.com,altrivaindia@gmail.com")
   .split(",")
   .map((e) => e.trim())
