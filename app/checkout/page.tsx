@@ -40,28 +40,53 @@ export default function CheckoutPage() {
     if (items.length > 0) pixelInitiateCheckout(items, subtotal);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const sendOrderEmail = (extraNote?: string) =>
-    fetch("/api/send-order-email", {
+  const orderDetails = () => ({ orderNum, items, total, contact });
+
+  // Tells the server the payment succeeded so it can email the order. The Razorpay webhook is the
+  // backup if this never arrives, so failures here are only logged.
+  const confirmPayment = (response: Record<string, string>) =>
+    fetch("/api/orders/confirm-payment", {
       method: "POST",
       keepalive: true, // let the request finish even if the customer leaves the page right away
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderNum, items, total, contact, paymentMethod, extraNote }),
+      body: JSON.stringify({
+        razorpay_order_id: response.razorpay_order_id,
+        razorpay_payment_id: response.razorpay_payment_id,
+        razorpay_signature: response.razorpay_signature,
+      }),
     })
       .then(async (res) => {
-        if (!res.ok) console.error(`Order email failed for #${orderNum}:`, res.status, await res.text());
+        if (!res.ok) console.error(`Payment confirmation failed for #${orderNum}:`, res.status, await res.text());
       })
-      .catch((err) => console.error(`Order email request failed for #${orderNum}:`, err));
+      .catch((err) => console.error(`Payment confirmation request failed for #${orderNum}:`, err));
 
   const handlePay = async () => {
     if (!contact.firstName || !contact.address) {
       alert("Please fill in your name and delivery address.");
       return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim())) {
+      alert("Please enter a valid email address so we can send your order confirmation.");
+      return;
+    }
 
     if (paymentMethod === "cod") {
       setPaying(true);
+      try {
+        const res = await fetch("/api/orders/cod", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderDetails()),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      } catch (err) {
+        console.error(`COD order #${orderNum} failed:`, err);
+        alert("We couldn't place your order. Please check your connection and try again.");
+        setPaying(false);
+        return;
+      }
       pixelPurchase(orderNum, total, items);
-      sendOrderEmail("Payment: Cash on Delivery");
       clearCart();
       setConfirmed(true);
       return;
@@ -76,7 +101,7 @@ export default function CheckoutPage() {
       const res = await fetch("/api/create-razorpay-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: total }),
+        body: JSON.stringify({ amount: total, order: orderDetails() }),
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
@@ -99,9 +124,9 @@ export default function CheckoutPage() {
           address: `${contact.address}, ${contact.city}, ${contact.state} ${contact.zip}`,
         },
         theme: { color: "#000000" },
-        handler: () => {
+        handler: (response: Record<string, string>) => {
           pixelPurchase(data.orderId, total, items);
-          sendOrderEmail("Payment: Online (Razorpay)");
+          confirmPayment(response);
           clearCart();
           setConfirmed(true);
         },
@@ -160,7 +185,7 @@ export default function CheckoutPage() {
                 </h2>
 
                 <div>
-                  <label style={labelStyle}>Email <span style={{ opacity: 0.4, fontStyle: "italic", textTransform: "none", letterSpacing: 0 }}>(optional)</span></label>
+                  <label style={labelStyle}>Email *</label>
                   <input style={inputStyle} type="email" value={contact.email}
                     onChange={(e) => setContact((p) => ({ ...p, email: e.target.value }))} placeholder="your@email.com" />
                 </div>
