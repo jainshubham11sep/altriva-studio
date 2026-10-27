@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { products } from "./products";
 
 // Order emails, sent through Gmail SMTP. Server-side only.
 // Credentials come only from env vars (.env.local locally, Vercel → Settings → Environment Variables in production).
@@ -54,18 +55,35 @@ function esc(value: unknown) {
 
 const rs = (n: number) => `Rs. ${n.toLocaleString("en-IN")}`;
 
+const siteUrl = () => (process.env.SITE_URL || "https://altrivastudio.com").replace(/\/+$/, "");
+
+// Small thumbnail of the item's main photo, via the site's image resizer (the originals are up to ~8 MB).
+// Orders only store the item name (parseOrder truncates it to 60 chars), so look the product up by that.
+function itemImageUrl(name: string) {
+  const product = products.find((p) => p.displayName.slice(0, 60) === name);
+  if (!product?.image) return null;
+  let path = product.image;
+  try {
+    path = decodeURI(path); // some paths in products.ts are already %-encoded
+  } catch {}
+  return `${siteUrl()}/_next/image?url=${encodeURIComponent(path)}&w=256&q=75`;
+}
+
 function itemsTable(items: OrderItem[]) {
   const rows = items.length
     ? items
-        .map(
-          (item) => `
+        .map((item) => {
+          const img = itemImageUrl(item.name);
+          return `
       <tr>
-        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${esc(item.name)}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${
+          img ? `<img src="${esc(img)}" width="56" alt="" style="width:56px;height:auto;border:0;vertical-align:middle;margin-right:10px;" />` : ""
+        }${esc(item.name)}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${esc(item.size)}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${esc(item.quantity)}</td>
         <td style="padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;">${rs(item.priceInr * item.quantity)}</td>
-      </tr>`
-        )
+      </tr>`;
+        })
         .join("")
     : `<tr><td colspan="4" style="padding:10px 12px;font-size:13px;color:#b00;">Item details unavailable — check this order in the Razorpay dashboard.</td></tr>`;
   return `
